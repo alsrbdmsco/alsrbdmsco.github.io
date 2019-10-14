@@ -1,6 +1,6 @@
 ---
 layout: default
-img: Web.png
+img: web.png
 category: Services
 title: Google Web Fonts and<br>Font Awesome Icons
 description: |
