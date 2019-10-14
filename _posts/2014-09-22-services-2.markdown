@@ -5,4 +5,4 @@ category: Services
 title: Server
 description: |
 ---
-| Windows server, linux server (cent os, debian) |
+| Windows server, linux server (centOS, debian) |
