@@ -1,6 +1,6 @@
 ---
 layout: default
-img: server1.png
+img: server.png
 category: Services
 title: Server
 description: |
