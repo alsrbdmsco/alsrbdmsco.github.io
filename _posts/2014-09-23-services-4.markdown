@@ -1,6 +1,6 @@
 ---
 layout: default
-img: trophy2.jpg
+img: trophy.jpg
 category: Services
 title: 수상 실적
 description: |
