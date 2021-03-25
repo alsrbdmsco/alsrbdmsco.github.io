@@ -1,6 +1,6 @@
 ---
 layout: default
-img: cloud1.png
+img: cloud.png
 category: Services
 title: Cloud
 description: |
