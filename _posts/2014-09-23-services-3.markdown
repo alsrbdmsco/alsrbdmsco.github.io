@@ -1,8 +1,8 @@
 ---
 layout: default
-img: Web.png
+img: cloud1.png
 category: Services
-title: Web
+title: Cloud
 description: |
 ---
-| HTML, CSS |
+| AWS, KT-Cloud |
