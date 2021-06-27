@@ -2,9 +2,9 @@
 layout: default
 img: trophy.png
 category: Services
-title: 수상 실적
+title: certificate
 description: |
 ---
-2019 서버구축대회 은상<br>
-2019 네트워크 구축대회 은상<br>
-2018 네트워크 구축대회 장려<br>
+네트워크 관리사 1급, 네트워크 관리사 2급, PC정비사 2급<br>
+정보처리기능사, 정보기기운용기능사, 리눅스마스터 2급 <br>
+워드프로세서<br>
