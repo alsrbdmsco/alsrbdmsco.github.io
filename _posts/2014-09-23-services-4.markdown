@@ -2,9 +2,9 @@
 layout: default
 img: trophy.png
 category: Services
-title: certificate
+title: Certificate
 description: |
 ---
-네트워크 관리사 1급, 네트워크 관리사 2급, PC정비사 2급<br>
+네트워크 관리사 1급, 2급, PC정비사 2급<br>
 정보처리기능사, 정보기기운용기능사, 리눅스마스터 2급 <br>
 워드프로세서<br>
