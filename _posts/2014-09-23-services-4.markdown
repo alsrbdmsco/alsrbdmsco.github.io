@@ -2,7 +2,7 @@
 layout: default
 img: certificate.png
 category: Services
-title: Certificate
+title: Certification
 description: |
 ---
 Network Manager 1, PC Mechanic 2<br>
