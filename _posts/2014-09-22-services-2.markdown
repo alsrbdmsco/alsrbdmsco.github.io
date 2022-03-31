@@ -5,4 +5,4 @@ category: Services
 title: Server
 description: |
 ---
-| Windows server, Linux server |
+| Windows, Linux, Mysql |
