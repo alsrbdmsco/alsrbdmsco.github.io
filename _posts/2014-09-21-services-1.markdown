@@ -5,4 +5,5 @@ category: Services
 title: Network
 description: |
 ---
-  | Cisco packet tracer, Wireshark, Gns, Eve-ng |
+  Cisco L2, L3<br>
+  packet tracer, Wireshark, Gns<br>
