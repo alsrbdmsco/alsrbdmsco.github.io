@@ -5,5 +5,5 @@ category: Services
 title: Network
 description: |
 ---
-  packet tracer, Wireshark, Gns<br>
+  Packet Tracer, Wireshark, Gns<br>
   Cisco L2, L3<br>
