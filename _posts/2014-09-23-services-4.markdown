@@ -5,7 +5,8 @@ category: Services
 title: Certification
 description: |
 ---
-NCP Professional, Associate<br>
+NCP Associate<br>
+NCP Professional<br>
 Network Manager 1, PC Mechanic 2<br>
 Information processing technician<br>
 Information device operation technician<br>
