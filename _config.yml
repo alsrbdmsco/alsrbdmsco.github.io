@@ -4,7 +4,7 @@
 
 url: http://alsrbdmsco.github.io
 title: MinLab's blog
-email: pink0104040@google.com
+email: minlab@1nfra.kr
 author: Kim Min Gyu
 description: > # "Write an awesome description for your new site here.
   alsrbdmsco'blog Server & Network & Web
@@ -25,6 +25,6 @@ permalink: pretty
 
 social:
   - title: tistory
-    url: https://alsrbdmsco0409.tistory.com
+    url: https://blog.1nfra.kr
   - title: github
     url: https://github.com/alsrbdmsco
