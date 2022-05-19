@@ -6,4 +6,4 @@ title: Network
 description: |
 ---
   Packet Tracer, Wireshark, Gns<br>
-  Cisco L2, L3<br>
+  Cisco, Ubiquiti<br>
