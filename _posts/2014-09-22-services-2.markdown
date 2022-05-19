@@ -6,4 +6,4 @@ title: Server
 description: |
 ---
 | Windows, Linux |<br>
-| Virtualization, Mysql |<br>
+| Virtualization, DB |<br>
