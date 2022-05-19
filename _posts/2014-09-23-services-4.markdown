@@ -6,7 +6,8 @@ title: Certification
 description: |
 ---
 Naver Cloud Platform Professional<br>
-Network Manager 1, PC Mechanic 2<br>
+Naver Cloud Platform Associate<br>
+Network Manager 1, Network Manager 2<br>
+PC Mechanic 2, Linux Master 2<br>
 Information processing technician<br>
 Information device operation technician<br>
-Linux Master 2<br>
