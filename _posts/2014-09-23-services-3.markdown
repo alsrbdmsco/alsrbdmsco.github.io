@@ -5,4 +5,4 @@ category: Services
 title: Cloud
 description: |
 ---
-| Ncloud, AWS, KT-Cloud |
+| Ncloud, AWS |
