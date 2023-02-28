@@ -5,4 +5,4 @@ category: Services
 title: Cloud
 description: |
 ---
-| Ncloud, AWS |
+| AWS, Azure, Ncloud |
