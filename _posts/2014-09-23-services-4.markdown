@@ -6,6 +6,7 @@ title: Certification
 description: |
 ---
 Naver Cloud Platform Associate, Professional<br>
+Azure AZ-900 Fundamentals<br>
 Network Manager 1, Network Manager 2<br>
 PC Mechanic 2, Linux Master 2<br>
 Information processing technician<br>
