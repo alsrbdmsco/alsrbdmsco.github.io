@@ -1,9 +1,0 @@
----
-layout: default
-img: server.png
-category: Services
-title: Server
-description: |
----
-| Windows, Linux |<br>
-| Virtualization, DB |<br>

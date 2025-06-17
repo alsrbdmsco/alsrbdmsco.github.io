@@ -1,9 +1,0 @@
----
-layout: default
-img: net.png
-category: Services
-title: Network
-description: |
----
-  Packet Tracer, Wireshark, Gns<br>
-  Cisco, Ubiquiti<br>

@@ -1,5 +1,243 @@
----
-layout: default
-title: 1nfra
-subTitle: NETWORK & SERVER FACTORY
----
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1nfra - Infrastructure Engineer</title>
+  <meta name="description" content="Network & Server Factory - 클라우드 인프라 전문가의 포트폴리오">
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <span class="logo-text">1nfra</span>
+        <span class="logo-subtitle">NETWORK & SERVER FACTORY</span>
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+        <li class="nav-item"><a href="#certifications" class="nav-link">Certifications</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-toggle" id="nav-toggle">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <section id="home" class="hero-section">
+    <div class="container">
+      <div class="hero-content fade-in-up">
+        <div class="hero-badge"><span>Infrastructure Engineer</span></div>
+        <h1 class="hero-title">
+          <span class="title-line accent">Network & Server</span>
+          <span class="title-line">Factory</span>
+        </h1>
+        <p class="hero-subtitle">클라우드 인프라와 네트워크 엔지니어링 전문가로서<br>안정적이고 확장 가능한 시스템을 구축합니다</p>
+        <div class="hero-buttons">
+          <a href="#about" class="btn btn-primary"><span>프로필 보기</span><i class="btn-icon">→</i></a>
+          <a href="mailto:mingyu@1nfra.kr" class="btn btn-secondary"><span>연락하기</span><i class="btn-icon">✉</i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about-section">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <h2 class="section-title">About Me</h2>
+        <p class="section-subtitle">전문성과 경험을 바탕으로 한 인프라 엔지니어링</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-info fade-in-up">
+          <div class="info-card"><h3>회사</h3><p>콘텐츠브릿지 Multi-Cloud/CDN 파트</p></div>
+          <div class="info-card"><h3>학력</h3><p>한양사이버대학교</p></div>
+          <div class="info-card"><h3>전문분야</h3><p>Cloud Infrastructure, Server, Network</p></div>
+          <div class="info-card"><h3>연락처</h3><p>mingyu@1nfra.kr</p></div>
+        </div>
+        <div class="about-content fade-in-up">
+          <div class="content-block">
+            <h3>Infrastructure Engineering Expertise</h3>
+            <p>네트워크와 서버 인프라 구축에 대한 깊은 이해를 바탕으로 현대적인 클라우드 환경에서 안정적이고 확장 가능한 시스템을 설계하고 운영합니다.</p>
+          </div>
+          <div class="content-block">
+            <h3>Multi-Cloud Strategy</h3>
+            <p>AWS, Azure, Naver Cloud Platform 등 다양한 클라우드 환경에서의 경험을 바탕으로 최적화된 인프라 솔루션을 제공합니다.</p>
+          </div>
+          <div class="content-block">
+            <h3>Continuous Learning</h3>
+            <p>지속적인 학습과 인증 취득을 통해 최신 기술 트렌드를 파악하고 혁신적인 인프라 솔루션을 제공하기 위해 노력합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications" class="certifications-section">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <h2 class="section-title">Professional Certifications</h2>
+        <p class="section-subtitle">지속적인 학습과 전문성 인증</p>
+      </div>
+      <div class="certifications-grid">
+
+        <!-- Kubernetes -->
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge kubernetes"><span class="cert-provider">CNCF</span></div>
+          <h3>Certified Kubernetes Administrator</h3>
+          <p class="cert-code">CKA</p>
+        </div>
+
+        <!-- Cloud -->
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge azure"><span class="cert-provider">Microsoft</span></div>
+          <h3>Azure DevOps Engineer Expert</h3>
+          <p class="cert-code">AZ-400</p>
+        </div>
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge azure"><span class="cert-provider">Microsoft</span></div>
+          <h3>Azure Fundamentals</h3>
+          <p class="cert-code">AZ-900</p>
+        </div>
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge ncp"><span class="cert-provider">NCP</span></div>
+          <h3>Naver Cloud Platform Professional</h3>
+          <p class="cert-code">NCP-PRO</p>
+        </div>
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge ncp"><span class="cert-provider">NCP</span></div>
+          <h3>Naver Cloud Platform Associate</h3>
+          <p class="cert-code">NCP-ASS</p>
+        </div>
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge azure"><span class="cert-provider">KT Cloud</span></div>
+          <h3>KTCloud Basic</h3>
+          <p class="cert-code">KT-BASIC</p>
+        </div>
+
+        <!-- Linux -->
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge linux"><span class="cert-provider">KAIT</span></div>
+          <h3>Linux Master 1급</h3>
+          <p class="cert-code">LM-1</p>
+        </div>
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge linux"><span class="cert-provider">KAIT</span></div>
+          <h3>Linux Master 2급</h3>
+          <p class="cert-code">LM-2</p>
+        </div>
+
+        <!-- Network -->
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge network"><span class="cert-provider">KAIT</span></div>
+          <h3>네트워크관리사 1급</h3>
+          <p class="cert-code">NM-1</p>
+        </div>
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge network"><span class="cert-provider">KAIT</span></div>
+          <h3>네트워크관리사 2급</h3>
+          <p class="cert-code">NM-2</p>
+        </div>
+
+        <!-- IT -->
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge linux"><span class="cert-provider">KPC</span></div>
+          <h3>정보처리기능사</h3>
+          <p class="cert-code">Information Processing Technician</p>
+        </div>
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge linux"><span class="cert-provider">KPC</span></div>
+          <h3>정보기기운용기능사</h3>
+          <p class="cert-code">Information Device Operation Technician</p>
+        </div>
+        <div class="cert-card fade-in-up">
+          <div class="cert-badge linux"><span class="cert-provider">KPC</span></div>
+          <h3>PC정비사 2급</h3>
+          <p class="cert-code">PC Mechanic 2</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <div class="container">
+      <div class="section-header fade-in-up">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">새로운 기회와 협업을 위한 연락</p>
+      </div>
+      <div class="contact-content">
+        <div class="contact-info fade-in-up">
+          <div class="contact-card">
+            <div class="contact-icon">✉️</div>
+            <h3>Email</h3>
+            <p>mingyu@1nfra.kr</p>
+            <a href="mailto:mingyu@1nfra.kr" class="contact-link">Send Message</a>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">📱</div>
+            <h3>Blog</h3>
+            <p>기술 블로그 및 인사이트</p>
+            <a href="https://blog.1nfra.kr" class="contact-link" target="_blank">Visit Blog</a>
+          </div>
+          <div class="contact-card">
+            <div class="contact-icon">💻</div>
+            <h3>GitHub</h3>
+            <p>프로젝트 및 코드 저장소</p>
+            <a href="#" class="contact-link">View Projects</a>
+          </div>
+        </div>
+        <div class="contact-form fade-in-up">
+          <h3>프로젝트 문의</h3>
+          <form class="form">
+            <div class="form-group">
+              <label for="name">이름</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">이메일</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="subject">제목</label>
+              <input type="text" id="subject" name="subject" required>
+            </div>
+            <div class="form-group">
+              <label for="message">메시지</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary"><span>메시지 보내기</span><i class="btn-icon">→</i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-info">
+          <h3>1nfra</h3>
+          <p>Network & Server Factory</p>
+        </div>
+        <div class="footer-links">
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#certifications">Certifications</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 1nfra. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

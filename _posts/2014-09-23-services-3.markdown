@@ -1,8 +1,0 @@
----
-layout: default
-img: cloud.png
-category: Services
-title: Cloud
-description: |
----
-| AWS, Azure, Ncloud |
