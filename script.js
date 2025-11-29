@@ -263,11 +263,22 @@ class ScrollAnimationManager {
 class FormManager {
   constructor() {
     this.form = document.querySelector('.form');
+    // EmailJS 설정 - 실제 값으로 교체 필요
+    this.emailjsConfig = {
+      publicKey: 'YOUR_PUBLIC_KEY',      // EmailJS Public Key
+      serviceId: 'YOUR_SERVICE_ID',      // EmailJS Service ID
+      templateId: 'YOUR_TEMPLATE_ID'     // EmailJS Template ID
+    };
     this.init();
   }
 
   init() {
     if (this.form) {
+      // EmailJS 초기화
+      if (typeof emailjs !== 'undefined' && this.emailjsConfig.publicKey !== 'YOUR_PUBLIC_KEY') {
+        emailjs.init(this.emailjsConfig.publicKey);
+      }
+
       this.form.addEventListener('submit', (e) => {
         e.preventDefault();
         this.handleFormSubmit();
@@ -275,29 +286,67 @@ class FormManager {
     }
   }
 
-  handleFormSubmit() {
-    const formData = new FormData(this.form);
-    const data = Object.fromEntries(formData);
-    
-    // 실제 환경에서는 서버로 데이터 전송
-    console.log('Form data:', data);
-    
-    // 성공 메시지 표시
-    this.showSuccessMessage();
-    this.form.reset();
+  async handleFormSubmit() {
+    const button = this.form.querySelector('.btn');
+    const originalText = button.innerHTML;
+
+    // 버튼 비활성화 및 로딩 상태
+    button.innerHTML = '<span>전송 중...</span>';
+    button.disabled = true;
+    button.style.opacity = '0.7';
+
+    try {
+      // EmailJS가 설정되어 있는지 확인
+      if (typeof emailjs === 'undefined' || this.emailjsConfig.publicKey === 'YOUR_PUBLIC_KEY') {
+        throw new Error('EmailJS가 설정되지 않았습니다. Console을 확인하세요.');
+      }
+
+      // EmailJS로 이메일 전송
+      const response = await emailjs.sendForm(
+        this.emailjsConfig.serviceId,
+        this.emailjsConfig.templateId,
+        this.form
+      );
+
+      console.log('Email sent successfully:', response);
+      this.showSuccessMessage();
+      this.form.reset();
+
+    } catch (error) {
+      console.error('Email send failed:', error);
+      this.showErrorMessage(error);
+    } finally {
+      // 버튼 복원
+      setTimeout(() => {
+        button.innerHTML = originalText;
+        button.disabled = false;
+        button.style.opacity = '1';
+      }, 3000);
+    }
   }
 
   showSuccessMessage() {
     const button = this.form.querySelector('.btn');
-    const originalText = button.innerHTML;
-    
-    button.innerHTML = '<span>전송 완료!</span>';
+    button.innerHTML = '<span>✓ 전송 완료!</span>';
     button.style.background = '#00ff88';
-    
-    setTimeout(() => {
-      button.innerHTML = originalText;
-      button.style.background = '';
-    }, 3000);
+  }
+
+  showErrorMessage(error) {
+    const button = this.form.querySelector('.btn');
+    button.innerHTML = '<span>✗ 전송 실패</span>';
+    button.style.background = '#ff0066';
+
+    // 에러 상세 정보 표시
+    if (error.message.includes('설정되지 않았습니다')) {
+      console.warn('⚠️ EmailJS 설정 필요:');
+      console.warn('1. https://www.emailjs.com 에서 가입');
+      console.warn('2. Email Service 연결 (Gmail 등)');
+      console.warn('3. Email Template 생성');
+      console.warn('4. script.js의 emailjsConfig 값 입력');
+      console.warn('   - Public Key');
+      console.warn('   - Service ID');
+      console.warn('   - Template ID');
+    }
   }
 }
 
@@ -308,48 +357,8 @@ class PerformanceManager {
   }
 
   init() {
-    this.setupLazyLoading();
-    this.setupPerformanceMonitoring();
-  }
-
-  setupLazyLoading() {
-    const images = document.querySelectorAll('img[data-src]');
-    const imageObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const img = entry.target;
-          img.src = img.dataset.src;
-          img.classList.remove('lazy');
-          imageObserver.unobserve(img);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    images.forEach(img => imageObserver.observe(img));
-  }
-
-  setupPerformanceMonitoring() {
-    // FPS 모니터링 (개발 환경에서만)
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      let lastTime = performance.now();
-      let frameCount = 0;
-      
-      const monitorFPS = () => {
-        const currentTime = performance.now();
-        frameCount++;
-        
-        if (currentTime - lastTime >= 1000) {
-          const fps = Math.round(frameCount * 1000 / (currentTime - lastTime));
-          console.log(`FPS: ${fps}`);
-          frameCount = 0;
-          lastTime = currentTime;
-        }
-        
-        requestAnimationFrame(monitorFPS);
-      };
-      
-      requestAnimationFrame(monitorFPS);
-    }
+    // 향후 성능 최적화 기능 추가 가능
+    // 현재는 이미지 lazy loading 등의 기능이 필요할 때 추가
   }
 }
 
