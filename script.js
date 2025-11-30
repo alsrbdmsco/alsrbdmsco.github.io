@@ -263,22 +263,11 @@ class ScrollAnimationManager {
 class FormManager {
   constructor() {
     this.form = document.querySelector('.form');
-    // EmailJS 설정 - 실제 값으로 교체 필요
-    this.emailjsConfig = {
-      publicKey: 'YOUR_PUBLIC_KEY',      // EmailJS Public Key
-      serviceId: 'YOUR_SERVICE_ID',      // EmailJS Service ID
-      templateId: 'YOUR_TEMPLATE_ID'     // EmailJS Template ID
-    };
     this.init();
   }
 
   init() {
     if (this.form) {
-      // EmailJS 초기화
-      if (typeof emailjs !== 'undefined' && this.emailjsConfig.publicKey !== 'YOUR_PUBLIC_KEY') {
-        emailjs.init(this.emailjsConfig.publicKey);
-      }
-
       this.form.addEventListener('submit', (e) => {
         e.preventDefault();
         this.handleFormSubmit();
@@ -286,67 +275,25 @@ class FormManager {
     }
   }
 
-  async handleFormSubmit() {
-    const button = this.form.querySelector('.btn');
-    const originalText = button.innerHTML;
+  handleFormSubmit() {
+    // 폼 데이터 가져오기
+    const name = this.form.querySelector('#name').value;
+    const email = this.form.querySelector('#email').value;
+    const subject = this.form.querySelector('#subject').value;
+    const message = this.form.querySelector('#message').value;
 
-    // 버튼 비활성화 및 로딩 상태
-    button.innerHTML = '<span>전송 중...</span>';
-    button.disabled = true;
-    button.style.opacity = '0.7';
+    // mailto 링크 생성
+    const mailtoLink = `mailto:mingyu@1nfra.kr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
+      `이름: ${name}\n이메일: ${email}\n\n메시지:\n${message}`
+    )}`;
 
-    try {
-      // EmailJS가 설정되어 있는지 확인
-      if (typeof emailjs === 'undefined' || this.emailjsConfig.publicKey === 'YOUR_PUBLIC_KEY') {
-        throw new Error('EmailJS가 설정되지 않았습니다. Console을 확인하세요.');
-      }
+    // 이메일 클라이언트 열기
+    window.location.href = mailtoLink;
 
-      // EmailJS로 이메일 전송
-      const response = await emailjs.sendForm(
-        this.emailjsConfig.serviceId,
-        this.emailjsConfig.templateId,
-        this.form
-      );
-
-      console.log('Email sent successfully:', response);
-      this.showSuccessMessage();
+    // 선택사항: 폼 초기화
+    setTimeout(() => {
       this.form.reset();
-
-    } catch (error) {
-      console.error('Email send failed:', error);
-      this.showErrorMessage(error);
-    } finally {
-      // 버튼 복원
-      setTimeout(() => {
-        button.innerHTML = originalText;
-        button.disabled = false;
-        button.style.opacity = '1';
-      }, 3000);
-    }
-  }
-
-  showSuccessMessage() {
-    const button = this.form.querySelector('.btn');
-    button.innerHTML = '<span>✓ 전송 완료!</span>';
-    button.style.background = '#00ff88';
-  }
-
-  showErrorMessage(error) {
-    const button = this.form.querySelector('.btn');
-    button.innerHTML = '<span>✗ 전송 실패</span>';
-    button.style.background = '#ff0066';
-
-    // 에러 상세 정보 표시
-    if (error.message.includes('설정되지 않았습니다')) {
-      console.warn('⚠️ EmailJS 설정 필요:');
-      console.warn('1. https://www.emailjs.com 에서 가입');
-      console.warn('2. Email Service 연결 (Gmail 등)');
-      console.warn('3. Email Template 생성');
-      console.warn('4. script.js의 emailjsConfig 값 입력');
-      console.warn('   - Public Key');
-      console.warn('   - Service ID');
-      console.warn('   - Template ID');
-    }
+    }, 500);
   }
 }
 
