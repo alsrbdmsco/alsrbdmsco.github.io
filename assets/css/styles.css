@@ -356,11 +356,21 @@ body {
   overflow-x: hidden;
 }
 
-/* Skip to main content link */
+/* Skip to main content link - Screen reader only */
 .skip-link {
   position: absolute;
-  top: -40px;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.skip-link:focus {
+  position: fixed;
+  top: 0;
   left: 0;
+  width: auto;
+  height: auto;
   background: var(--primary-color);
   color: var(--background-dark);
   padding: 0.5rem 1rem;
@@ -368,11 +378,6 @@ body {
   font-weight: 600;
   z-index: 10000;
   border-radius: 0 0 4px 0;
-  transition: top 0.3s ease;
-}
-
-.skip-link:focus {
-  top: 0;
   outline: 2px solid var(--secondary-color);
   outline-offset: 2px;
 }
