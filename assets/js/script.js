@@ -8,11 +8,9 @@ class LoadingScreen {
     this.loadingProgress = document.getElementById('loading-progress');
     this.loadingPercentage = document.getElementById('loading-percentage');
     this.loadingStatus = document.getElementById('loading-status');
-    this.skipButton = document.getElementById('loading-skip');
 
     this.progress = 0;
     this.loadingInterval = null;
-    this.skipTimeout = null;
 
     // Check if user has visited before
     this.hasVisited = localStorage.getItem('hasVisited') === 'true';
@@ -32,14 +30,6 @@ class LoadingScreen {
 
     // Start loading animation
     this.startLoading();
-
-    // Show skip button after 3 seconds
-    this.skipTimeout = setTimeout(() => {
-      if (this.skipButton) {
-        this.skipButton.style.display = 'block';
-        this.skipButton.addEventListener('click', () => this.skip());
-      }
-    }, 3000);
 
     // Bind keyboard skip (ESC key)
     document.addEventListener('keydown', (e) => {
@@ -106,7 +96,6 @@ class LoadingScreen {
 
   skip() {
     clearInterval(this.loadingInterval);
-    clearTimeout(this.skipTimeout);
     this.complete();
   }
 
