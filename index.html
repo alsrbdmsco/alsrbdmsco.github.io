@@ -46,48 +46,116 @@
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="image/favicon.ico">
   <link rel="apple-touch-icon" href="image/favicon.ico">
+
+  <!-- Structured Data (Schema.org JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Kim Min Gyu",
+    "alternateName": "1nfra",
+    "jobTitle": "Infrastructure Engineer",
+    "description": "AWS, Azure, NCP 멀티 클라우드 환경 전문가. Kubernetes, Linux, Network 인프라 설계 및 운영 전문.",
+    "url": "https://1nfra.kr",
+    "email": "mingyu@1nfra.kr",
+    "image": "https://1nfra.kr/image/favicon.ico",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "콘텐츠브릿지"
+    },
+    "alumniOf": [
+      {
+        "@type": "EducationalOrganization",
+        "name": "한양사이버대학교"
+      },
+      {
+        "@type": "EducationalOrganization",
+        "name": "선린인터넷고등학교"
+      }
+    ],
+    "knowsAbout": [
+      "Cloud Computing",
+      "AWS",
+      "Microsoft Azure",
+      "Naver Cloud Platform",
+      "Kubernetes",
+      "Linux System Administration",
+      "Network Engineering",
+      "DevOps",
+      "Infrastructure as Code"
+    ],
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Certified Kubernetes Administrator (CKA)",
+        "credentialCategory": "certification",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "Cloud Native Computing Foundation"
+        }
+      },
+      {
+        "@type": "EducationalOccupationalCredential",
+        "name": "Azure Solutions Architect Expert",
+        "credentialCategory": "certification",
+        "recognizedBy": {
+          "@type": "Organization",
+          "name": "Microsoft"
+        }
+      }
+    ],
+    "sameAs": [
+      "https://github.com/alsrbdmsco",
+      "https://blog.1nfra.kr"
+    ]
+  }
+  </script>
 </head>
 <body>
-  <canvas id="particle-canvas"></canvas>
-  <nav class="navbar" id="navbar">
+  <!-- Skip to main content link for accessibility -->
+  <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+  <nav class="navbar" id="navbar" role="navigation" aria-label="주 네비게이션">
     <div class="nav-container">
       <div class="nav-logo">
         <span class="logo-text">1nfra</span>
         <span class="logo-subtitle">NETWORK & SERVER FACTORY</span>
       </div>
-      <ul class="nav-menu" id="nav-menu">
-        <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-        <li class="nav-item"><a href="#certifications" class="nav-link">Certifications</a></li>
-        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+      <ul class="nav-menu" id="nav-menu" role="menubar">
+        <li class="nav-item" role="none"><a href="#home" class="nav-link" role="menuitem">Home</a></li>
+        <li class="nav-item" role="none"><a href="#about" class="nav-link" role="menuitem">About</a></li>
+        <li class="nav-item" role="none"><a href="#certifications" class="nav-link" role="menuitem">Certifications</a></li>
+        <li class="nav-item" role="none"><a href="#contact" class="nav-link" role="menuitem">Contact</a></li>
       </ul>
-      <div class="nav-toggle" id="nav-toggle">
+      <button class="nav-toggle" id="nav-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu">
         <span></span><span></span><span></span>
-      </div>
+      </button>
     </div>
   </nav>
 
-  <section id="home" class="hero-section">
-    <div class="container">
-      <div class="hero-content fade-in-up">
-        <div class="hero-badge"><span>Infrastructure Engineer</span></div>
-        <h1 class="hero-title">
-          <span class="title-line accent">Network & Server</span>
-          <span class="title-line">Factory</span>
-        </h1>
-        <p class="hero-subtitle">클라우드 인프라와 네트워크 엔지니어링 전문가로서<br>안정적이고 확장 가능한 시스템을 구축합니다</p>
-        <div class="hero-buttons">
-          <a href="#about" class="btn btn-primary"><span>프로필 보기</span><i class="btn-icon">→</i></a>
-          <a href="mailto:mingyu@1nfra.kr" class="btn btn-secondary"><span>연락하기</span><i class="btn-icon">✉</i></a>
+  <main id="main-content">
+    <section id="home" class="hero-section" aria-labelledby="hero-title">
+      <div class="container">
+        <div class="hero-content fade-in-up">
+          <div class="hero-badge"><span>Infrastructure Engineer</span></div>
+          <h1 class="hero-title" id="hero-title">
+            <span class="title-line accent">Network & Server</span>
+            <span class="title-line">Factory</span>
+          </h1>
+          <p class="hero-subtitle">클라우드 인프라와 네트워크 엔지니어링 전문가로서<br>안정적이고 확장 가능한 시스템을 구축합니다</p>
+          <div class="hero-buttons">
+            <a href="#about" class="btn btn-primary" aria-label="프로필 보기 섹션으로 이동"><span>프로필 보기</span><i class="btn-icon" aria-hidden="true">→</i></a>
+            <a href="mailto:mingyu@1nfra.kr" class="btn btn-secondary" aria-label="이메일로 연락하기"><span>연락하기</span><i class="btn-icon" aria-hidden="true">✉</i></a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="about" class="about-section">
+    <section id="about" class="about-section" aria-labelledby="about-title">
     <div class="container">
       <div class="section-header fade-in-up">
-        <h2 class="section-title">About Me</h2>
+        <h2 class="section-title" id="about-title">About Me</h2>
         <p class="section-subtitle">전문성과 경험을 바탕으로 한 인프라 엔지니어링</p>
       </div>
       <div class="about-grid">
@@ -115,10 +183,10 @@
     </div>
   </section>
 
-  <section id="certifications" class="certifications-section">
+  <section id="certifications" class="certifications-section" aria-labelledby="certifications-title">
     <div class="container">
       <div class="section-header fade-in-up">
-        <h2 class="section-title">Professional Certifications</h2>
+        <h2 class="section-title" id="certifications-title">Professional Certifications</h2>
         <p class="section-subtitle">지속적인 학습과 전문성 인증</p>
       </div>
       <div class="certifications-grid">
@@ -211,10 +279,10 @@
     </div>
   </section>
 
-  <section id="contact" class="contact-section">
+  <section id="contact" class="contact-section" aria-labelledby="contact-title">
     <div class="container">
       <div class="section-header fade-in-up">
-        <h2 class="section-title">Get In Touch</h2>
+        <h2 class="section-title" id="contact-title">Get In Touch</h2>
         <p class="section-subtitle">새로운 기회와 협업을 위한 연락</p>
       </div>
       <div class="contact-content">
@@ -240,31 +308,36 @@
         </div>
         <div class="contact-form fade-in-up">
           <h3>프로젝트 문의</h3>
-          <form class="form">
+          <form class="form" aria-label="문의 폼">
             <div class="form-group">
               <label for="name">이름</label>
-              <input type="text" id="name" name="name" required>
+              <input type="text" id="name" name="name" required aria-required="true" aria-invalid="false">
+              <span class="error-message" role="alert" aria-live="polite"></span>
             </div>
             <div class="form-group">
               <label for="email">이메일</label>
-              <input type="email" id="email" name="email" required>
+              <input type="email" id="email" name="email" required aria-required="true" aria-invalid="false">
+              <span class="error-message" role="alert" aria-live="polite"></span>
             </div>
             <div class="form-group">
               <label for="subject">제목</label>
-              <input type="text" id="subject" name="subject" required>
+              <input type="text" id="subject" name="subject" required aria-required="true" aria-invalid="false">
+              <span class="error-message" role="alert" aria-live="polite"></span>
             </div>
             <div class="form-group">
               <label for="message">메시지</label>
-              <textarea id="message" name="message" rows="5" required></textarea>
+              <textarea id="message" name="message" rows="5" required aria-required="true" aria-invalid="false"></textarea>
+              <span class="error-message" role="alert" aria-live="polite"></span>
             </div>
-            <button type="submit" class="btn btn-primary"><span>메시지 보내기</span><i class="btn-icon">→</i></button>
+            <button type="submit" class="btn btn-primary"><span>메시지 보내기</span><i class="btn-icon" aria-hidden="true">→</i></button>
           </form>
         </div>
       </div>
     </div>
   </section>
+  </main>
 
-  <footer class="footer">
+  <footer class="footer" role="contentinfo">
     <div class="container">
       <div class="footer-content">
         <div class="footer-info">

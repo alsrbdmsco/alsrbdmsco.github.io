@@ -41,6 +41,27 @@ body {
   overflow-x: hidden;
 }
 
+/* Skip to main content link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--primary-color);
+  color: var(--background-dark);
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-weight: 600;
+  z-index: 10000;
+  border-radius: 0 0 4px 0;
+  transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
+}
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -634,6 +655,29 @@ section {
   min-height: 120px;
 }
 
+/* Form error messages */
+.error-message {
+  display: none;
+  color: var(--accent-color);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+
+.error-message.show {
+  display: block;
+}
+
+.form-group input.invalid,
+.form-group textarea.invalid {
+  border-color: var(--accent-color);
+}
+
+.form-group input.valid,
+.form-group textarea.valid {
+  border-color: var(--primary-color);
+}
+
 /* Footer */
 .footer {
   background: var(--background-darker);
@@ -708,6 +752,33 @@ section {
 .fade-in-up.animate {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* 애니메이션 감소 모드 (Accessibility) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .title-line {
+    opacity: 1;
+    transform: translateY(0);
+    animation: none;
+  }
+
+  #particle-canvas {
+    display: none;
+  }
 }
 
 /* 반응형 디자인 */

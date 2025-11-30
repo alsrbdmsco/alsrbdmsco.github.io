@@ -1,11 +1,39 @@
+// 파티클 설정 상수
+const PARTICLE_CONFIG = {
+  MAX_COUNT: 80,
+  DENSITY_FACTOR: 20000,
+  CONNECTION_DISTANCE: 120,
+  MOUSE_DISTANCE: 150,
+  VELOCITY_RANGE: 0.3,
+  SIZE_MIN: 0.5,
+  SIZE_RANGE: 1.5,
+  OPACITY_MIN: 0.3,
+  OPACITY_RANGE: 0.5,
+  PRIMARY_COLOR_CHANCE: 0.7
+};
+
 // 파티클 네트워크 시스템
 class ParticleNetwork {
   constructor() {
     this.canvas = document.getElementById('particle-canvas');
+    if (!this.canvas) {
+      console.warn('Particle canvas not found');
+      return;
+    }
+
     this.ctx = this.canvas.getContext('2d');
     this.particles = [];
     this.mouse = { x: null, y: null };
     this.animationId = null;
+
+    // prefers-reduced-motion 체크
+    this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (this.prefersReducedMotion) {
+      this.canvas.style.display = 'none';
+      return;
+    }
+
     this.init();
   }
 
@@ -22,17 +50,20 @@ class ParticleNetwork {
   }
 
   createParticles() {
-    const particleCount = Math.min(Math.floor((this.canvas.width * this.canvas.height) / 20000), 80);
+    const particleCount = Math.min(
+      Math.floor((this.canvas.width * this.canvas.height) / PARTICLE_CONFIG.DENSITY_FACTOR),
+      PARTICLE_CONFIG.MAX_COUNT
+    );
     this.particles = [];
     for (let i = 0; i < particleCount; i++) {
       this.particles.push({
         x: Math.random() * this.canvas.width,
         y: Math.random() * this.canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 1.5 + 0.5,
-        opacity: Math.random() * 0.5 + 0.3,
-        color: Math.random() > 0.7 ? '#00ff88' : '#0088ff'
+        vx: (Math.random() - 0.5) * PARTICLE_CONFIG.VELOCITY_RANGE,
+        vy: (Math.random() - 0.5) * PARTICLE_CONFIG.VELOCITY_RANGE,
+        size: Math.random() * PARTICLE_CONFIG.SIZE_RANGE + PARTICLE_CONFIG.SIZE_MIN,
+        opacity: Math.random() * PARTICLE_CONFIG.OPACITY_RANGE + PARTICLE_CONFIG.OPACITY_MIN,
+        color: Math.random() > PARTICLE_CONFIG.PRIMARY_COLOR_CHANCE ? '#00ff88' : '#0088ff'
       });
     }
   }
@@ -71,9 +102,9 @@ class ParticleNetwork {
         const dx = this.particles[i].x - this.particles[j].x;
         const dy = this.particles[i].y - this.particles[j].y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < 120) {
-          const opacity = (1 - distance / 120) * 0.3;
+
+        if (distance < PARTICLE_CONFIG.CONNECTION_DISTANCE) {
+          const opacity = (1 - distance / PARTICLE_CONFIG.CONNECTION_DISTANCE) * 0.3;
           this.ctx.beginPath();
           this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
           this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
@@ -91,9 +122,9 @@ class ParticleNetwork {
         const dx = this.mouse.x - particle.x;
         const dy = this.mouse.y - particle.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        
-        if (distance < 150) {
-          const opacity = (1 - distance / 150) * 0.5;
+
+        if (distance < PARTICLE_CONFIG.MOUSE_DISTANCE) {
+          const opacity = (1 - distance / PARTICLE_CONFIG.MOUSE_DISTANCE) * 0.5;
           this.ctx.beginPath();
           this.ctx.moveTo(particle.x, particle.y);
           this.ctx.lineTo(this.mouse.x, this.mouse.y);
@@ -189,9 +220,14 @@ class NavigationManager {
 
   bindNavigationEvents() {
     this.navToggle.addEventListener('click', () => {
-      this.navMenu.classList.toggle('active');
+      const isExpanded = this.navMenu.classList.toggle('active');
       this.navToggle.classList.toggle('active');
-      document.body.style.overflow = this.navMenu.classList.contains('active') ? 'hidden' : 'auto';
+
+      // Update ARIA attributes
+      this.navToggle.setAttribute('aria-expanded', isExpanded);
+      this.navToggle.setAttribute('aria-label', isExpanded ? '메뉴 닫기' : '메뉴 열기');
+
+      document.body.style.overflow = isExpanded ? 'hidden' : 'auto';
     });
 
     // 메뉴 링크 클릭 시 모바일 메뉴 닫기
@@ -263,24 +299,118 @@ class ScrollAnimationManager {
 class FormManager {
   constructor() {
     this.form = document.querySelector('.form');
+    this.fields = {
+      name: this.form?.querySelector('#name'),
+      email: this.form?.querySelector('#email'),
+      subject: this.form?.querySelector('#subject'),
+      message: this.form?.querySelector('#message')
+    };
     this.init();
   }
 
   init() {
     if (this.form) {
+      // 폼 제출 이벤트
       this.form.addEventListener('submit', (e) => {
         e.preventDefault();
         this.handleFormSubmit();
       });
+
+      // 실시간 검증
+      Object.entries(this.fields).forEach(([fieldName, field]) => {
+        if (field) {
+          field.addEventListener('blur', () => this.validateField(fieldName));
+          field.addEventListener('input', () => {
+            if (field.classList.contains('invalid')) {
+              this.validateField(fieldName);
+            }
+          });
+        }
+      });
     }
   }
 
+  validateField(fieldName) {
+    const field = this.fields[fieldName];
+    if (!field) return true;
+
+    const value = field.value.trim();
+    const errorSpan = field.parentElement.querySelector('.error-message');
+    let isValid = true;
+    let errorMessage = '';
+
+    // 공백 검증
+    if (!value) {
+      isValid = false;
+      errorMessage = '이 필드는 필수입니다.';
+    }
+    // 이메일 검증
+    else if (fieldName === 'email') {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(value)) {
+        isValid = false;
+        errorMessage = '올바른 이메일 주소를 입력해주세요.';
+      }
+    }
+    // 이름 길이 검증
+    else if (fieldName === 'name' && value.length < 2) {
+      isValid = false;
+      errorMessage = '이름은 최소 2자 이상이어야 합니다.';
+    }
+    // 메시지 길이 검증
+    else if (fieldName === 'message' && value.length < 10) {
+      isValid = false;
+      errorMessage = '메시지는 최소 10자 이상이어야 합니다.';
+    }
+
+    // UI 업데이트
+    if (isValid) {
+      field.classList.remove('invalid');
+      field.classList.add('valid');
+      field.setAttribute('aria-invalid', 'false');
+      if (errorSpan) {
+        errorSpan.textContent = '';
+        errorSpan.classList.remove('show');
+      }
+    } else {
+      field.classList.remove('valid');
+      field.classList.add('invalid');
+      field.setAttribute('aria-invalid', 'true');
+      if (errorSpan) {
+        errorSpan.textContent = errorMessage;
+        errorSpan.classList.add('show');
+      }
+    }
+
+    return isValid;
+  }
+
+  validateForm() {
+    let isFormValid = true;
+    Object.keys(this.fields).forEach(fieldName => {
+      if (!this.validateField(fieldName)) {
+        isFormValid = false;
+      }
+    });
+    return isFormValid;
+  }
+
   handleFormSubmit() {
+    // 전체 폼 검증
+    if (!this.validateForm()) {
+      // 첫 번째 에러 필드로 포커스
+      const firstInvalidField = this.form.querySelector('.invalid');
+      if (firstInvalidField) {
+        firstInvalidField.focus();
+      }
+      return;
+    }
+
     // 폼 데이터 가져오기
-    const name = this.form.querySelector('#name').value;
-    const email = this.form.querySelector('#email').value;
-    const subject = this.form.querySelector('#subject').value;
-    const message = this.form.querySelector('#message').value;
+    const name = this.fields.name.value.trim();
+    const email = this.fields.email.value.trim();
+    const subject = this.fields.subject.value.trim();
+    const message = this.fields.message.value.trim();
 
     // mailto 링크 생성
     const mailtoLink = `mailto:mingyu@1nfra.kr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
@@ -293,6 +423,15 @@ class FormManager {
     // 선택사항: 폼 초기화
     setTimeout(() => {
       this.form.reset();
+      // 검증 상태 초기화
+      Object.values(this.fields).forEach(field => {
+        field.classList.remove('valid', 'invalid');
+        field.setAttribute('aria-invalid', 'false');
+      });
+      this.form.querySelectorAll('.error-message').forEach(span => {
+        span.textContent = '';
+        span.classList.remove('show');
+      });
     }, 500);
   }
 }
