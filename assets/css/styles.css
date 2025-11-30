@@ -462,6 +462,9 @@ body {
   cursor: pointer;
   gap: 4px;
   z-index: 1001;
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
 }
 
 .nav-toggle span {
