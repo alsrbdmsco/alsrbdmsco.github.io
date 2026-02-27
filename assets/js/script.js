@@ -1,123 +1,4 @@
 // ========================================
-// 3D Loading Screen Manager
-// ========================================
-
-class LoadingScreen {
-  constructor() {
-    this.loadingScreen = document.getElementById('loading-screen');
-    this.loadingProgress = document.getElementById('loading-progress');
-    this.loadingPercentage = document.getElementById('loading-percentage');
-    this.loadingStatus = document.getElementById('loading-status');
-
-    this.progress = 0;
-    this.loadingInterval = null;
-
-    // Check if user has visited before
-    this.hasVisited = localStorage.getItem('hasVisited') === 'true';
-
-    // Check for reduced motion preference
-    this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    this.init();
-  }
-
-  init() {
-    // Skip loading screen if user prefers reduced motion or has visited before
-    if (this.prefersReducedMotion || this.hasVisited) {
-      this.complete();
-      return;
-    }
-
-    // Start loading animation
-    this.startLoading();
-
-    // Bind keyboard skip (ESC key)
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        this.skip();
-      }
-    });
-  }
-
-  startLoading() {
-    const stages = [
-      { progress: 20, status: 'INITIALIZING SYSTEM...', duration: 300 },
-      { progress: 40, status: 'LOADING MODULES...', duration: 300 },
-      { progress: 60, status: 'CONNECTING NETWORK...', duration: 300 },
-      { progress: 80, status: 'ESTABLISHING CONNECTION...', duration: 300 },
-      { progress: 95, status: 'FINALIZING...', duration: 200 },
-      { progress: 100, status: 'READY!', duration: 100 }
-    ];
-
-    let stageIndex = 0;
-
-    const updateProgress = () => {
-      if (stageIndex >= stages.length) {
-        clearInterval(this.loadingInterval);
-        setTimeout(() => this.complete(), 500);
-        return;
-      }
-
-      const stage = stages[stageIndex];
-      const step = (stage.progress - this.progress) / 10;
-
-      const progressAnimation = setInterval(() => {
-        this.progress += step;
-
-        if (this.progress >= stage.progress) {
-          this.progress = stage.progress;
-          clearInterval(progressAnimation);
-
-          // Update UI
-          this.updateUI(stage.status);
-
-          stageIndex++;
-          setTimeout(updateProgress, stage.duration);
-        } else {
-          this.updateUI(this.loadingStatus.textContent);
-        }
-      }, 30);
-    };
-
-    updateProgress();
-  }
-
-  updateUI(status) {
-    if (this.loadingProgress) {
-      this.loadingProgress.style.width = `${this.progress}%`;
-    }
-    if (this.loadingPercentage) {
-      this.loadingPercentage.textContent = `${Math.floor(this.progress)}%`;
-    }
-    if (this.loadingStatus && status) {
-      this.loadingStatus.textContent = status;
-    }
-  }
-
-  skip() {
-    clearInterval(this.loadingInterval);
-    this.complete();
-  }
-
-  complete() {
-    // Set visited flag
-    localStorage.setItem('hasVisited', 'true');
-
-    // Fade out loading screen
-    if (this.loadingScreen) {
-      this.loadingScreen.classList.add('hidden');
-
-      // Remove from DOM after transition
-      setTimeout(() => {
-        if (this.loadingScreen && this.loadingScreen.parentNode) {
-          this.loadingScreen.parentNode.removeChild(this.loadingScreen);
-        }
-      }, 500);
-    }
-  }
-}
-
-// ========================================
 // Particle Configuration
 // ========================================
 
@@ -573,7 +454,6 @@ class PerformanceManager {
 // 메인 애플리케이션 초기화
 class App {
   constructor() {
-    this.loadingScreen = null;
     this.particleNetwork = null;
     this.navigationManager = null;
     this.scrollAnimationManager = null;
@@ -590,9 +470,6 @@ class App {
   }
 
   initializeComponents() {
-    // 로딩 스크린 초기화 (최우선)
-    this.loadingScreen = new LoadingScreen();
-
     // 파티클 네트워크 초기화
     this.particleNetwork = new ParticleNetwork();
 
