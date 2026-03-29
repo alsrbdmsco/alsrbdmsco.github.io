@@ -298,147 +298,6 @@ class ScrollAnimationManager {
   }
 }
 
-// 폼 관리
-class FormManager {
-  constructor() {
-    this.form = document.querySelector('.form');
-    this.fields = {
-      name: this.form?.querySelector('#name'),
-      email: this.form?.querySelector('#email'),
-      subject: this.form?.querySelector('#subject'),
-      message: this.form?.querySelector('#message')
-    };
-    this.init();
-  }
-
-  init() {
-    if (this.form) {
-      // 폼 제출 이벤트
-      this.form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        this.handleFormSubmit();
-      });
-
-      // 실시간 검증
-      Object.entries(this.fields).forEach(([fieldName, field]) => {
-        if (field) {
-          field.addEventListener('blur', () => this.validateField(fieldName));
-          field.addEventListener('input', () => {
-            if (field.classList.contains('invalid')) {
-              this.validateField(fieldName);
-            }
-          });
-        }
-      });
-    }
-  }
-
-  validateField(fieldName) {
-    const field = this.fields[fieldName];
-    if (!field) return true;
-
-    const value = field.value.trim();
-    const errorSpan = field.parentElement.querySelector('.error-message');
-    let isValid = true;
-    let errorMessage = '';
-
-    // 공백 검증
-    if (!value) {
-      isValid = false;
-      errorMessage = '이 필드는 필수입니다.';
-    }
-    // 이메일 검증
-    else if (fieldName === 'email') {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value)) {
-        isValid = false;
-        errorMessage = '올바른 이메일 주소를 입력해주세요.';
-      }
-    }
-    // 이름 길이 검증
-    else if (fieldName === 'name' && value.length < 2) {
-      isValid = false;
-      errorMessage = '이름은 최소 2자 이상이어야 합니다.';
-    }
-    // 메시지 길이 검증
-    else if (fieldName === 'message' && value.length < 10) {
-      isValid = false;
-      errorMessage = '메시지는 최소 10자 이상이어야 합니다.';
-    }
-
-    // UI 업데이트
-    if (isValid) {
-      field.classList.remove('invalid');
-      field.classList.add('valid');
-      field.setAttribute('aria-invalid', 'false');
-      if (errorSpan) {
-        errorSpan.textContent = '';
-        errorSpan.classList.remove('show');
-      }
-    } else {
-      field.classList.remove('valid');
-      field.classList.add('invalid');
-      field.setAttribute('aria-invalid', 'true');
-      if (errorSpan) {
-        errorSpan.textContent = errorMessage;
-        errorSpan.classList.add('show');
-      }
-    }
-
-    return isValid;
-  }
-
-  validateForm() {
-    let isFormValid = true;
-    Object.keys(this.fields).forEach(fieldName => {
-      if (!this.validateField(fieldName)) {
-        isFormValid = false;
-      }
-    });
-    return isFormValid;
-  }
-
-  handleFormSubmit() {
-    // 전체 폼 검증
-    if (!this.validateForm()) {
-      // 첫 번째 에러 필드로 포커스
-      const firstInvalidField = this.form.querySelector('.invalid');
-      if (firstInvalidField) {
-        firstInvalidField.focus();
-      }
-      return;
-    }
-
-    // 폼 데이터 가져오기
-    const name = this.fields.name.value.trim();
-    const email = this.fields.email.value.trim();
-    const subject = this.fields.subject.value.trim();
-    const message = this.fields.message.value.trim();
-
-    // mailto 링크 생성
-    const mailtoLink = `mailto:mingyu@1nfra.kr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-      `이름: ${name}\n이메일: ${email}\n\n메시지:\n${message}`
-    )}`;
-
-    // 이메일 클라이언트 열기
-    window.location.href = mailtoLink;
-
-    // 선택사항: 폼 초기화
-    setTimeout(() => {
-      this.form.reset();
-      // 검증 상태 초기화
-      Object.values(this.fields).forEach(field => {
-        field.classList.remove('valid', 'invalid');
-        field.setAttribute('aria-invalid', 'false');
-      });
-      this.form.querySelectorAll('.error-message').forEach(span => {
-        span.textContent = '';
-        span.classList.remove('show');
-      });
-    }, 500);
-  }
-}
-
 // 성능 최적화
 class PerformanceManager {
   constructor() {
@@ -457,7 +316,6 @@ class App {
     this.particleNetwork = null;
     this.navigationManager = null;
     this.scrollAnimationManager = null;
-    this.formManager = null;
     this.performanceManager = null;
     this.init();
   }
@@ -478,9 +336,6 @@ class App {
 
     // 스크롤 애니메이션 관리자 초기화
     this.scrollAnimationManager = new ScrollAnimationManager();
-
-    // 폼 관리자 초기화
-    this.formManager = new FormManager();
 
     // 성능 관리자 초기화
     this.performanceManager = new PerformanceManager();
