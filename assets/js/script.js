@@ -66,7 +66,7 @@ class ParticleNetwork {
         vy: (Math.random() - 0.5) * PARTICLE_CONFIG.VELOCITY_RANGE,
         size: Math.random() * PARTICLE_CONFIG.SIZE_RANGE + PARTICLE_CONFIG.SIZE_MIN,
         opacity: Math.random() * PARTICLE_CONFIG.OPACITY_RANGE + PARTICLE_CONFIG.OPACITY_MIN,
-        color: Math.random() > PARTICLE_CONFIG.PRIMARY_COLOR_CHANCE ? '#00ff88' : '#0088ff'
+        color: Math.random() > PARTICLE_CONFIG.PRIMARY_COLOR_CHANCE ? '#34d399' : '#60a5fa'
       });
     }
   }
@@ -111,7 +111,7 @@ class ParticleNetwork {
           this.ctx.beginPath();
           this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
           this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
-          this.ctx.strokeStyle = `rgba(0, 255, 136, ${opacity})`;
+          this.ctx.strokeStyle = `rgba(52, 211, 153, ${opacity})`;
           this.ctx.lineWidth = 0.5;
           this.ctx.stroke();
         }
@@ -131,7 +131,7 @@ class ParticleNetwork {
           this.ctx.beginPath();
           this.ctx.moveTo(particle.x, particle.y);
           this.ctx.lineTo(this.mouse.x, this.mouse.y);
-          this.ctx.strokeStyle = `rgba(0, 136, 255, ${opacity})`;
+          this.ctx.strokeStyle = `rgba(96, 165, 250, ${opacity})`;
           this.ctx.lineWidth = 1;
           this.ctx.stroke();
         }

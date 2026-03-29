@@ -1,8 +1,8 @@
 /* 기본 스타일 및 변수 */
 :root {
-  --primary-color: #00ff88;
-  --secondary-color: #0088ff;
-  --accent-color: #ff0066;
+  --primary-color: #34d399;
+  --secondary-color: #60a5fa;
+  --accent-color: #f472b6;
   --background-dark: #0a0a0a;
   --background-darker: #000000;
   --surface-dark: #1a1a1a;
@@ -11,8 +11,8 @@
   --text-secondary: #b3b3b3;
   --text-muted: #666666;
   --border-color: #333333;
-  --gradient-primary: linear-gradient(135deg, #00ff88, #0088ff);
-  --gradient-secondary: linear-gradient(135deg, #ff0066, #ff8800);
+  --gradient-primary: linear-gradient(135deg, #34d399, #60a5fa);
+  --gradient-secondary: linear-gradient(135deg, #f472b6, #fb923c);
   --font-mono: 'JetBrains Mono', monospace;
   --font-sans: 'Inter', sans-serif;
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -224,7 +224,7 @@ body {
 .hero-badge {
   display: inline-block;
   padding: 0.5rem 1.5rem;
-  background: rgba(0, 255, 136, 0.1);
+  background: rgba(52, 211, 153, 0.1);
   border: 1px solid var(--primary-color);
   border-radius: 50px;
   color: var(--primary-color);
