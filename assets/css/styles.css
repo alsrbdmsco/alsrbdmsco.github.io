@@ -411,34 +411,6 @@ section {
   gap: 1.5rem;
 }
 
-.info-card {
-  background: var(--surface-dark);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 1.5rem;
-  transition: all 0.3s ease;
-}
-
-.info-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--primary-color);
-}
-
-.info-card h3 {
-  color: var(--primary-color);
-  font-size: 0.9rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.5rem;
-}
-
-.info-card p {
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
 .about-content {
   display: flex;
   flex-direction: column;
@@ -828,7 +800,6 @@ section {
 
   .cert-card,
   .contact-card,
-  .info-card,
   .content-block {
     padding: 1.5rem;
   }
@@ -920,7 +891,7 @@ button:focus-visible {
   letter-spacing: 0.08em;
 }
 
-/* 터미널 카드 (About 섹션) */
+/* 터미널 카드 (About 섹션 프로필) */
 .terminal-card {
   width: 100%;
   background: rgba(12, 16, 14, 0.85);
@@ -929,7 +900,7 @@ button:focus-visible {
   overflow: hidden;
   text-align: left;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   box-shadow: var(--shadow-md);
 }
 
@@ -957,10 +928,30 @@ button:focus-visible {
 }
 
 .terminal-body {
-  padding: 1rem 1.25rem;
-  min-height: 190px;
-  line-height: 1.7;
+  padding: 1.25rem 1.5rem 1.5rem;
+  line-height: 2;
   overflow-x: auto;
+}
+
+.terminal-output {
+  margin-bottom: 0.1rem;
+}
+
+.terminal-line + .terminal-line,
+.terminal-output + .terminal-line {
+  margin-top: 0.6rem;
+}
+
+.terminal-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(52, 211, 153, 0.4);
+  transition: border-color 0.3s ease;
+}
+
+.terminal-link:hover {
+  border-bottom-style: solid;
+  border-bottom-color: var(--primary-color);
 }
 
 .terminal-line .prompt {
@@ -1024,11 +1015,7 @@ button:focus-visible {
 /* 신규 컴포넌트 반응형 */
 @media (max-width: 768px) {
   .terminal-card {
-    font-size: 0.75rem;
-  }
-
-  .terminal-body {
-    min-height: 170px;
+    font-size: 0.85rem;
   }
 
   .scroll-hint {

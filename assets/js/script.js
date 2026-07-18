@@ -363,105 +363,50 @@ class TerminalTyper {
     this.body = document.getElementById('terminal-body');
     if (!this.body) return;
 
-    this.lines = [
-      { cmd: 'whoami', out: ['mingyu — Infrastructure Engineer'] },
-      {
-        cmd: 'kubectl get nodes',
-        out: [
-          'NAME        STATUS   ROLES           AGE',
-          'prod-ctrl   Ready    control-plane   2y'
-        ]
-      },
-      { cmd: 'ls ~/stack', out: ['aws/  azure/  ncp/  k8s/  linux/  network/'] }
-    ];
+    // 실제 내용은 HTML에 정적으로 존재하고, JS는 공개 연출만 담당한다
+    // (JS 미동작·reduced-motion 환경에서는 전체 내용이 그대로 보인다)
+    this.items = Array.from(this.body.children);
+    if (prefersReducedMotion || !this.items.length) return;
 
-    if (prefersReducedMotion) {
-      this.renderStatic();
-      return;
-    }
+    // 터미널 상자가 내용이 채워지는 만큼 자연스럽게 자라도록 라인을 접어둔다
+    this.items.forEach(el => { el.style.display = 'none'; });
 
-    // 화면에 들어왔을 때부터 타이핑 시작
     const observer = new IntersectionObserver((entries) => {
       if (entries.some(entry => entry.isIntersecting)) {
         observer.disconnect();
-        this.start();
+        this.play();
       }
-    }, { threshold: 0.3 });
+    }, { threshold: 0.25 });
     observer.observe(this.body);
-  }
-
-  makePromptLine() {
-    const line = document.createElement('div');
-    line.className = 'terminal-line';
-    const prompt = document.createElement('span');
-    prompt.className = 'prompt';
-    prompt.textContent = '$ ';
-    const cmd = document.createElement('span');
-    cmd.className = 'cmd';
-    line.appendChild(prompt);
-    line.appendChild(cmd);
-    return { line, cmd };
-  }
-
-  makeOutputLine(text) {
-    const line = document.createElement('div');
-    line.className = 'terminal-output';
-    line.textContent = text;
-    return line;
-  }
-
-  renderStatic() {
-    this.lines.forEach(entry => {
-      const { line, cmd } = this.makePromptLine();
-      cmd.textContent = entry.cmd;
-      this.body.appendChild(line);
-      entry.out.forEach(text => this.body.appendChild(this.makeOutputLine(text)));
-    });
   }
 
   wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  async typeCommand(entry) {
-    const { line, cmd } = this.makePromptLine();
-    const cursor = document.createElement('span');
-    cursor.className = 'terminal-cursor';
-    line.appendChild(cursor);
-    this.body.appendChild(line);
+  async play() {
+    for (const el of this.items) {
+      const cmd = el.querySelector('.cmd');
+      if (el.classList.contains('terminal-line') && cmd) {
+        const text = cmd.textContent;
+        cmd.textContent = '';
 
-    for (const char of entry.cmd) {
-      cmd.textContent += char;
-      await this.wait(40 + Math.random() * 40);
-    }
-    await this.wait(350);
-    cursor.remove();
+        const cursor = document.createElement('span');
+        cursor.className = 'terminal-cursor';
+        el.appendChild(cursor);
+        el.style.display = '';
 
-    for (const text of entry.out) {
-      this.body.appendChild(this.makeOutputLine(text));
-      await this.wait(110);
-    }
-    await this.wait(800);
-  }
-
-  async start() {
-    // 페이지가 백그라운드로 가면 setTimeout이 지연될 뿐 로직은 안전하다
-    for (;;) {
-      this.body.textContent = '';
-      for (const entry of this.lines) {
-        await this.typeCommand(entry);
+        for (const char of text) {
+          cmd.textContent += char;
+          await this.wait(38 + Math.random() * 34);
+        }
+        await this.wait(240);
+        cursor.remove();
+      } else {
+        // 출력 라인과 대기 프롬프트(마지막 정적 커서 라인)는 그대로 공개
+        el.style.display = '';
+        await this.wait(130);
       }
-      const idle = document.createElement('div');
-      idle.className = 'terminal-line';
-      const prompt = document.createElement('span');
-      prompt.className = 'prompt';
-      prompt.textContent = '$ ';
-      const cursor = document.createElement('span');
-      cursor.className = 'terminal-cursor';
-      idle.appendChild(prompt);
-      idle.appendChild(cursor);
-      this.body.appendChild(idle);
-      await this.wait(5000);
     }
   }
 }
@@ -475,7 +420,7 @@ class TiltEffect {
     if (prefersReducedMotion || !hasHoverPointer) return;
 
     const MAX_DEG = 7;
-    document.querySelectorAll('.cert-card, .contact-card, .info-card').forEach(card => {
+    document.querySelectorAll('.cert-card, .contact-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const px = (e.clientX - rect.left) / rect.width - 0.5;
