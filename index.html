@@ -18,7 +18,9 @@
   <meta property="og:url" content="https://1nfra.kr">
   <meta property="og:title" content="1nfra - Network & Server Factory">
   <meta property="og:description" content="AWS, Azure, NCP 멀티 클라우드 환경 전문가. Kubernetes, Linux, Network 인프라 설계 및 운영.">
-  <meta property="og:image" content="https://1nfra.kr/assets/images/favicon.ico">
+  <meta property="og:image" content="https://1nfra.kr/assets/images/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:locale" content="ko_KR">
   <meta property="og:site_name" content="1nfra">
 
@@ -27,13 +29,11 @@
   <meta name="twitter:url" content="https://1nfra.kr">
   <meta name="twitter:title" content="1nfra - Network & Server Factory">
   <meta name="twitter:description" content="AWS, Azure, NCP 멀티 클라우드 환경 전문가. Kubernetes, Linux, Network 인프라 설계 및 운영.">
-  <meta name="twitter:image" content="https://1nfra.kr/assets/images/favicon.ico">
+  <meta name="twitter:image" content="https://1nfra.kr/assets/images/og-image.png">
 
   <!-- Additional Meta Tags -->
-  <meta name="theme-color" content="#00ff88">
-  <meta name="msapplication-TileColor" content="#00ff88">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#34d399">
+  <meta name="msapplication-TileColor" content="#34d399">
 
   <!-- Preconnect for Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,7 +58,7 @@
     "description": "AWS, Azure, NCP 멀티 클라우드 환경 전문가. Kubernetes, Linux, Network 인프라 설계 및 운영 전문.",
     "url": "https://1nfra.kr",
     "email": "mingyu@1nfra.kr",
-    "image": "https://1nfra.kr/assets/images/favicon.ico",
+    "image": "https://1nfra.kr/assets/images/og-image.png",
     "worksFor": {
       "@type": "Organization",
       "name": "콘텐츠브릿지"
@@ -119,6 +119,7 @@
   <!-- Skip to main content link for accessibility -->
   <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
 
+  <div class="scroll-progress" aria-hidden="true"></div>
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
   <nav class="navbar" id="navbar" role="navigation" aria-label="주 네비게이션">
     <div class="nav-container">
@@ -126,11 +127,11 @@
         <span class="logo-text">1nfra</span>
         <span class="logo-subtitle">NETWORK & SERVER FACTORY</span>
       </div>
-      <ul class="nav-menu" id="nav-menu" role="menubar">
-        <li class="nav-item" role="none"><a href="#home" class="nav-link" role="menuitem">Home</a></li>
-        <li class="nav-item" role="none"><a href="#about" class="nav-link" role="menuitem">About</a></li>
-        <li class="nav-item" role="none"><a href="#certifications" class="nav-link" role="menuitem">Certifications</a></li>
-        <li class="nav-item" role="none"><a href="#contact" class="nav-link" role="menuitem">Contact</a></li>
+      <ul class="nav-menu" id="nav-menu">
+        <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+        <li class="nav-item"><a href="#certifications" class="nav-link">Certifications</a></li>
+        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
       <button class="nav-toggle" id="nav-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu">
         <span></span><span></span><span></span>
@@ -151,6 +152,35 @@
           <div class="hero-buttons">
             <a href="#about" class="btn btn-primary" aria-label="프로필 보기 섹션으로 이동"><span>프로필 보기</span><i class="btn-icon" aria-hidden="true">→</i></a>
             <a href="mailto:mingyu@1nfra.kr" class="btn btn-secondary" aria-label="이메일로 연락하기"><span>연락하기</span><i class="btn-icon" aria-hidden="true">✉</i></a>
+          </div>
+          <div class="hero-terminal" aria-hidden="true">
+            <div class="terminal-header">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+              <span class="terminal-title">mingyu@1nfra: ~</span>
+            </div>
+            <div class="terminal-body" id="terminal-body"></div>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-hint" aria-hidden="true"><span></span></div>
+    </section>
+
+    <section class="stats-section" aria-label="주요 지표">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item fade-in-up">
+            <span class="stat-number" data-target="18" data-suffix="+">0</span>
+            <span class="stat-label">보유 자격증</span>
+          </div>
+          <div class="stat-item fade-in-up">
+            <span class="stat-number" data-target="4">0</span>
+            <span class="stat-label">클라우드 플랫폼</span>
+          </div>
+          <div class="stat-item fade-in-up">
+            <span class="stat-number" data-target="3">0</span>
+            <span class="stat-label">핵심 도메인</span>
           </div>
         </div>
       </div>
@@ -306,7 +336,7 @@
             <div class="contact-icon">📱</div>
             <h3>Blog</h3>
             <p>기술 블로그 및 인사이트</p>
-            <a href="https://blog.1nfra.kr" class="contact-link" target="_blank">Visit Blog</a>
+            <a href="https://blog.1nfra.kr" class="contact-link" target="_blank" rel="noopener noreferrer">Visit Blog</a>
           </div>
           <div class="contact-card">
             <div class="contact-icon">💻</div>

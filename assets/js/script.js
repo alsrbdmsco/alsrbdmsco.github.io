@@ -1,6 +1,9 @@
 // ========================================
-// Particle Configuration
+// Global Settings
 // ========================================
+
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const hasHoverPointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 const PARTICLE_CONFIG = {
   MAX_COUNT: 80,
@@ -15,12 +18,26 @@ const PARTICLE_CONFIG = {
   PRIMARY_COLOR_CHANCE: 0.7
 };
 
+function debounce(func, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
+// ========================================
 // 파티클 네트워크 시스템
+// ========================================
+
 class ParticleNetwork {
   constructor() {
+    this.enabled = false;
     this.canvas = document.getElementById('particle-canvas');
-    if (!this.canvas) {
-      console.warn('Particle canvas not found');
+    if (!this.canvas) return;
+
+    if (prefersReducedMotion) {
+      this.canvas.style.display = 'none';
       return;
     }
 
@@ -28,14 +45,7 @@ class ParticleNetwork {
     this.particles = [];
     this.mouse = { x: null, y: null };
     this.animationId = null;
-
-    // prefers-reduced-motion 체크
-    this.prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (this.prefersReducedMotion) {
-      this.canvas.style.display = 'none';
-      return;
-    }
+    this.enabled = true;
 
     this.init();
   }
@@ -73,29 +83,23 @@ class ParticleNetwork {
 
   animate() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    
-    // 파티클 업데이트 및 렌더링
+
     this.particles.forEach(particle => {
       particle.x += particle.vx;
       particle.y += particle.vy;
-      
-      // 경계 처리
+
       if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
       if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
-      
-      // 파티클 그리기
+
       this.ctx.beginPath();
       this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
       this.ctx.fillStyle = particle.color + Math.floor(particle.opacity * 255).toString(16).padStart(2, '0');
       this.ctx.fill();
     });
 
-    // 연결선 그리기
     this.drawConnections();
-    
-    // 마우스 상호작용
     this.handleMouseInteraction();
-    
+
     this.animationId = requestAnimationFrame(() => this.animate());
   }
 
@@ -120,50 +124,61 @@ class ParticleNetwork {
   }
 
   handleMouseInteraction() {
-    if (this.mouse.x && this.mouse.y) {
-      this.particles.forEach(particle => {
-        const dx = this.mouse.x - particle.x;
-        const dy = this.mouse.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+    if (this.mouse.x === null || this.mouse.y === null) return;
 
-        if (distance < PARTICLE_CONFIG.MOUSE_DISTANCE) {
-          const opacity = (1 - distance / PARTICLE_CONFIG.MOUSE_DISTANCE) * 0.5;
-          this.ctx.beginPath();
-          this.ctx.moveTo(particle.x, particle.y);
-          this.ctx.lineTo(this.mouse.x, this.mouse.y);
-          this.ctx.strokeStyle = `rgba(96, 165, 250, ${opacity})`;
-          this.ctx.lineWidth = 1;
-          this.ctx.stroke();
-        }
-      });
-    }
+    this.particles.forEach(particle => {
+      const dx = this.mouse.x - particle.x;
+      const dy = this.mouse.y - particle.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < PARTICLE_CONFIG.MOUSE_DISTANCE) {
+        const opacity = (1 - distance / PARTICLE_CONFIG.MOUSE_DISTANCE) * 0.5;
+        this.ctx.beginPath();
+        this.ctx.moveTo(particle.x, particle.y);
+        this.ctx.lineTo(this.mouse.x, this.mouse.y);
+        this.ctx.strokeStyle = `rgba(96, 165, 250, ${opacity})`;
+        this.ctx.lineWidth = 1;
+        this.ctx.stroke();
+      }
+    });
   }
 
   bindEvents() {
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', debounce(() => {
       this.resizeCanvas();
       this.createParticles();
-    });
-    
-    this.canvas.addEventListener('mousemove', (e) => {
+    }, 200));
+
+    // 캔버스는 z-index: -1로 콘텐츠 뒤에 있으므로 window에서 마우스를 추적한다
+    window.addEventListener('mousemove', (e) => {
       this.mouse.x = e.clientX;
       this.mouse.y = e.clientY;
     });
-    
-    this.canvas.addEventListener('mouseleave', () => {
+
+    document.addEventListener('mouseleave', () => {
       this.mouse.x = null;
       this.mouse.y = null;
     });
   }
 
-  destroy() {
+  pause() {
     if (this.animationId) {
       cancelAnimationFrame(this.animationId);
+      this.animationId = null;
+    }
+  }
+
+  resume() {
+    if (this.enabled && !this.animationId) {
+      this.animate();
     }
   }
 }
 
+// ========================================
 // 네비게이션 관리
+// ========================================
+
 class NavigationManager {
   constructor() {
     this.navbar = document.getElementById('navbar');
@@ -174,8 +189,8 @@ class NavigationManager {
   }
 
   init() {
-    this.bindScrollEvents();
-    this.bindNavigationEvents();
+    if (this.navbar) this.bindScrollEvents();
+    if (this.navToggle && this.navMenu) this.bindNavigationEvents();
     this.bindSmoothScroll();
   }
 
@@ -190,7 +205,7 @@ class NavigationManager {
         });
         ticking = true;
       }
-    });
+    }, { passive: true });
   }
 
   updateNavbarOnScroll() {
@@ -202,9 +217,9 @@ class NavigationManager {
   }
 
   updateActiveSection() {
-    const sections = document.querySelectorAll('section');
+    const sections = document.querySelectorAll('section[id]');
     let currentSection = '';
-    
+
     sections.forEach(section => {
       const sectionTop = section.offsetTop - 200;
       const sectionHeight = section.offsetHeight;
@@ -221,55 +236,305 @@ class NavigationManager {
     });
   }
 
+  closeMenu() {
+    this.navMenu.classList.remove('active');
+    this.navToggle.classList.remove('active');
+    this.navToggle.setAttribute('aria-expanded', 'false');
+    this.navToggle.setAttribute('aria-label', '메뉴 열기');
+    document.body.style.overflow = '';
+  }
+
   bindNavigationEvents() {
     this.navToggle.addEventListener('click', () => {
       const isExpanded = this.navMenu.classList.toggle('active');
       this.navToggle.classList.toggle('active');
-
-      // Update ARIA attributes
       this.navToggle.setAttribute('aria-expanded', isExpanded);
       this.navToggle.setAttribute('aria-label', isExpanded ? '메뉴 닫기' : '메뉴 열기');
-
-      document.body.style.overflow = isExpanded ? 'hidden' : 'auto';
+      document.body.style.overflow = isExpanded ? 'hidden' : '';
     });
 
-    // 메뉴 링크 클릭 시 모바일 메뉴 닫기
     this.navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        this.navMenu.classList.remove('active');
-        this.navToggle.classList.remove('active');
-        document.body.style.overflow = 'auto';
-      });
+      link.addEventListener('click', () => this.closeMenu());
     });
 
-    // 메뉴 외부 클릭 시 닫기
     document.addEventListener('click', (e) => {
-      if (!this.navMenu.contains(e.target) && !this.navToggle.contains(e.target)) {
-        this.navMenu.classList.remove('active');
-        this.navToggle.classList.remove('active');
-        document.body.style.overflow = 'auto';
+      if (this.navMenu.classList.contains('active') &&
+          !this.navMenu.contains(e.target) && !this.navToggle.contains(e.target)) {
+        this.closeMenu();
       }
     });
   }
 
   bindSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      // 스킵 링크는 브라우저 기본 동작(포커스 이동)을 유지해야 한다
+      if (anchor.classList.contains('skip-link')) return;
+
       anchor.addEventListener('click', (e) => {
-        e.preventDefault();
         const target = document.querySelector(anchor.getAttribute('href'));
-        if (target) {
-          const offsetTop = target.offsetTop - 80;
-          window.scrollTo({
-            top: offsetTop,
-            behavior: 'smooth'
-          });
-        }
+        if (!target) return;
+        e.preventDefault();
+
+        const offsetTop = target.offsetTop - 80;
+        window.scrollTo({
+          top: offsetTop,
+          behavior: prefersReducedMotion ? 'auto' : 'smooth'
+        });
+
+        // 키보드 사용자를 위해 포커스도 함께 이동
+        target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
       });
     });
   }
 }
 
-// 스크롤 애니메이션 관리
+// ========================================
+// 스크롤 진행 바
+// ========================================
+
+class ScrollProgress {
+  constructor() {
+    this.bar = document.querySelector('.scroll-progress');
+    if (!this.bar) return;
+
+    let ticking = false;
+    const update = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = max > 0 ? window.scrollY / max : 0;
+      this.bar.style.transform = `scaleX(${progress})`;
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+    update();
+  }
+}
+
+// ========================================
+// 히어로 플라이스루 (스크롤 시 카메라가 뚫고 지나가는 효과)
+// ========================================
+
+class HeroFlythrough {
+  constructor() {
+    this.el = document.querySelector('.hero-content');
+    if (!this.el || prefersReducedMotion) return;
+
+    let ticking = false;
+    const update = () => {
+      const progress = Math.min(window.scrollY / (window.innerHeight * 0.85), 1);
+
+      if (progress <= 0) {
+        // 최상단에서는 인라인 스타일을 제거해 진입 애니메이션과 충돌하지 않게 한다
+        this.el.style.transform = '';
+        this.el.style.opacity = '';
+        this.el.style.filter = '';
+        this.el.style.transition = '';
+      } else {
+        this.el.style.transition = 'none';
+        this.el.style.transform = `translateY(${progress * -40}px) scale(${1 + progress * 0.45})`;
+        this.el.style.opacity = `${Math.max(1 - progress * 1.15, 0)}`;
+        this.el.style.filter = `blur(${(progress * 6).toFixed(2)}px)`;
+      }
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(update);
+        ticking = true;
+      }
+    }, { passive: true });
+    update();
+  }
+}
+
+// ========================================
+// 터미널 타이핑 애니메이션
+// ========================================
+
+class TerminalTyper {
+  constructor() {
+    this.body = document.getElementById('terminal-body');
+    if (!this.body) return;
+
+    this.lines = [
+      { cmd: 'whoami', out: ['mingyu — Infrastructure Engineer @ 1nfra'] },
+      {
+        cmd: 'kubectl get nodes',
+        out: [
+          'NAME        STATUS   ROLES           AGE',
+          'prod-ctrl   Ready    control-plane   2y',
+          'prod-node   Ready    worker          2y'
+        ]
+      },
+      { cmd: 'ls ~/stack', out: ['aws/  azure/  ncp/  kubernetes/  linux/  network/'] }
+    ];
+
+    if (prefersReducedMotion) {
+      this.renderStatic();
+      return;
+    }
+    this.start();
+  }
+
+  makePromptLine() {
+    const line = document.createElement('div');
+    line.className = 'terminal-line';
+    const prompt = document.createElement('span');
+    prompt.className = 'prompt';
+    prompt.textContent = '$ ';
+    const cmd = document.createElement('span');
+    cmd.className = 'cmd';
+    line.appendChild(prompt);
+    line.appendChild(cmd);
+    return { line, cmd };
+  }
+
+  makeOutputLine(text) {
+    const line = document.createElement('div');
+    line.className = 'terminal-output';
+    line.textContent = text;
+    return line;
+  }
+
+  renderStatic() {
+    this.lines.forEach(entry => {
+      const { line, cmd } = this.makePromptLine();
+      cmd.textContent = entry.cmd;
+      this.body.appendChild(line);
+      entry.out.forEach(text => this.body.appendChild(this.makeOutputLine(text)));
+    });
+  }
+
+  wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async typeCommand(entry) {
+    const { line, cmd } = this.makePromptLine();
+    const cursor = document.createElement('span');
+    cursor.className = 'terminal-cursor';
+    line.appendChild(cursor);
+    this.body.appendChild(line);
+
+    for (const char of entry.cmd) {
+      cmd.textContent += char;
+      await this.wait(40 + Math.random() * 40);
+    }
+    await this.wait(350);
+    cursor.remove();
+
+    for (const text of entry.out) {
+      this.body.appendChild(this.makeOutputLine(text));
+      await this.wait(110);
+    }
+    await this.wait(800);
+  }
+
+  async start() {
+    // 페이지가 백그라운드로 가면 setTimeout이 지연될 뿐 로직은 안전하다
+    for (;;) {
+      this.body.textContent = '';
+      for (const entry of this.lines) {
+        await this.typeCommand(entry);
+      }
+      const idle = document.createElement('div');
+      idle.className = 'terminal-line';
+      const prompt = document.createElement('span');
+      prompt.className = 'prompt';
+      prompt.textContent = '$ ';
+      const cursor = document.createElement('span');
+      cursor.className = 'terminal-cursor';
+      idle.appendChild(prompt);
+      idle.appendChild(cursor);
+      this.body.appendChild(idle);
+      await this.wait(5000);
+    }
+  }
+}
+
+// ========================================
+// 3D 틸트 카드
+// ========================================
+
+class TiltEffect {
+  constructor() {
+    if (prefersReducedMotion || !hasHoverPointer) return;
+
+    const MAX_DEG = 7;
+    document.querySelectorAll('.cert-card, .contact-card, .info-card, .stat-item').forEach(card => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform =
+          `perspective(700px) rotateX(${(-py * MAX_DEG).toFixed(2)}deg) rotateY(${(px * MAX_DEG).toFixed(2)}deg) translateY(-4px)`;
+      });
+
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
+  }
+}
+
+// ========================================
+// 숫자 카운터 (통계)
+// ========================================
+
+class StatCounter {
+  constructor() {
+    this.counters = document.querySelectorAll('.stat-number[data-target]');
+    if (!this.counters.length) return;
+
+    if (prefersReducedMotion) {
+      this.counters.forEach(el => this.setFinal(el));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          this.animate(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    this.counters.forEach(el => observer.observe(el));
+  }
+
+  setFinal(el) {
+    el.textContent = el.dataset.target + (el.dataset.suffix || '');
+  }
+
+  animate(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const suffix = el.dataset.suffix || '';
+    const duration = 1200;
+    let startTime = null;
+
+    const step = (timestamp) => {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+}
+
+// ========================================
+// 스크롤 리빌 애니메이션 (스태거 지원)
+// ========================================
+
 class ScrollAnimationManager {
   constructor() {
     this.observerOptions = {
@@ -280,7 +545,20 @@ class ScrollAnimationManager {
   }
 
   init() {
+    this.applyStagger();
     this.setupIntersectionObserver();
+  }
+
+  applyStagger() {
+    if (prefersReducedMotion) return;
+    const grids = document.querySelectorAll('.certifications-grid, .about-info, .about-content, .contact-info, .stats-grid');
+    grids.forEach(grid => {
+      Array.from(grid.children).forEach((child, i) => {
+        if (child.classList.contains('fade-in-up')) {
+          child.style.transitionDelay = `${Math.min(i * 60, 480)}ms`;
+        }
+      });
+    });
   }
 
   setupIntersectionObserver() {
@@ -288,6 +566,11 @@ class ScrollAnimationManager {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('animate');
+          observer.unobserve(entry.target);
+          // 리빌 완료 후 stagger 딜레이 제거 (호버 트랜지션 지연 방지)
+          setTimeout(() => {
+            entry.target.style.transitionDelay = '';
+          }, 1400);
         }
       });
     }, this.observerOptions);
@@ -298,118 +581,37 @@ class ScrollAnimationManager {
   }
 }
 
-// 성능 최적화
-class PerformanceManager {
-  constructor() {
-    this.init();
-  }
-
-  init() {
-    // 향후 성능 최적화 기능 추가 가능
-    // 현재는 이미지 lazy loading 등의 기능이 필요할 때 추가
-  }
-}
-
+// ========================================
 // 메인 애플리케이션 초기화
+// ========================================
+
 class App {
   constructor() {
-    this.particleNetwork = null;
-    this.navigationManager = null;
-    this.scrollAnimationManager = null;
-    this.performanceManager = null;
-    this.init();
-  }
-
-  init() {
     document.addEventListener('DOMContentLoaded', () => {
-      this.initializeComponents();
-      this.setupEventListeners();
+      this.particleNetwork = new ParticleNetwork();
+      new NavigationManager();
+      new ScrollAnimationManager();
+      new ScrollProgress();
+      new HeroFlythrough();
+      new TerminalTyper();
+      new TiltEffect();
+      new StatCounter();
+
+      this.setupVisibilityHandling();
     });
   }
 
-  initializeComponents() {
-    // 파티클 네트워크 초기화
-    this.particleNetwork = new ParticleNetwork();
-
-    // 네비게이션 관리자 초기화
-    this.navigationManager = new NavigationManager();
-
-    // 스크롤 애니메이션 관리자 초기화
-    this.scrollAnimationManager = new ScrollAnimationManager();
-
-    // 성능 관리자 초기화
-    this.performanceManager = new PerformanceManager();
-  }
-
-  setupEventListeners() {
-    // 페이지 언로드 시 정리
-    window.addEventListener('beforeunload', () => {
-      if (this.particleNetwork) {
-        this.particleNetwork.destroy();
-      }
-    });
-
-    // 비활성화 시 파티클 애니메이션 일시정지
+  setupVisibilityHandling() {
+    // 탭이 백그라운드로 가면 파티클 애니메이션을 멈추고, 돌아오면 재개
     document.addEventListener('visibilitychange', () => {
-      if (document.hidden && this.particleNetwork) {
-        this.particleNetwork.destroy();
-      } else if (!document.hidden && !this.particleNetwork.animationId) {
-        this.particleNetwork.animate();
+      if (!this.particleNetwork || !this.particleNetwork.enabled) return;
+      if (document.hidden) {
+        this.particleNetwork.pause();
+      } else {
+        this.particleNetwork.resume();
       }
     });
-
-    // 터치 이벤트 최적화
-    document.addEventListener('touchstart', () => {}, { passive: true });
-    document.addEventListener('touchmove', () => {}, { passive: true });
   }
 }
 
-// 유틸리티 함수들
-const utils = {
-  // 디바운스 함수
-  debounce: (func, wait) => {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  },
-
-  // 스로틀 함수
-  throttle: (func, limit) => {
-    let inThrottle;
-    return function() {
-      const args = arguments;
-      const context = this;
-      if (!inThrottle) {
-        func.apply(context, args);
-        inThrottle = true;
-        setTimeout(() => inThrottle = false, limit);
-      }
-    };
-  },
-
-  // 랜덤 숫자 생성
-  random: (min, max) => Math.random() * (max - min) + min,
-
-  // 요소가 뷰포트에 있는지 확인
-  isInViewport: (element) => {
-    const rect = element.getBoundingClientRect();
-    return (
-      rect.top >= 0 &&
-      rect.left >= 0 &&
-      rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-      rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-    );
-  }
-};
-
-// 전역 변수로 유틸리티 함수 사용 가능하게 함
-window.utils = utils;
-
-// 애플리케이션 시작
 new App();
