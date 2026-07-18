@@ -32,8 +32,8 @@
   <meta name="twitter:image" content="https://1nfra.kr/assets/images/og-image.png">
 
   <!-- Additional Meta Tags -->
-  <meta name="theme-color" content="#f5f3ee">
-  <meta name="msapplication-TileColor" content="#f5f3ee">
+  <meta name="theme-color" content="#e8e6de">
+  <meta name="msapplication-TileColor" content="#e8e6de">
 
   <!-- Preconnect for Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,7 +41,7 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="assets/css/styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400,500,600;1,9..144,400,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400,500,600;1,9..144,400,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
@@ -59,10 +59,7 @@
     "url": "https://1nfra.kr",
     "email": "mingyu@1nfra.kr",
     "image": "https://1nfra.kr/assets/images/og-image.png",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "콘텐츠브릿지"
-    },
+    "worksFor": { "@type": "Organization", "name": "콘텐츠브릿지" },
     "alumniOf": [
       { "@type": "EducationalOrganization", "name": "한양대학원" },
       { "@type": "EducationalOrganization", "name": "한양사이버대학교" },
@@ -87,114 +84,139 @@
         "recognizedBy": { "@type": "Organization", "name": "Microsoft" }
       }
     ],
-    "sameAs": [
-      "https://github.com/alsrbdmsco",
-      "https://blog.1nfra.kr"
-    ]
+    "sameAs": [ "https://github.com/alsrbdmsco", "https://blog.1nfra.kr" ]
   }
   </script>
 </head>
 <body>
-  <a href="#main" class="skip-link">본문으로 건너뛰기</a>
+  <a href="#session" class="skip-link">본문으로 건너뛰기</a>
 
-  <div class="wrap">
-    <header class="topbar">
-      <a href="#home" class="brand">1nfra.kr</a>
-      <nav aria-label="주 네비게이션">
-        <a href="#about">About</a>
-        <a href="#certifications">Certifications</a>
-        <a href="#contact">Contact</a>
+  <div class="win">
+    <!-- terminal title bar -->
+    <div class="win-bar">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="win-title">mingyu@1nfra: ~ — zsh</span>
+      <nav class="win-nav" aria-label="주 네비게이션">
+        <a href="#about">about</a>
+        <a href="#certs">certs</a>
+        <a href="#contact">contact</a>
       </nav>
-    </header>
-    <div class="rule" aria-hidden="true"></div>
+    </div>
 
-    <main id="main">
-      <section class="hero" id="home" aria-labelledby="hero-title">
-        <p class="eyebrow reveal"><span class="n">01</span><span>Infrastructure Engineer</span><span>Seoul, KR</span></p>
-        <h1 id="hero-title"><span class="l reveal">Network &amp; <em>Server</em></span><span class="l reveal">Factory</span></h1>
-        <div class="hero-foot">
-          <p class="lead reveal">서버와 네트워크가 조용히, 그리고 잘 돌아가게 만드는 일을 합니다. <span class="m">눈에 띄지 않는 인프라가 가장 좋은 인프라라고 생각합니다.</span></p>
-          <div class="meta reveal">
-            김민규 · 콘텐츠브릿지<br>
-            AWS · Azure · NCP · Kubernetes<br>
-            <a href="mailto:mingyu@1nfra.kr">mingyu@1nfra.kr →</a>
-          </div>
+    <main class="screen" id="session">
+      <!-- login banner -->
+      <header class="banner">
+        <p class="motd reveal" aria-hidden="true">Last login — welcome to 1nfra.kr</p>
+        <h1 class="banner-title reveal">Network &amp; <em>Server</em> Factory</h1>
+        <p class="banner-sub reveal">Infrastructure Engineer · Seoul, KR</p>
+      </header>
+
+      <!-- $ whoami -->
+      <section class="step" aria-labelledby="s-whoami">
+        <h2 id="s-whoami" class="sr-only">소개</h2>
+        <p class="cmd-line" aria-hidden="true">
+          <span class="prompt"><span class="u">mingyu@1nfra</span> <span class="path">~</span> <span class="pct">%</span></span>
+          <span class="cmd" data-type>whoami</span>
+        </p>
+        <div class="out">
+          <p class="lead">김민규 — Infrastructure Engineer <span class="dim">@ 콘텐츠브릿지</span></p>
+          <p class="para">서버와 네트워크가 조용히, 그리고 잘 돌아가게 만드는 일을 합니다. <span class="dim">눈에 띄지 않는 인프라가 가장 좋은 인프라라고 생각합니다.</span></p>
         </div>
       </section>
 
-      <div class="rule sec-rule" aria-hidden="true"></div>
-      <section class="sec" id="terminal" aria-label="프로필 터미널">
-        <h2 class="st reveal"><span class="n">02 — TERMINAL</span>whoami</h2>
-        <div class="term reveal">
-          <div class="term-bar" aria-hidden="true"><span class="dot"></span><span class="who">mingyu@1nfra: ~</span></div>
-          <div class="term-body" id="term-body">
-            <div class="ln"><span class="p">$ </span><span class="cmd">whoami</span></div>
-            <div class="out">김민규 — Infrastructure Engineer</div>
-            <div class="ln"><span class="p">$ </span><span class="cmd">cat stack.txt</span></div>
-            <div class="out">AWS · Azure · Naver Cloud · Kubernetes</div>
-            <div class="ln"><span class="p">$ </span><span class="cmd">certs --count</span></div>
-            <div class="out">18 certifications · verified</div>
-            <div class="ln idle"><span class="p">$ </span><span class="term-cursor" aria-hidden="true"></span></div>
-          </div>
+      <!-- $ cat about.md -->
+      <section class="step" id="about" aria-labelledby="s-about">
+        <h2 id="s-about" class="sr-only">About</h2>
+        <p class="cmd-line" aria-hidden="true">
+          <span class="prompt"><span class="u">mingyu@1nfra</span> <span class="path">~</span> <span class="pct">%</span></span>
+          <span class="cmd" data-type>cat about.md</span>
+        </p>
+        <div class="out md">
+          <p class="md-h"># Stack</p>
+          <div class="kv"><span class="k">cloud</span><span class="v">AWS · Microsoft Azure · Naver Cloud Platform</span></div>
+          <div class="kv"><span class="k">server</span><span class="v">Linux · Windows Server</span></div>
+          <div class="kv"><span class="k">network</span><span class="v">Ubiquiti · Cisco</span></div>
+          <div class="kv"><span class="k">orchestr</span><span class="v">Kubernetes <span class="dim">(CKA)</span></span></div>
+          <p class="md-h">## Education</p>
+          <div class="kv"><span class="k">대학원</span><span class="v">한양대학원 <span class="dim">재학</span></span></div>
+          <div class="kv"><span class="k">대학</span><span class="v">한양사이버대학교 <span class="dim">졸업</span></span></div>
+          <div class="kv"><span class="k">고교</span><span class="v">선린인터넷고등학교 <span class="dim">졸업</span></span></div>
         </div>
       </section>
 
-      <div class="rule sec-rule" aria-hidden="true"></div>
-      <section class="sec" id="about" aria-labelledby="about-title">
-        <h2 class="st reveal" id="about-title"><span class="n">03 — ABOUT</span>하는 일</h2>
-        <dl class="spec">
-          <div class="r reveal"><dt>Company</dt><dd>콘텐츠브릿지</dd></div>
-          <div class="r reveal"><dt>Cloud</dt><dd>AWS · Microsoft Azure · Naver Cloud Platform</dd></div>
-          <div class="r reveal"><dt>Server / OS</dt><dd>Linux · Windows Server</dd></div>
-          <div class="r reveal"><dt>Network</dt><dd>Ubiquiti · Cisco</dd></div>
-          <div class="r reveal"><dt>Orchestration</dt><dd>Kubernetes <span class="note">— CKA</span></dd></div>
-          <div class="r reveal"><dt>Education</dt><dd>한양대학원 <span class="note">재학</span> · 한양사이버대학교 <span class="note">졸업</span> · 선린인터넷고등학교 <span class="note">졸업</span></dd></div>
-        </dl>
+      <!-- $ certs --list -->
+      <section class="step" id="certs" aria-labelledby="s-certs">
+        <h2 id="s-certs" class="sr-only">자격증</h2>
+        <p class="cmd-line" aria-hidden="true">
+          <span class="prompt"><span class="u">mingyu@1nfra</span> <span class="path">~</span> <span class="pct">%</span></span>
+          <span class="cmd" data-type>certs --list</span>
+        </p>
+        <div class="out certs">
+          <div class="grp">
+            <p class="grp-h">CNCF <span class="cnt">1</span></p>
+            <div class="c"><span class="code">CKA</span><span class="cn">Certified Kubernetes Administrator</span></div>
+          </div>
+          <div class="grp">
+            <p class="grp-h">Microsoft Azure <span class="cnt">6</span></p>
+            <div class="c"><span class="code">AZ-305</span><span class="cn">Solutions Architect Expert</span></div>
+            <div class="c"><span class="code">AZ-400</span><span class="cn">DevOps Engineer Expert</span></div>
+            <div class="c"><span class="code">AZ-204</span><span class="cn">DevOps Engineer Associate</span></div>
+            <div class="c"><span class="code">AZ-104</span><span class="cn">Administrator Associate</span></div>
+            <div class="c"><span class="code">AZ-700</span><span class="cn">Network Engineer Associate</span></div>
+            <div class="c"><span class="code">AZ-900</span><span class="cn">Azure Fundamentals</span></div>
+          </div>
+          <div class="grp">
+            <p class="grp-h">Naver Cloud Platform <span class="cnt">3</span></p>
+            <div class="c"><span class="code">NCP-EXP</span><span class="cn">Expert</span></div>
+            <div class="c"><span class="code">NCP-PRO</span><span class="cn">Professional</span></div>
+            <div class="c"><span class="code">NCP-ASS</span><span class="cn">Associate</span></div>
+          </div>
+          <div class="grp">
+            <p class="grp-h">KT Cloud <span class="cnt">1</span></p>
+            <div class="c"><span class="code">KT-BASIC</span><span class="cn">KT Cloud Basic</span></div>
+          </div>
+          <div class="grp">
+            <p class="grp-h">KAIT <span class="cnt">4</span></p>
+            <div class="c"><span class="code">LM-1</span><span class="cn">리눅스마스터 1급</span></div>
+            <div class="c"><span class="code">LM-2</span><span class="cn">리눅스마스터 2급</span></div>
+            <div class="c"><span class="code">NM-1</span><span class="cn">네트워크관리사 1급</span></div>
+            <div class="c"><span class="code">NM-2</span><span class="cn">네트워크관리사 2급</span></div>
+          </div>
+          <div class="grp">
+            <p class="grp-h">KPC <span class="cnt">3</span></p>
+            <div class="c"><span class="code">IPT</span><span class="cn">정보처리기능사</span></div>
+            <div class="c"><span class="code">IDO</span><span class="cn">정보기기운용기능사</span></div>
+            <div class="c"><span class="code">PC-2</span><span class="cn">PC정비사 2급</span></div>
+          </div>
+          <p class="certs-total"><span class="dim">→</span> 18 certifications · verified</p>
+        </div>
       </section>
 
-      <div class="rule sec-rule" aria-hidden="true"></div>
-      <section class="sec" id="certifications" aria-labelledby="certs-title">
-        <h2 class="st reveal" id="certs-title"><span class="n">04 — CERTIFICATIONS</span>자격증 18</h2>
-        <table class="certs">
-          <caption class="sr-only">보유 자격증 목록</caption>
-          <tbody>
-            <tr class="reveal"><td class="code">CKA</td><td class="name">Certified Kubernetes Administrator</td><td class="iss">CNCF</td></tr>
-            <tr class="reveal"><td class="code">AZ-305</td><td class="name">Azure Solutions Architect Expert</td><td class="iss">Microsoft</td></tr>
-            <tr class="reveal"><td class="code">AZ-400</td><td class="name">Azure DevOps Engineer Expert</td><td class="iss">Microsoft</td></tr>
-            <tr class="reveal"><td class="code">AZ-204</td><td class="name">Azure DevOps Engineer Associate</td><td class="iss">Microsoft</td></tr>
-            <tr class="reveal"><td class="code">AZ-104</td><td class="name">Azure Administrator Associate</td><td class="iss">Microsoft</td></tr>
-            <tr class="reveal"><td class="code">AZ-700</td><td class="name">Azure Network Engineer Associate</td><td class="iss">Microsoft</td></tr>
-            <tr class="reveal"><td class="code">AZ-900</td><td class="name">Azure Fundamentals</td><td class="iss">Microsoft</td></tr>
-            <tr class="reveal"><td class="code">NCP-EXP</td><td class="name">Naver Cloud Platform Expert</td><td class="iss">NCP</td></tr>
-            <tr class="reveal"><td class="code">NCP-PRO</td><td class="name">Naver Cloud Platform Professional</td><td class="iss">NCP</td></tr>
-            <tr class="reveal"><td class="code">NCP-ASS</td><td class="name">Naver Cloud Platform Associate</td><td class="iss">NCP</td></tr>
-            <tr class="reveal"><td class="code">KT-BASIC</td><td class="name">KT Cloud Basic</td><td class="iss">KT Cloud</td></tr>
-            <tr class="reveal"><td class="code">LM-1</td><td class="name">리눅스마스터 1급</td><td class="iss">KAIT</td></tr>
-            <tr class="reveal"><td class="code">LM-2</td><td class="name">리눅스마스터 2급</td><td class="iss">KAIT</td></tr>
-            <tr class="reveal"><td class="code">NM-1</td><td class="name">네트워크관리사 1급</td><td class="iss">KAIT</td></tr>
-            <tr class="reveal"><td class="code">NM-2</td><td class="name">네트워크관리사 2급</td><td class="iss">KAIT</td></tr>
-            <tr class="reveal"><td class="code">IPT</td><td class="name">정보처리기능사</td><td class="iss">KPC</td></tr>
-            <tr class="reveal"><td class="code">IDO</td><td class="name">정보기기운용기능사</td><td class="iss">KPC</td></tr>
-            <tr class="reveal"><td class="code">PC-2</td><td class="name">PC정비사 2급</td><td class="iss">KPC</td></tr>
-          </tbody>
-        </table>
+      <!-- $ echo $CONTACT -->
+      <section class="step" id="contact" aria-labelledby="s-contact">
+        <h2 id="s-contact" class="sr-only">연락</h2>
+        <p class="cmd-line" aria-hidden="true">
+          <span class="prompt"><span class="u">mingyu@1nfra</span> <span class="path">~</span> <span class="pct">%</span></span>
+          <span class="cmd" data-type>echo $CONTACT</span>
+        </p>
+        <div class="out links">
+          <a href="https://blog.1nfra.kr" target="_blank" rel="noopener noreferrer"><span class="lk">blog</span>blog.1nfra.kr <span class="arr">→</span></a>
+          <a href="https://github.com/alsrbdmsco" target="_blank" rel="noopener noreferrer"><span class="lk">github</span>github.com/alsrbdmsco <span class="arr">→</span></a>
+          <a href="mailto:mingyu@1nfra.kr"><span class="lk">mail</span>mingyu@1nfra.kr <span class="arr">→</span></a>
+        </div>
       </section>
 
-      <div class="rule sec-rule" aria-hidden="true"></div>
-      <section class="sec" id="contact" aria-labelledby="contact-title">
-        <h2 class="st reveal" id="contact-title"><span class="n">05 — CONTACT</span>연락</h2>
-        <ul class="links">
-          <li class="reveal"><span class="lk">Blog</span><a href="https://blog.1nfra.kr" target="_blank" rel="noopener noreferrer">blog.1nfra.kr →</a></li>
-          <li class="reveal"><span class="lk">GitHub</span><a href="https://github.com/alsrbdmsco" target="_blank" rel="noopener noreferrer">github.com/alsrbdmsco →</a></li>
-          <li class="reveal"><span class="lk">Email</span><a href="mailto:mingyu@1nfra.kr">mingyu@1nfra.kr →</a></li>
-        </ul>
-      </section>
+      <!-- idle prompt -->
+      <p class="cmd-line idle" aria-hidden="true">
+        <span class="prompt"><span class="u">mingyu@1nfra</span> <span class="path">~</span> <span class="pct">%</span></span>
+        <span class="term-cursor"></span>
+      </p>
+
+      <footer class="foot">
+        <span>© 2026 김민규</span>
+        <span>Network &amp; Server Factory</span>
+      </footer>
     </main>
-
-    <footer class="foot">
-      <span>© 2026 김민규</span>
-      <span>Network &amp; Server Factory</span>
-    </footer>
   </div>
 
   <script src="assets/js/script.js"></script>
