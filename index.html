@@ -32,8 +32,8 @@
   <meta name="twitter:image" content="https://1nfra.kr/assets/images/og-image.png">
 
   <!-- Additional Meta Tags -->
-  <meta name="theme-color" content="#34d399">
-  <meta name="msapplication-TileColor" content="#34d399">
+  <meta name="theme-color" content="#f5f3ee">
+  <meta name="msapplication-TileColor" content="#f5f3ee">
 
   <!-- Preconnect for Performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,7 +41,7 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="assets/css/styles.css">
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400,500,600;1,9..144,400,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
@@ -64,48 +64,27 @@
       "name": "콘텐츠브릿지"
     },
     "alumniOf": [
-      {
-        "@type": "EducationalOrganization",
-        "name": "한양대학원"
-      },
-      {
-        "@type": "EducationalOrganization",
-        "name": "한양사이버대학교"
-      },
-      {
-        "@type": "EducationalOrganization",
-        "name": "선린인터넷고등학교"
-      }
+      { "@type": "EducationalOrganization", "name": "한양대학원" },
+      { "@type": "EducationalOrganization", "name": "한양사이버대학교" },
+      { "@type": "EducationalOrganization", "name": "선린인터넷고등학교" }
     ],
     "knowsAbout": [
-      "Cloud Computing",
-      "AWS",
-      "Microsoft Azure",
-      "Naver Cloud Platform",
-      "Kubernetes",
-      "Linux System Administration",
-      "Network Engineering",
-      "DevOps",
-      "Infrastructure as Code"
+      "Cloud Computing", "AWS", "Microsoft Azure", "Naver Cloud Platform",
+      "Kubernetes", "Linux System Administration", "Network Engineering",
+      "DevOps", "Infrastructure as Code"
     ],
     "hasCredential": [
       {
         "@type": "EducationalOccupationalCredential",
         "name": "Certified Kubernetes Administrator (CKA)",
         "credentialCategory": "certification",
-        "recognizedBy": {
-          "@type": "Organization",
-          "name": "Cloud Native Computing Foundation"
-        }
+        "recognizedBy": { "@type": "Organization", "name": "Cloud Native Computing Foundation" }
       },
       {
         "@type": "EducationalOccupationalCredential",
         "name": "Azure Solutions Architect Expert",
         "credentialCategory": "certification",
-        "recognizedBy": {
-          "@type": "Organization",
-          "name": "Microsoft"
-        }
+        "recognizedBy": { "@type": "Organization", "name": "Microsoft" }
       }
     ],
     "sameAs": [
@@ -116,256 +95,108 @@
   </script>
 </head>
 <body>
-  <!-- Skip to main content link for accessibility -->
-  <a href="#main-content" class="skip-link">본문으로 건너뛰기</a>
+  <a href="#main" class="skip-link">본문으로 건너뛰기</a>
 
-  <div class="scroll-progress" aria-hidden="true"></div>
-  <canvas id="particle-canvas" aria-hidden="true"></canvas>
-  <nav class="navbar" id="navbar" role="navigation" aria-label="주 네비게이션">
-    <div class="nav-container">
-      <div class="nav-logo">
-        <span class="logo-text">1nfra</span>
-        <span class="logo-subtitle">NETWORK & SERVER FACTORY</span>
-      </div>
-      <ul class="nav-menu" id="nav-menu">
-        <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-        <li class="nav-item"><a href="#certifications" class="nav-link">Certifications</a></li>
-        <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
-      <button class="nav-toggle" id="nav-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-menu">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </nav>
+  <div class="wrap">
+    <header class="topbar">
+      <a href="#home" class="brand">1nfra.kr</a>
+      <nav aria-label="주 네비게이션">
+        <a href="#about">About</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+    <div class="rule" aria-hidden="true"></div>
 
-  <main id="main-content">
-    <section id="home" class="hero-section" aria-labelledby="hero-title">
-      <div class="container">
-        <div class="hero-content fade-in-up">
-          <div class="hero-badge"><span>Infrastructure Engineer</span></div>
-          <h1 class="hero-title" id="hero-title">
-            <span class="title-line accent">Network & Server</span>
-            <span class="title-line">Factory</span>
-          </h1>
-          <p class="hero-subtitle">클라우드 인프라와 네트워크 엔지니어링 전문가로서<br>안정적이고 확장 가능한 시스템을 구축합니다</p>
-          <div class="hero-buttons">
-            <a href="#about" class="btn btn-primary" aria-label="프로필 보기 섹션으로 이동"><span>프로필 보기</span><i class="btn-icon" aria-hidden="true">→</i></a>
-            <a href="mailto:mingyu@1nfra.kr" class="btn btn-secondary" aria-label="이메일로 연락하기"><span>연락하기</span><i class="btn-icon" aria-hidden="true">✉</i></a>
+    <main id="main">
+      <section class="hero" id="home" aria-labelledby="hero-title">
+        <p class="eyebrow reveal"><span class="n">01</span><span>Infrastructure Engineer</span><span>Seoul, KR</span></p>
+        <h1 id="hero-title"><span class="l reveal">Network &amp; <em>Server</em></span><span class="l reveal">Factory</span></h1>
+        <div class="hero-foot">
+          <p class="lead reveal">서버와 네트워크가 조용히, 그리고 잘 돌아가게 만드는 일을 합니다. <span class="m">눈에 띄지 않는 인프라가 가장 좋은 인프라라고 생각합니다.</span></p>
+          <div class="meta reveal">
+            김민규 · 콘텐츠브릿지<br>
+            AWS · Azure · NCP · Kubernetes<br>
+            <a href="mailto:mingyu@1nfra.kr">mingyu@1nfra.kr →</a>
           </div>
-          <p class="hero-meta">18+ 자격증 · 4 클라우드 플랫폼 · 3 핵심 도메인</p>
         </div>
-      </div>
-      <div class="scroll-hint" aria-hidden="true"><span></span></div>
-    </section>
+      </section>
 
-    <section id="about" class="about-section" aria-labelledby="about-title">
-    <div class="container">
-      <div class="section-header fade-in-up">
-        <h2 class="section-title" id="about-title">About Me</h2>
-        <p class="section-subtitle">전문성과 경험을 바탕으로 한 인프라 엔지니어링</p>
-      </div>
-      <div class="about-grid">
-        <div class="about-info fade-in-up">
-          <div class="terminal-card">
-            <div class="terminal-header">
-              <span class="terminal-dot"></span>
-              <span class="terminal-title">mingyu@1nfra: ~</span>
-            </div>
-            <div class="terminal-body" id="terminal-body">
-              <div class="terminal-line"><span class="prompt">$ </span><span class="cmd">whoami</span></div>
-              <div class="terminal-output">김민규 — Infrastructure Engineer</div>
-              <div class="terminal-line"><span class="prompt">$ </span><span class="cmd">cat company</span></div>
-              <div class="terminal-output">콘텐츠브릿지</div>
-              <div class="terminal-line"><span class="prompt">$ </span><span class="cmd">cat education</span></div>
-              <div class="terminal-output">한양대학원 (재학)</div>
-              <div class="terminal-output">한양사이버대학교 (졸업)</div>
-              <div class="terminal-output">선린인터넷고등학교 (졸업)</div>
-              <div class="terminal-line"><span class="prompt">$ </span><span class="cmd">ls skills/</span></div>
-              <div class="terminal-output">cloud/    Azure, AWS, NCP</div>
-              <div class="terminal-output">server/   Linux, Windows</div>
-              <div class="terminal-output">network/  Ubiquiti, Cisco</div>
-              <div class="terminal-line"><span class="prompt">$ </span><span class="cmd">echo $CONTACT</span></div>
-              <div class="terminal-output"><a href="mailto:mingyu@1nfra.kr" class="terminal-link">mingyu@1nfra.kr</a></div>
-              <div class="terminal-line"><span class="prompt">$ </span><span class="terminal-cursor"></span></div>
-            </div>
+      <div class="rule sec-rule" aria-hidden="true"></div>
+      <section class="sec" id="terminal" aria-label="프로필 터미널">
+        <h2 class="st reveal"><span class="n">02 — TERMINAL</span>whoami</h2>
+        <div class="term reveal">
+          <div class="term-bar" aria-hidden="true"><span class="dot"></span><span class="who">mingyu@1nfra: ~</span></div>
+          <div class="term-body" id="term-body">
+            <div class="ln"><span class="p">$ </span><span class="cmd">whoami</span></div>
+            <div class="out">김민규 — Infrastructure Engineer</div>
+            <div class="ln"><span class="p">$ </span><span class="cmd">cat stack.txt</span></div>
+            <div class="out">AWS · Azure · Naver Cloud · Kubernetes</div>
+            <div class="ln"><span class="p">$ </span><span class="cmd">certs --count</span></div>
+            <div class="out">18 certifications · verified</div>
+            <div class="ln idle"><span class="p">$ </span><span class="term-cursor" aria-hidden="true"></span></div>
           </div>
         </div>
-        <div class="about-content fade-in-up">
-          <div class="content-block">
-            <h3>Infrastructure Engineering Expertise</h3>
-            <p>네트워크와 서버 인프라 구축에 대한 깊은 이해를 바탕으로 현대적인 클라우드 환경에서 안정적이고 확장 가능한 시스템을 설계하고 운영합니다.</p>
-          </div>
-          <div class="content-block">
-            <h3>Multi-Cloud Strategy</h3>
-            <p>AWS, Azure, Naver Cloud Platform 등 다양한 클라우드 환경에서의 경험을 바탕으로 최적화된 인프라 솔루션을 제공합니다.</p>
-          </div>
-          <div class="content-block">
-            <h3>Continuous Learning</h3>
-            <p>지속적인 학습과 인증 취득을 통해 최신 기술 트렌드를 파악하고 혁신적인 인프라 솔루션을 제공하기 위해 노력합니다.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <section id="certifications" class="certifications-section" aria-labelledby="certifications-title">
-    <div class="container">
-      <div class="section-header fade-in-up">
-        <h2 class="section-title" id="certifications-title">Professional Certifications</h2>
-        <p class="section-subtitle">지속적인 학습과 전문성 인증</p>
-      </div>
-      <div class="certifications-grid">
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge kubernetes"><span class="cert-provider">CNCF</span></div>
-          <h3>Certified Kubernetes Administrator</h3>
-          <p class="cert-code">CKA</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge azure"><span class="cert-provider">Microsoft</span></div>
-          <h3>Azure Solutions Architect Expert</h3>
-          <p class="cert-code">AZ-305</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge azure"><span class="cert-provider">Microsoft</span></div>
-          <h3>Azure Administrator Associate</h3>
-          <p class="cert-code">AZ-104</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge azure"><span class="cert-provider">Microsoft</span></div>
-          <h3>Azure DevOps Engineer Expert</h3>
-          <p class="cert-code">AZ-400</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge azure"><span class="cert-provider">Microsoft</span></div>
-          <h3>Azure DevOps Engineer Associate</h3>
-          <p class="cert-code">AZ-204</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge azure"><span class="cert-provider">Microsoft</span></div>
-          <h3>Azure Network Engineer Associate</h3>
-          <p class="cert-code">AZ-700</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge azure"><span class="cert-provider">Microsoft</span></div>
-          <h3>Azure Fundamentals</h3>
-          <p class="cert-code">AZ-900</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge ncp"><span class="cert-provider">NCP</span></div>
-          <h3>Naver Cloud Platform Expert</h3>
-          <p class="cert-code">NCP-EXP</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge ncp"><span class="cert-provider">NCP</span></div>
-          <h3>Naver Cloud Platform Professional</h3>
-          <p class="cert-code">NCP-PRO</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge ncp"><span class="cert-provider">NCP</span></div>
-          <h3>Naver Cloud Platform Associate</h3>
-          <p class="cert-code">NCP-ASS</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge azure"><span class="cert-provider">KT Cloud</span></div>
-          <h3>KTCloud Basic</h3>
-          <p class="cert-code">KT-BASIC</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge linux"><span class="cert-provider">KAIT</span></div>
-          <h3>Linux Master 1급</h3>
-          <p class="cert-code">LM-1</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge linux"><span class="cert-provider">KAIT</span></div>
-          <h3>Linux Master 2급</h3>
-          <p class="cert-code">LM-2</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge network"><span class="cert-provider">KAIT</span></div>
-          <h3>네트워크관리사 1급</h3>
-          <p class="cert-code">NM-1</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge network"><span class="cert-provider">KAIT</span></div>
-          <h3>네트워크관리사 2급</h3>
-          <p class="cert-code">NM-2</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge linux"><span class="cert-provider">KPC</span></div>
-          <h3>정보처리기능사</h3>
-          <p class="cert-code">Information Processing Technician</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge linux"><span class="cert-provider">KPC</span></div>
-          <h3>정보기기운용기능사</h3>
-          <p class="cert-code">Information Device Operation Technician</p>
-        </div>
-        <div class="cert-card fade-in-up">
-          <div class="cert-badge linux"><span class="cert-provider">KPC</span></div>
-          <h3>PC정비사 2급</h3>
-          <p class="cert-code">PC Mechanic 2</p>
-        </div>
-      </div>
-    </div>
-  </section>
+      <div class="rule sec-rule" aria-hidden="true"></div>
+      <section class="sec" id="about" aria-labelledby="about-title">
+        <h2 class="st reveal" id="about-title"><span class="n">03 — ABOUT</span>하는 일</h2>
+        <dl class="spec">
+          <div class="r reveal"><dt>Company</dt><dd>콘텐츠브릿지</dd></div>
+          <div class="r reveal"><dt>Cloud</dt><dd>AWS · Microsoft Azure · Naver Cloud Platform</dd></div>
+          <div class="r reveal"><dt>Server / OS</dt><dd>Linux · Windows Server</dd></div>
+          <div class="r reveal"><dt>Network</dt><dd>Ubiquiti · Cisco</dd></div>
+          <div class="r reveal"><dt>Orchestration</dt><dd>Kubernetes <span class="note">— CKA</span></dd></div>
+          <div class="r reveal"><dt>Education</dt><dd>한양대학원 <span class="note">재학</span> · 한양사이버대학교 <span class="note">졸업</span> · 선린인터넷고등학교 <span class="note">졸업</span></dd></div>
+        </dl>
+      </section>
 
-  <section id="contact" class="contact-section" aria-labelledby="contact-title">
-    <div class="container">
-      <div class="section-header fade-in-up">
-        <h2 class="section-title" id="contact-title">Get In Touch</h2>
-        <p class="section-subtitle">새로운 기회와 협업을 위한 연락</p>
-      </div>
-      <div class="contact-content">
-        <div class="contact-info fade-in-up">
-          <div class="contact-card">
-            <div class="contact-icon">✉️</div>
-            <h3>Email</h3>
-            <p>mingyu@1nfra.kr</p>
-            <a href="mailto:mingyu@1nfra.kr" class="contact-link">Send Message</a>
-          </div>
-          <div class="contact-card">
-            <div class="contact-icon">📱</div>
-            <h3>Blog</h3>
-            <p>기술 블로그 및 인사이트</p>
-            <a href="https://blog.1nfra.kr" class="contact-link" target="_blank" rel="noopener noreferrer">Visit Blog</a>
-          </div>
-          <div class="contact-card">
-            <div class="contact-icon">💻</div>
-            <h3>GitHub</h3>
-            <p>프로젝트 및 코드 저장소</p>
-            <a href="https://github.com/alsrbdmsco" class="contact-link" target="_blank" rel="noopener noreferrer">View Projects</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  </main>
+      <div class="rule sec-rule" aria-hidden="true"></div>
+      <section class="sec" id="certifications" aria-labelledby="certs-title">
+        <h2 class="st reveal" id="certs-title"><span class="n">04 — CERTIFICATIONS</span>자격증 18</h2>
+        <table class="certs">
+          <caption class="sr-only">보유 자격증 목록</caption>
+          <tbody>
+            <tr class="reveal"><td class="code">CKA</td><td class="name">Certified Kubernetes Administrator</td><td class="iss">CNCF</td></tr>
+            <tr class="reveal"><td class="code">AZ-305</td><td class="name">Azure Solutions Architect Expert</td><td class="iss">Microsoft</td></tr>
+            <tr class="reveal"><td class="code">AZ-400</td><td class="name">Azure DevOps Engineer Expert</td><td class="iss">Microsoft</td></tr>
+            <tr class="reveal"><td class="code">AZ-204</td><td class="name">Azure DevOps Engineer Associate</td><td class="iss">Microsoft</td></tr>
+            <tr class="reveal"><td class="code">AZ-104</td><td class="name">Azure Administrator Associate</td><td class="iss">Microsoft</td></tr>
+            <tr class="reveal"><td class="code">AZ-700</td><td class="name">Azure Network Engineer Associate</td><td class="iss">Microsoft</td></tr>
+            <tr class="reveal"><td class="code">AZ-900</td><td class="name">Azure Fundamentals</td><td class="iss">Microsoft</td></tr>
+            <tr class="reveal"><td class="code">NCP-EXP</td><td class="name">Naver Cloud Platform Expert</td><td class="iss">NCP</td></tr>
+            <tr class="reveal"><td class="code">NCP-PRO</td><td class="name">Naver Cloud Platform Professional</td><td class="iss">NCP</td></tr>
+            <tr class="reveal"><td class="code">NCP-ASS</td><td class="name">Naver Cloud Platform Associate</td><td class="iss">NCP</td></tr>
+            <tr class="reveal"><td class="code">KT-BASIC</td><td class="name">KT Cloud Basic</td><td class="iss">KT Cloud</td></tr>
+            <tr class="reveal"><td class="code">LM-1</td><td class="name">리눅스마스터 1급</td><td class="iss">KAIT</td></tr>
+            <tr class="reveal"><td class="code">LM-2</td><td class="name">리눅스마스터 2급</td><td class="iss">KAIT</td></tr>
+            <tr class="reveal"><td class="code">NM-1</td><td class="name">네트워크관리사 1급</td><td class="iss">KAIT</td></tr>
+            <tr class="reveal"><td class="code">NM-2</td><td class="name">네트워크관리사 2급</td><td class="iss">KAIT</td></tr>
+            <tr class="reveal"><td class="code">IPT</td><td class="name">정보처리기능사</td><td class="iss">KPC</td></tr>
+            <tr class="reveal"><td class="code">IDO</td><td class="name">정보기기운용기능사</td><td class="iss">KPC</td></tr>
+            <tr class="reveal"><td class="code">PC-2</td><td class="name">PC정비사 2급</td><td class="iss">KPC</td></tr>
+          </tbody>
+        </table>
+      </section>
 
-  <footer class="footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-info">
-          <h3>1nfra</h3>
-          <p>Network & Server Factory</p>
-        </div>
-        <div class="footer-links">
-          <a href="#home">Home</a>
-          <a href="#about">About</a>
-          <a href="#certifications">Certifications</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 1nfra. All Rights Reserved.</p>
-      </div>
-    </div>
-  </footer>
+      <div class="rule sec-rule" aria-hidden="true"></div>
+      <section class="sec" id="contact" aria-labelledby="contact-title">
+        <h2 class="st reveal" id="contact-title"><span class="n">05 — CONTACT</span>연락</h2>
+        <ul class="links">
+          <li class="reveal"><span class="lk">Blog</span><a href="https://blog.1nfra.kr" target="_blank" rel="noopener noreferrer">blog.1nfra.kr →</a></li>
+          <li class="reveal"><span class="lk">GitHub</span><a href="https://github.com/alsrbdmsco" target="_blank" rel="noopener noreferrer">github.com/alsrbdmsco →</a></li>
+          <li class="reveal"><span class="lk">Email</span><a href="mailto:mingyu@1nfra.kr">mingyu@1nfra.kr →</a></li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span>© 2026 김민규</span>
+      <span>Network &amp; Server Factory</span>
+    </footer>
+  </div>
 
   <script src="assets/js/script.js"></script>
 </body>
 </html>
-
-
-
-
