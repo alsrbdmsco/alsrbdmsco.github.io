@@ -327,7 +327,7 @@ class HeroFlythrough {
 
     let ticking = false;
     const update = () => {
-      const progress = Math.min(window.scrollY / (window.innerHeight * 0.85), 1);
+      const progress = Math.min(window.scrollY / (window.innerHeight * 0.6), 1);
 
       if (progress <= 0) {
         // 최상단에서는 인라인 스타일을 제거해 진입 애니메이션과 충돌하지 않게 한다
@@ -337,9 +337,9 @@ class HeroFlythrough {
         this.el.style.transition = '';
       } else {
         this.el.style.transition = 'none';
-        this.el.style.transform = `translateY(${progress * -40}px) scale(${1 + progress * 0.45})`;
-        this.el.style.opacity = `${Math.max(1 - progress * 1.15, 0)}`;
-        this.el.style.filter = `blur(${(progress * 6).toFixed(2)}px)`;
+        this.el.style.transform = `translateY(${progress * -24}px) scale(${1 + progress * 0.12})`;
+        this.el.style.opacity = `${Math.max(1 - progress, 0)}`;
+        this.el.style.filter = `blur(${(progress * 3).toFixed(2)}px)`;
       }
       ticking = false;
     };
@@ -364,23 +364,30 @@ class TerminalTyper {
     if (!this.body) return;
 
     this.lines = [
-      { cmd: 'whoami', out: ['mingyu — Infrastructure Engineer @ 1nfra'] },
+      { cmd: 'whoami', out: ['mingyu — Infrastructure Engineer'] },
       {
         cmd: 'kubectl get nodes',
         out: [
           'NAME        STATUS   ROLES           AGE',
-          'prod-ctrl   Ready    control-plane   2y',
-          'prod-node   Ready    worker          2y'
+          'prod-ctrl   Ready    control-plane   2y'
         ]
       },
-      { cmd: 'ls ~/stack', out: ['aws/  azure/  ncp/  kubernetes/  linux/  network/'] }
+      { cmd: 'ls ~/stack', out: ['aws/  azure/  ncp/  k8s/  linux/  network/'] }
     ];
 
     if (prefersReducedMotion) {
       this.renderStatic();
       return;
     }
-    this.start();
+
+    // 화면에 들어왔을 때부터 타이핑 시작
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some(entry => entry.isIntersecting)) {
+        observer.disconnect();
+        this.start();
+      }
+    }, { threshold: 0.3 });
+    observer.observe(this.body);
   }
 
   makePromptLine() {
@@ -468,7 +475,7 @@ class TiltEffect {
     if (prefersReducedMotion || !hasHoverPointer) return;
 
     const MAX_DEG = 7;
-    document.querySelectorAll('.cert-card, .contact-card, .info-card, .stat-item').forEach(card => {
+    document.querySelectorAll('.cert-card, .contact-card, .info-card').forEach(card => {
       card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const px = (e.clientX - rect.left) / rect.width - 0.5;
@@ -481,53 +488,6 @@ class TiltEffect {
         card.style.transform = '';
       });
     });
-  }
-}
-
-// ========================================
-// 숫자 카운터 (통계)
-// ========================================
-
-class StatCounter {
-  constructor() {
-    this.counters = document.querySelectorAll('.stat-number[data-target]');
-    if (!this.counters.length) return;
-
-    if (prefersReducedMotion) {
-      this.counters.forEach(el => this.setFinal(el));
-      return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          this.animate(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    this.counters.forEach(el => observer.observe(el));
-  }
-
-  setFinal(el) {
-    el.textContent = el.dataset.target + (el.dataset.suffix || '');
-  }
-
-  animate(el) {
-    const target = parseInt(el.dataset.target, 10);
-    const suffix = el.dataset.suffix || '';
-    const duration = 1200;
-    let startTime = null;
-
-    const step = (timestamp) => {
-      if (!startTime) startTime = timestamp;
-      const progress = Math.min((timestamp - startTime) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.round(target * eased) + suffix;
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
   }
 }
 
@@ -551,7 +511,7 @@ class ScrollAnimationManager {
 
   applyStagger() {
     if (prefersReducedMotion) return;
-    const grids = document.querySelectorAll('.certifications-grid, .about-info, .about-content, .contact-info, .stats-grid');
+    const grids = document.querySelectorAll('.certifications-grid, .about-info, .about-content, .contact-info');
     grids.forEach(grid => {
       Array.from(grid.children).forEach((child, i) => {
         if (child.classList.contains('fade-in-up')) {
@@ -595,7 +555,6 @@ class App {
       new HeroFlythrough();
       new TerminalTyper();
       new TiltEffect();
-      new StatCounter();
 
       this.setupVisibilityHandling();
     });
