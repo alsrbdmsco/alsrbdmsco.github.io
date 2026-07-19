@@ -1,7 +1,7 @@
 /* ============================================================
    1nfra.kr — CLI / terminal-OS theme (light)
    Whole page is one shell session. Fraunces banner for 간지,
-   JetBrains Mono for the shell, Inter for prose.
+   Ubuntu Mono for the shell (the Ubuntu terminal font), Inter for prose.
    Korean glyphs render in SUIT (Latin fonts have none), so SUIT
    sits second in every stack — Latin keeps its font, 한글 uses SUIT.
    ============================================================ */
@@ -30,7 +30,7 @@
   --bar-fg: #d8d4c8;
   --display: 'Fraunces', 'SUIT Variable', Georgia, 'Times New Roman', serif;
   --sans: 'Inter', 'SUIT Variable', system-ui, -apple-system, sans-serif;
-  --mono: 'JetBrains Mono', 'SUIT Variable', ui-monospace, Menlo, monospace;
+  --mono: 'Ubuntu Mono', 'SUIT Variable', ui-monospace, Menlo, monospace;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
