@@ -2,7 +2,19 @@
    1nfra.kr — CLI / terminal-OS theme (light)
    Whole page is one shell session. Fraunces banner for 간지,
    JetBrains Mono for the shell, Inter for prose.
+   Korean glyphs render in SUIT (Latin fonts have none), so SUIT
+   sits second in every stack — Latin keeps its font, 한글 uses SUIT.
    ============================================================ */
+
+@font-face {
+  font-family: 'SUIT Variable';
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  /* restrict to Hangul so Latin always stays in its intended font */
+  unicode-range: U+AC00-D7A3, U+1100-11FF, U+3130-318F, U+A960-A97F;
+  src: url('https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.woff2') format('woff2-variations');
+}
 
 :root {
   --frame: #e5e2d9;      /* outside the window */
@@ -16,9 +28,9 @@
   --amber: #b06a12;      /* counts / secondary */
   --bar: #17150f;        /* dark title bar */
   --bar-fg: #d8d4c8;
-  --display: 'Fraunces', Georgia, 'Times New Roman', serif;
-  --sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --mono: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --display: 'Fraunces', 'SUIT Variable', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', 'SUIT Variable', system-ui, -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', 'SUIT Variable', ui-monospace, Menlo, monospace;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
