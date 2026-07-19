@@ -58,8 +58,8 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   padding: 12px 18px; font-size: 12px; letter-spacing: 0.03em;
 }
 .win-bar .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--accent); flex: none; }
-.win-bar .win-title { color: #8b8578; }
-.win-bar .win-nav { margin-left: auto; display: flex; gap: 18px; }
+.win-bar .win-title { color: #8b8578; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.win-bar .win-nav { margin-left: auto; display: flex; gap: 18px; flex: none; }
 .win-bar .win-nav a { color: #8b8578; transition: color .2s; }
 .win-bar .win-nav a:hover { color: var(--bar-fg); }
 
@@ -153,6 +153,9 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   body { padding: 16px 10px; }
   .screen { padding: 34px 20px 30px; }
   .win-bar .win-nav { gap: 12px; }
+  /* narrow screens: the window title would wrap next to the nav — hide it,
+     the traffic-light dot alone reads as a terminal window */
+  .win-bar .win-title { display: none; }
   .cmd-line { white-space: normal; }
   .md .kv { grid-template-columns: 88px 1fr; gap: 12px; }
   /* narrow screens: stack the period under the name instead of squeezing it right */
