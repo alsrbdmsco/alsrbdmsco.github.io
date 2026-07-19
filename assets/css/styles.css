@@ -108,11 +108,11 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .md .kv .v { font-family: var(--sans); font-size: 15.5px; }
 .md .md-h:not(:first-child) { margin-top: 22px; }
 
-/* history rows (career / education): name left, period aligned in a tidy column
-   close to the names — capped width keeps the date from floating far right */
-.md .kv.hist .v { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; max-width: 400px; }
+/* history rows (career / education): name in a fixed column, period left-aligned
+   after it so every start year lines up in the same place */
+.md .kv.hist .v { display: grid; grid-template-columns: 190px auto; align-items: baseline; gap: 16px; }
 .md .kv.hist .nm { min-width: 0; }
-.md .when { flex: none; font-family: var(--mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.md .when { font-family: var(--mono); font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 /* certs --list */
 .certs .grp { margin-top: 18px; }
@@ -156,7 +156,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
   .cmd-line { white-space: normal; }
   .md .kv { grid-template-columns: 88px 1fr; gap: 12px; }
   /* narrow screens: stack the period under the name instead of squeezing it right */
-  .md .kv.hist .v { flex-direction: column; align-items: flex-start; gap: 1px; }
+  .md .kv.hist .v { grid-template-columns: 1fr; gap: 1px; }
   .certs .c { grid-template-columns: 92px 1fr; gap: 12px; }
   .links a { grid-template-columns: 76px 1fr; gap: 12px; }
   .out .para { font-size: 15px; }

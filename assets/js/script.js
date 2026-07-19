@@ -86,12 +86,23 @@
         t.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
         t.setAttribute('tabindex', '-1');
         t.focus({ preventScroll: true });
-        history.replaceState(null, '', id);
+        // intentionally do NOT write the hash to the URL, so a refresh
+        // always reopens the page from the top (a fresh terminal session)
       });
     });
   }
 
-  function init() { initBanner(); initSteps(); initAnchors(); }
+  // Always start a refresh at the top: disable the browser's scroll
+  // restoration and clear any leftover hash before it can jump.
+  function initScrollTop() {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    if (location.hash) {
+      history.replaceState(null, '', location.pathname + location.search);
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function init() { initScrollTop(); initBanner(); initSteps(); initAnchors(); }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
