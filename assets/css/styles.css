@@ -55,7 +55,7 @@ ul { list-style: none; }
 }
 .nav.stuck { border-bottom-color: var(--g200); }
 .nav .wrap { display: flex; align-items: center; height: 62px; }
-.nav .brand { font-size: 18px; font-weight: 800; letter-spacing: -0.04em; }
+.nav .brand { font-size: 21px; font-weight: 800; letter-spacing: -0.04em; }
 .nav .menu { margin-left: auto; display: flex; gap: 22px; font-size: 15px; font-weight: 600; color: var(--g600); }
 .nav .menu a { transition: color .15s; }
 .nav .menu a:hover { color: var(--g900); }
@@ -70,7 +70,7 @@ ul { list-style: none; }
   font-size: 14px; font-weight: 700; padding: 6px 14px; border-radius: 999px;
 }
 .hero h1 {
-  font-size: clamp(30px, 5vw, 54px); font-weight: 800;
+  font-size: clamp(28px, 4.2vw, 44px); font-weight: 800;
   line-height: 1.32; letter-spacing: -0.04em;
 }
 .hero .sub { margin-top: 20px; font-size: 17px; line-height: 1.7; color: var(--g700); }
@@ -221,7 +221,7 @@ ul { list-style: none; }
   :root { --w: 1120px; --gap: 14px; }
   .wrap { padding-inline: 32px; }
   .nav .wrap { height: 70px; }
-  .nav .brand { font-size: 19px; }
+  .nav .brand { font-size: 22px; }
 
   .hero {
     padding-block: 88px 64px;
@@ -240,7 +240,7 @@ ul { list-style: none; }
 
 @media (min-width: 1440px) {
   :root { --w: 1200px; }
-  .hero h1 { font-size: 56px; }
+  .hero h1 { font-size: 46px; }
 }
 
 @media (min-width: 641px) and (max-width: 1023px) {
@@ -256,7 +256,7 @@ ul { list-style: none; }
   :root { --gap: 12px; }
   .wrap { padding-inline: 20px; }
   .nav .wrap { height: 56px; }
-  .nav .brand { font-size: 17px; }
+  .nav .brand { font-size: 19px; }
   .nav .menu { gap: 14px; font-size: 13.5px; }
 
   .hero { padding-block: 44px 40px; }
