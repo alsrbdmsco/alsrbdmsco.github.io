@@ -149,8 +149,9 @@ ul { list-style: none; }
 .g2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
-.cols { columns: 2; column-gap: var(--gap); }
-.cols > .card { break-inside: avoid; margin-bottom: var(--gap); }
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
+.cols .col { display: flex; flex-direction: column; gap: var(--gap); }
+.cols .col .card { flex: 1 0 auto; }
 
 .card { background: var(--g50); border-radius: var(--radius); padding: 24px 26px; }
 
@@ -277,7 +278,7 @@ ul { list-style: none; }
   .sec-h .desc { font-size: 15px; }
 
   .g2, .g3 { grid-template-columns: minmax(0, 1fr); }
-  .cols { columns: 1; }
+  .cols { grid-template-columns: minmax(0, 1fr); }
   .card, .item, .links a { padding: 20px 22px; }
   .card-h { padding-bottom: 12px; }
   .row { padding: 12px 0; gap: 6px 12px; flex-wrap: wrap; }
