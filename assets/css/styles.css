@@ -267,11 +267,7 @@ ul { list-style: none; }
   .hero .sub { font-size: 16px; margin-top: 16px; }
   .hero .cta { margin-top: 26px; }
   .hero .cta .btn { flex: 1 1 auto; }
-  .viz { margin-top: 24px; }
-  .viz svg { max-width: 200px; }
-
-  .viz .wires path { stroke-width: 2.6; }
-  .viz .led { r: 3.6; }
+  .viz { display: none; }
 
   .sec { padding-block: 54px; }
   .sec-h { margin-bottom: 20px; }
