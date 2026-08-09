@@ -260,14 +260,14 @@ ul { list-style: none; }
   .nav .brand { font-size: 19px; }
   .nav .menu { gap: 14px; font-size: 13.5px; }
 
-  .hero { padding-block: 44px 40px; }
-  .hero h1 br { display: none; }
+  .hero { padding-block: 36px 36px; }
+  .hero h1 br, .hero .sub br { display: none; }
   .hero .eyebrow { font-size: 13px; padding: 5px 12px; margin-bottom: 16px; }
   .hero .sub { font-size: 16px; margin-top: 16px; }
   .hero .cta { margin-top: 26px; }
   .hero .cta .btn { flex: 1 1 auto; }
-  .viz { margin-top: 30px; }
-  .viz svg { max-width: 285px; }
+  .viz { margin-top: 24px; }
+  .viz svg { max-width: 200px; }
 
   .viz .wires path { stroke-width: 2.6; }
   .viz .led { r: 3.6; }
