@@ -111,13 +111,13 @@ ul { list-style: none; }
 .viz .n2   { animation-duration: 5.1s; animation-delay: -2.3s; }
 .viz .n3   { animation-duration: 4.6s; animation-delay: -3.4s; }
 .viz .rack { animation-name: bobHeavy; animation-duration: 5.4s; animation-delay: -1.1s; }
-@keyframes bob      { 0%, 100% { transform: translateY(-7px); } 50% { transform: translateY(7px); } }
-@keyframes bobHeavy { 0%, 100% { transform: translateY(-4px); } 50% { transform: translateY(4px); } }
+@keyframes bob      { 0%, 100% { transform: translateY(-3px); } 50% { transform: translateY(3px); } }
+@keyframes bobHeavy { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(2px); } }
 
 .viz .shade { animation: shade 5.4s ease-in-out infinite -1.1s; }
 @keyframes shade {
-  0%, 100% { transform: scale(.93); opacity: .6; }
-  50%      { transform: scale(1.05); opacity: 1; }
+  0%, 100% { transform: scale(1.03); opacity: .6; }
+  50%      { transform: scale(.96); opacity: .95; }
 }
 
 .viz .pkt { fill: var(--blue-dark); r: 0; }
