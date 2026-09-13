@@ -202,9 +202,8 @@ ul { list-style: none; }
   .nav .menu { gap: 2px; font-size: 13.5px; }
   .nav .menu a { display: inline-flex; align-items: center; min-height: 44px; padding-inline: 7px; }
 
-  .hero { padding-block: 24px 48px; display: flex; flex-direction: column-reverse; }
-  .viz { margin: 0 0 22px; }
-  .viz svg { max-width: 176px; margin-inline: 0; }
+  .hero { padding-block: 36px 48px; }
+  .viz { display: none; }
   .hero h1 { font-size: clamp(23px, 6.6vw, 27px); line-height: 1.32; }
   .hero .sub br { display: none; }
   .hero .sub { font-size: 15.5px; line-height: 1.65; margin-top: 14px; }
