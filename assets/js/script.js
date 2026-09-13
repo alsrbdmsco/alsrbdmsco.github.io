@@ -12,6 +12,21 @@
     el.textContent = s[0] + '.' + String(s[1]).padStart(2, '0') + ' ~ (' + (dur || '이번 달') + ')';
   });
 
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window) || still) {
+    items.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e, i) {
+        if (!e.isIntersecting) return;
+        setTimeout(function () { e.target.classList.add('in'); }, i * 70);
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
+    items.forEach(function (el) { io.observe(el); });
+  }
+
   var nav = document.querySelector('.nav');
   if (nav) {
     var update = function () { nav.classList.toggle('stuck', window.scrollY > 8); };
