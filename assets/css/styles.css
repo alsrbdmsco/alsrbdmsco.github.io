@@ -87,11 +87,11 @@ ul { list-style: none; }
 .viz .node .lft { fill: url(#nLft); }
 .viz .node .rgt { fill: url(#nRgt); }
 .viz .wires path { fill: none; stroke: var(--g300); stroke-width: 1.75; stroke-linecap: round; }
-.viz .led { fill: rgba(255,255,255,.35); }
-.viz .led.on { fill: #eaf4ff; filter: url(#glow); opacity: 0; animation: ledOn .5s ease-out 3.6s forwards; }
+.viz .led { fill: rgba(255,255,255,.28); }
+.viz .led.on { fill: #4d9bff; filter: url(#glow); opacity: 0; animation: ledOn .5s ease-out 3.6s forwards; }
 @keyframes ledOn { to { opacity: 1; } }
 .viz .shade { fill: rgba(25,31,40,.16); filter: blur(10px); }
-.viz .contact { fill: rgba(13,30,60,.28); filter: blur(3px); }
+.viz .contact { fill: rgba(20,22,26,.26); filter: blur(3px); }
 
 .viz .pkt { fill: var(--blue-dark); r: 0; }
 @supports (offset-path: path("M0 0 L1 1")) {
