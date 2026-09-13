@@ -85,7 +85,7 @@
 
   <header class="nav">
     <div class="wrap">
-      <a class="brand" href="/">1nfra</a>
+      <a class="brand" href="/" translate="no">1nfra</a>
       <nav class="menu" aria-label="주 네비게이션">
         <a href="#stack">Stack</a>
         <a href="#career">Career</a>
@@ -110,7 +110,6 @@
       </div>
 
       <div class="viz" aria-hidden="true">
-
         <svg viewBox="40 34 320 280" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="rTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a3c9ff"/><stop offset="1" stop-color="#5896f5"/></linearGradient>
@@ -178,39 +177,37 @@
       <div class="sec-h">
         <h2 id="h-stack">Stack</h2>
       </div>
-      <div class="grid g2">
-        <div class="item"><p class="k">Cloud</p><p class="v">AWS · Microsoft Azure · Naver Cloud Platform</p></div>
-        <div class="item"><p class="k">Container</p><p class="v">Kubernetes · Docker</p></div>
-        <div class="item"><p class="k">Server</p><p class="v">Linux · Windows Server</p></div>
-        <div class="item"><p class="k">Network</p><p class="v">Ubiquiti · Cisco</p></div>
-      </div>
+      <dl class="stack">
+        <dt>Cloud</dt><dd>AWS, Microsoft Azure, Naver Cloud Platform</dd>
+        <dt>Container</dt><dd>Kubernetes, Docker</dd>
+        <dt>Server</dt><dd>Linux, Windows Server</dd>
+        <dt>Network</dt><dd>Ubiquiti, Cisco</dd>
+      </dl>
     </section>
 
     <section class="sec wrap" id="career" aria-labelledby="h-career">
       <div class="sec-h">
         <h2 id="h-career">Career &amp; Education</h2>
       </div>
-
       <div class="grid g2">
-        <div class="card">
-          <p class="card-h">Career</p>
-          <div class="row">
-            <span class="k">회사</span>
-            <span class="v">콘텐츠브릿지</span>
-
-            <span class="when" data-since="2020-11-01">2020.11 ~ · 5년 9개월</span>
-          </div>
-          <ul class="did">
-            <li>CDN 운영 (온프레미스 · 클라우드)</li>
-            <li>Cloud 운영 (Azure · AWS)</li>
-            <li>AI GPU 기술 검증 (온프레미스 · 클라우드)</li>
+        <div class="group">
+          <h3 class="card-h">Career</h3>
+          <dl class="row">
+            <dt class="k">회사</dt>
+            <dd class="v">콘텐츠브릿지</dd>
+            <dd class="when" data-since="2020-11-01">2020.11 ~</dd>
+          </dl>
+          <ul class="did" role="list">
+            <li>CDN 운영 (온프레미스와 클라우드)</li>
+            <li>Cloud 운영 (Azure, AWS)</li>
+            <li>AI GPU 기술 검증 (온프레미스와 클라우드)</li>
           </ul>
         </div>
-        <div class="card">
-          <p class="card-h">Education</p>
-          <div class="row"><span class="k">대학원</span><span class="v">한양대학원 <span class="dept">컴퓨터공학과</span></span><span class="when">2026 ~<span class="pad" aria-hidden="true"> 0000</span></span></div>
-          <div class="row"><span class="k">대학</span><span class="v">한양사이버대학교 <span class="dept">컴퓨터공학과</span></span><span class="when">2021 ~ 2025</span></div>
-          <div class="row"><span class="k">고교</span><span class="v">선린인터넷고등학교 <span class="dept">정보보호과</span></span><span class="when">2018 ~ 2021</span></div>
+        <div class="group">
+          <h3 class="card-h">Education</h3>
+          <dl class="row"><dt class="k">대학원</dt><dd class="v">한양대학원 <span class="dept">컴퓨터공학과</span></dd><dd class="when">2026 ~</dd></dl>
+          <dl class="row"><dt class="k">대학</dt><dd class="v">한양사이버대학교 <span class="dept">컴퓨터공학과</span></dd><dd class="when">2021 ~ 2025</dd></dl>
+          <dl class="row"><dt class="k">고교</dt><dd class="v">선린인터넷고등학교 <span class="dept">정보보호과</span></dd><dd class="when">2018 ~ 2021</dd></dl>
         </div>
       </div>
     </section>
@@ -218,47 +215,59 @@
     <section class="sec wrap" id="certs" aria-labelledby="h-certs">
       <div class="sec-h">
         <h2 id="h-certs">Certifications</h2>
-        <p class="desc"><strong><span data-count>18</span>개</strong> 보유</p>
+        <p class="desc"><strong>18개</strong> 보유</p>
       </div>
       <div class="cols">
         <div class="col">
-          <div class="card cert">
-            <p class="card-h">Microsoft Azure <span class="cnt">6</span></p>
-            <div class="c"><span class="code">AZ-305</span><span class="cn">Solutions Architect Expert</span></div>
-            <div class="c"><span class="code">AZ-400</span><span class="cn">DevOps Engineer Expert</span></div>
-            <div class="c"><span class="code">AZ-204</span><span class="cn">Developer Associate</span></div>
-            <div class="c"><span class="code">AZ-104</span><span class="cn">Administrator Associate</span></div>
-            <div class="c"><span class="code">AZ-700</span><span class="cn">Network Engineer Associate</span></div>
-            <div class="c"><span class="code">AZ-900</span><span class="cn">Azure Fundamentals</span></div>
+          <div class="group cert">
+            <h3 class="card-h">Microsoft Azure</h3>
+            <dl>
+              <dt translate="no">AZ-305</dt><dd>Solutions Architect Expert</dd>
+              <dt translate="no">AZ-400</dt><dd>DevOps Engineer Expert</dd>
+              <dt translate="no">AZ-204</dt><dd>Developer Associate</dd>
+              <dt translate="no">AZ-104</dt><dd>Administrator Associate</dd>
+              <dt translate="no">AZ-700</dt><dd>Network Engineer Associate</dd>
+              <dt translate="no">AZ-900</dt><dd>Azure Fundamentals</dd>
+            </dl>
           </div>
-          <div class="card cert">
-            <p class="card-h">KPC <span class="cnt">3</span></p>
-            <div class="c"><span class="code">IPT</span><span class="cn">정보처리기능사</span></div>
-            <div class="c"><span class="code">IDO</span><span class="cn">정보기기운용기능사</span></div>
-            <div class="c"><span class="code">PC-2</span><span class="cn">PC정비사 2급</span></div>
+          <div class="group cert">
+            <h3 class="card-h">KPC</h3>
+            <dl>
+              <dt translate="no">IPT</dt><dd>정보처리기능사</dd>
+              <dt translate="no">IDO</dt><dd>정보기기운용기능사</dd>
+              <dt translate="no">PC-2</dt><dd>PC정비사 2급</dd>
+            </dl>
           </div>
-          <div class="card cert">
-            <p class="card-h">KT Cloud <span class="cnt">1</span></p>
-            <div class="c"><span class="code">KT-BASIC</span><span class="cn">KT Cloud Basic</span></div>
+          <div class="group cert">
+            <h3 class="card-h">KT Cloud</h3>
+            <dl>
+              <dt translate="no">KT-BASIC</dt><dd>KT Cloud Basic</dd>
+            </dl>
           </div>
         </div>
         <div class="col">
-          <div class="card cert">
-            <p class="card-h">KAIT <span class="cnt">4</span></p>
-            <div class="c"><span class="code">LM-1</span><span class="cn">리눅스마스터 1급</span></div>
-            <div class="c"><span class="code">LM-2</span><span class="cn">리눅스마스터 2급</span></div>
-            <div class="c"><span class="code">NM-1</span><span class="cn">네트워크관리사 1급</span></div>
-            <div class="c"><span class="code">NM-2</span><span class="cn">네트워크관리사 2급</span></div>
+          <div class="group cert">
+            <h3 class="card-h">KAIT</h3>
+            <dl>
+              <dt translate="no">LM-1</dt><dd>리눅스마스터 1급</dd>
+              <dt translate="no">LM-2</dt><dd>리눅스마스터 2급</dd>
+              <dt translate="no">NM-1</dt><dd>네트워크관리사 1급</dd>
+              <dt translate="no">NM-2</dt><dd>네트워크관리사 2급</dd>
+            </dl>
           </div>
-          <div class="card cert">
-            <p class="card-h">Naver Cloud Platform <span class="cnt">3</span></p>
-            <div class="c"><span class="code">NCP-EXP</span><span class="cn">Expert</span></div>
-            <div class="c"><span class="code">NCP-PRO</span><span class="cn">Professional</span></div>
-            <div class="c"><span class="code">NCP-ASS</span><span class="cn">Associate</span></div>
+          <div class="group cert">
+            <h3 class="card-h">Naver Cloud Platform</h3>
+            <dl>
+              <dt translate="no">NCP-EXP</dt><dd>Expert</dd>
+              <dt translate="no">NCP-PRO</dt><dd>Professional</dd>
+              <dt translate="no">NCP-ASS</dt><dd>Associate</dd>
+            </dl>
           </div>
-          <div class="card cert">
-            <p class="card-h">CNCF <span class="cnt">1</span></p>
-            <div class="c"><span class="code">CKA</span><span class="cn">Certified Kubernetes Administrator</span></div>
+          <div class="group cert">
+            <h3 class="card-h">CNCF</h3>
+            <dl>
+              <dt translate="no">CKA</dt><dd>Certified Kubernetes Administrator</dd>
+            </dl>
           </div>
         </div>
       </div>
@@ -268,23 +277,11 @@
       <div class="sec-h">
         <h2 id="h-contact">Contact</h2>
       </div>
-      <div class="links grid g3">
-        <a href="https://blog.1nfra.kr" target="_blank" rel="noopener noreferrer">
-          <span class="lk">Blog</span>
-          <span class="val">blog.1nfra.kr</span>
-          <span class="arr" aria-hidden="true">→</span>
-        </a>
-        <a href="https://github.com/alsrbdmsco" target="_blank" rel="noopener noreferrer">
-          <span class="lk">GitHub</span>
-          <span class="val">github.com/alsrbdmsco</span>
-          <span class="arr" aria-hidden="true">→</span>
-        </a>
-        <a href="mailto:mingyu@1nfra.kr">
-          <span class="lk">Email</span>
-          <span class="val">mingyu@1nfra.kr</span>
-          <span class="arr" aria-hidden="true">→</span>
-        </a>
-      </div>
+      <ul class="links" role="list">
+        <li><a href="https://blog.1nfra.kr" target="_blank" rel="noopener noreferrer"><span class="lk">Blog</span><span class="val" translate="no">blog.1nfra.kr</span></a></li>
+        <li><a href="https://github.com/alsrbdmsco" target="_blank" rel="noopener noreferrer"><span class="lk">GitHub</span><span class="val" translate="no">github.com/alsrbdmsco</span></a></li>
+        <li><a href="mailto:mingyu@1nfra.kr"><span class="lk">Email</span><span class="val" translate="no">mingyu@1nfra.kr</span></a></li>
+      </ul>
     </section>
   </main>
 
