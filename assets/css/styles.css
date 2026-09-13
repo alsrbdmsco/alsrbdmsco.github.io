@@ -14,7 +14,6 @@
   --g50:  #f9fafb;
   --blue: #3182f6;
   --blue-dark: #1b64da;
-  --blue-bg: #e8f3ff;
 
   --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --w: 720px;
@@ -64,11 +63,6 @@ ul { list-style: none; }
 .reveal.in { opacity: 1; transform: none; }
 
 .hero { padding-block: 72px 64px; }
-.hero .eyebrow {
-  display: inline-block; margin-bottom: 20px;
-  background: var(--blue-bg); color: var(--blue-dark);
-  font-size: 14px; font-weight: 700; padding: 6px 14px; border-radius: 999px;
-}
 .hero h1 {
   font-size: clamp(30px, 4.6vw, 48px); font-weight: 800;
   line-height: 1.26; letter-spacing: -0.04em;
@@ -94,18 +88,20 @@ ul { list-style: none; }
 
 .viz svg { display: block; width: 100%; max-width: 340px; height: auto; margin-inline: auto; overflow: visible; }
 
-.viz .rack .top { fill: #62a0f9; }
-.viz .rack .lft { fill: var(--blue); }
-.viz .rack .rgt { fill: var(--blue-dark); }
-.viz .node .top { fill: var(--g200); }
-.viz .node .lft { fill: var(--g300); }
-.viz .node .rgt { fill: var(--g400); }
+.viz .rack .top { fill: url(#rTop); stroke: rgba(255,255,255,.6); stroke-width: .7; stroke-linejoin: round; }
+.viz .rack .lft { fill: url(#rLft); }
+.viz .rack .rgt { fill: url(#rRgt); }
+.viz .node .top { fill: url(#nTop); stroke: rgba(255,255,255,.9); stroke-width: .6; stroke-linejoin: round; }
+.viz .node .lft { fill: url(#nLft); }
+.viz .node .rgt { fill: url(#nRgt); }
 .viz .wires path { fill: none; stroke: var(--g300); stroke-width: 1.75; stroke-linecap: round; }
-.viz .led { fill: rgba(255,255,255,.45); }
-.viz .led.on { fill: #fff; }
-.viz .shade { fill: rgba(25,31,40,.20); filter: blur(8px); }
+.viz .led { fill: rgba(255,255,255,.35); }
+.viz .led.on { fill: #eaf4ff; filter: url(#glow); animation: breathe 2.6s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { opacity: .5; } 50% { opacity: 1; } }
+.viz .shade { fill: rgba(25,31,40,.16); filter: blur(10px); }
+.viz .contact { fill: rgba(13,30,60,.28); filter: blur(3px); }
 
-.viz .float, .viz .shade { transform-box: fill-box; transform-origin: center; }
+.viz .float, .viz .shade, .viz .contact { transform-box: fill-box; transform-origin: center; }
 .viz .float { animation: bob 4.4s ease-in-out infinite; }
 .viz .n1   { animation-duration: 4.2s; animation-delay: -0.7s; }
 .viz .n2   { animation-duration: 5.1s; animation-delay: -2.3s; }
@@ -114,7 +110,7 @@ ul { list-style: none; }
 @keyframes bob      { 0%, 100% { transform: translateY(-3px); } 50% { transform: translateY(3px); } }
 @keyframes bobHeavy { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(2px); } }
 
-.viz .shade { animation: shade 5.4s ease-in-out infinite -1.1s; }
+.viz .shade, .viz .contact { animation: shade 5.4s ease-in-out infinite -1.1s; }
 @keyframes shade {
   0%, 100% { transform: scale(1.03); opacity: .6; }
   50%      { transform: scale(.96); opacity: .95; }
@@ -166,8 +162,7 @@ ul { list-style: none; }
 .card-h:not(:first-child) { margin-top: 26px; }
 .card-h .cnt {
   margin-left: auto; flex: none;
-  font-size: 12px; font-weight: 700; color: var(--blue-dark);
-  background: var(--blue-bg); padding: 2px 9px; border-radius: 999px;
+  font-size: 13px; font-weight: 500; color: var(--g400);
   font-variant-numeric: tabular-nums;
 }
 
@@ -264,7 +259,6 @@ ul { list-style: none; }
 
   .hero { padding-block: 36px 36px; }
   .hero h1 br, .hero .sub br { display: none; }
-  .hero .eyebrow { font-size: 13px; padding: 5px 12px; margin-bottom: 16px; }
   .hero .sub { font-size: 16px; margin-top: 16px; }
   .hero .cta { margin-top: 26px; }
   .hero .cta .btn { flex: 1 1 auto; }
@@ -304,5 +298,5 @@ ul { list-style: none; }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
 
-  .viz .pkt, .viz .float, .viz .shade { animation: none; }
+  .viz .pkt, .viz .float, .viz .shade, .viz .contact, .viz .led.on { animation: none; }
 }

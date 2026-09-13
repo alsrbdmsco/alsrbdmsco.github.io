@@ -99,10 +99,9 @@
 
     <section class="hero wrap">
       <div class="hero-copy">
-        <p class="eyebrow reveal">Infrastructure &amp; DevOps Engineer</p>
         <h1 class="reveal">서버와 네트워크가 조용히, <br>그리고 잘 돌아가게 만듭니다.</h1>
         <p class="sub reveal">눈에 띄지 않는 인프라가 가장 좋은 인프라라고 생각합니다. <br>설계부터 운영까지, 멈추지 않는 환경을 만듭니다.</p>
-        <p class="who reveal">김민규 <span class="en">Kim Min Gyu</span> · Seoul, KR</p>
+        <p class="who reveal">김민규 <span class="en">Kim Min Gyu</span> · Infrastructure &amp; DevOps Engineer · Seoul</p>
         <div class="cta reveal">
           <a class="btn primary" href="#contact">Contact</a>
           <a class="btn ghost" href="https://blog.1nfra.kr" target="_blank" rel="noopener noreferrer">Blog</a>
@@ -112,13 +111,23 @@
       <div class="viz reveal" aria-hidden="true">
 
         <svg viewBox="40 34 320 280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="rTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a3c9ff"/><stop offset="1" stop-color="#5896f5"/></linearGradient>
+            <linearGradient id="rLft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2569d6"/><stop offset="1" stop-color="#3f8cf8"/></linearGradient>
+            <linearGradient id="rRgt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1f62cf"/><stop offset="1" stop-color="#113e8f"/></linearGradient>
+            <linearGradient id="nTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7f9fb"/><stop offset="1" stop-color="#dfe4ea"/></linearGradient>
+            <linearGradient id="nLft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c9cfd6"/><stop offset="1" stop-color="#dde2e7"/></linearGradient>
+            <linearGradient id="nRgt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b4bcc6"/><stop offset="1" stop-color="#98a2ae"/></linearGradient>
+            <filter id="glow" x="-150%" y="-150%" width="400%" height="400%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
           <g class="wires">
             <path d="M78 100 C78 140 120 160 200 168"/>
             <path d="M200 84 C200 120 200 140 200 168"/>
             <path d="M322 100 C322 140 280 160 200 168"/>
           </g>
 
-          <ellipse class="shade" cx="200" cy="284" rx="92" ry="17"/>
+          <path class="shade" d="M200 172 L302 227 L200 282 L98 227 Z"/>
+          <path class="contact" d="M200 186 L280 227 L200 268 L120 227 Z"/>
 
           <g class="float node n1">
             <path class="top" d="M78 61 L104 74 L78 87 L52 74 Z"/>
