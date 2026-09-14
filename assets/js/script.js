@@ -9,7 +9,7 @@
     if (months < 0) return;
     var y = Math.floor(months / 12), m = months % 12;
     var dur = (y ? y + '년' : '') + (y && m ? ' ' : '') + (m ? m + '개월' : '');
-    el.textContent = s[0] + '.' + String(s[1]).padStart(2, '0') + ' ~ (' + (dur || '이번 달') + ')';
+    el.textContent = s[0] + '.' + String(s[1]).padStart(2, '0') + ' ~ 현재' + (dur ? ' · ' + dur : '');
   });
 
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -18,9 +18,10 @@
     items.forEach(function (el) { el.classList.add('in'); });
   } else {
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e, i) {
+      var n = 0;
+      entries.forEach(function (e) {
         if (!e.isIntersecting) return;
-        setTimeout(function () { e.target.classList.add('in'); }, i * 70);
+        setTimeout(function () { e.target.classList.add('in'); }, n++ * 70);
         io.unobserve(e.target);
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
