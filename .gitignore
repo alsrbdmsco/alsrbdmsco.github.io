@@ -1,3 +1,14 @@
 _site
 .omc/
 .backup/
+.DS_Store
+
+# Local tooling (Ruflo / Claude Code), not part of the site
+.env*
+.claude/
+.claude-flow/
+.agents/
+.swarm/
+.mcp.json
+CLAUDE.md
+ruvector.db
