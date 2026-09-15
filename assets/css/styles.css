@@ -166,21 +166,33 @@ ul { list-style: none; }
   .nav .brand { font-size: 22px; }
 
   .hero {
+    position: relative;
     min-height: calc(100dvh - 70px);
-    padding-block: 88px 64px;
+    padding-block: 88px 128px;
     display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
     gap: 64px; align-items: center;
   }
-  .hero .sub { font-size: 18px; }
+  .hero h1 { font-size: clamp(44px, 3.3vw, 52px); }
+  .hero .sub { font-size: 19px; margin-top: 24px; }
+  .hero .cta { margin-top: 40px; }
+  .hero .who {
+    position: absolute; left: 32px; right: 32px; bottom: 36px; margin: 0;
+    padding-top: 18px; border-top: 1px solid var(--g300); font-size: 14px;
+  }
+  .hero .who::after { content: "Scroll \2193"; content: "Scroll \2193" / ""; position: absolute; right: 0; top: 18px; color: var(--g600); }
 
   .viz { margin-top: 0; }
+  .viz svg { max-width: 520px; }
 
-  .sec { padding-block: 68px; }
-  .sec-h { margin-bottom: 28px; }
-  .sec-h h2 { font-size: 32px; }
+  .sec {
+    display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
+    column-gap: 40px; align-items: start; padding-block: 56px;
+  }
+  .sec-h { margin-bottom: 0; position: sticky; top: 100px; }
+  .sec-h h2 { font-size: 26px; line-height: 1.2; margin-top: -4px; }
 
   .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .stack, .links { max-width: calc(50% - 20px); }
+  #career .cols { grid-template-columns: 1fr; }
 }
 
 @media (min-width: 1440px) {
