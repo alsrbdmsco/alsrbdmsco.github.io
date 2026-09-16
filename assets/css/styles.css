@@ -92,7 +92,7 @@ ul { list-style: none; }
 
 /* ── the object: a system that keeps running ────────────── */
 .viz { margin-top: 40px; }
-.viz svg { display: block; width: 100%; max-width: 540px; height: auto; margin-inline: auto; overflow: visible; }
+.viz svg { display: block; width: 100%; max-width: 400px; height: auto; margin-inline: auto; overflow: visible; }
 .viz .scene { transition: transform .45s cubic-bezier(.2,.7,.3,1); }
 .viz .ground { fill: rgba(60,50,35,.12); filter: blur(7px); }
 
@@ -215,7 +215,7 @@ ul { list-style: none; }
 }
 
 @media (min-width: 641px) and (max-width: 1023px) {
-  .viz svg { max-width: 420px; margin-inline: 0; }
+  .viz svg { max-width: 340px; margin-inline: 0; }
 }
 
 @media (max-width: 640px) {
@@ -226,23 +226,17 @@ ul { list-style: none; }
   .nav .menu { gap: 0; font-size: 12.5px; font-weight: 500; margin-right: -9px; }
   .nav .menu a { padding-inline: 9px; }
 
-  /* the first screen sizes to its content — a forced 100dvh left a dead band */
-  .hero { min-height: 0; padding-block: 28px 44px; }
-  /* read order on a phone: statement, the machine, then the action */
-  .hero-copy { display: contents; }
-  .viz { order: 4; }
-  .hero .cta { order: 5; }
+  /* phone: no object — the copy stands centred on its own screen */
+  .hero { min-height: calc(100dvh - 54px); padding-block: 40px 48px; text-align: center; }
+  .viz { display: none; }
   .hero h1 { font-size: clamp(25px, 7.4vw, 31px); line-height: 1.3; }
   .hero h1 br { display: none; }
   .hero .sub br { display: none; }
-  .hero .sub { font-size: 15.5px; line-height: 1.68; margin-top: 16px; }
-  .hero .who { font-size: 13px; margin-top: 12px; }
+  .hero .sub { font-size: 15.5px; line-height: 1.68; margin-top: 16px; max-width: 34ch; margin-inline: auto; }
+  .hero .who { font-size: 13px; margin-top: 14px; }
   .hero .who .en { display: none; }
-  .hero .cta { margin-top: 24px; gap: 8px; }
+  .hero .cta { margin-top: 28px; gap: 8px; justify-content: center; }
   .hero .cta .btn { height: 48px; padding: 0 22px; font-size: 15px; }
-  .viz { margin-top: 26px; }
-  .viz svg { max-width: 300px; margin-inline: auto; }
-  .viz .ground { opacity: .5; }
 
   /* each section opens on a rule, the way the desktop title column reads */
   .sec { padding-block: 40px; border-top: 1px solid var(--line); }
