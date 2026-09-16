@@ -34,4 +34,24 @@
     update();
     window.addEventListener('scroll', update, { passive: true });
   }
+
+  var scene = document.querySelector('.viz .scene');
+  var hero = document.querySelector('.hero');
+  if (scene && hero && !still) {
+    var raf = 0;
+    hero.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'touch') return;
+      var r = hero.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function () {
+        scene.style.transform = 'translate(' + (x * 12).toFixed(2) + 'px,' + (y * 9).toFixed(2) + 'px)';
+      });
+    });
+    hero.addEventListener('pointerleave', function () {
+      cancelAnimationFrame(raf);
+      scene.style.transform = '';
+    });
+  }
 })();

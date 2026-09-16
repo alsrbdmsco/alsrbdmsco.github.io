@@ -29,13 +29,13 @@
   <meta name="twitter:description" content="Azure, AWS, NCP 멀티 클라우드 인프라 엔지니어. Kubernetes, Linux, Network 인프라 설계 및 운영.">
   <meta name="twitter:image" content="https://1nfra.kr/assets/images/og-image.png?v=2">
 
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#f7f4ee">
   <meta name="msapplication-TileColor" content="#ffffff">
 
   <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-  <link rel="stylesheet" href="assets/css/styles.css?v=6">
+  <link rel="stylesheet" href="assets/css/styles.css?v=7">
 
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg?v=3">
   <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico?v=3" sizes="16x16 32x32 48x48">
@@ -114,66 +114,68 @@
         </div>
       </div>
 
-      <div class="viz reveal" aria-hidden="true">
-        <svg viewBox="40 34 320 280" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="rTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fadf4"/><stop offset="1" stop-color="#4f7ae6"/></linearGradient>
-            <linearGradient id="rLft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2a56d6"/><stop offset="1" stop-color="#4a78ea"/></linearGradient>
-            <linearGradient id="rRgt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1e46bd"/><stop offset="1" stop-color="#132f82"/></linearGradient>
-            <linearGradient id="nTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f5f7"/><stop offset="1" stop-color="#dfe2e6"/></linearGradient>
-            <linearGradient id="nLft" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c6cad0"/><stop offset="1" stop-color="#d8dbe0"/></linearGradient>
-            <linearGradient id="nRgt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#aeb3ba"/><stop offset="1" stop-color="#959ba3"/></linearGradient>
-            <filter id="glow" x="-150%" y="-150%" width="400%" height="400%"><feGaussianBlur stdDeviation="2.4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-          </defs>
-          <g class="wires">
-            <path d="M78 100 C78 140 120 160 200 168"/>
-            <path d="M200 84 C200 120 200 140 200 168"/>
-            <path d="M322 100 C322 140 280 160 200 168"/>
-          </g>
+      <div class="viz" aria-hidden="true">
+        <svg viewBox="40 30 320 286" xmlns="http://www.w3.org/2000/svg">
+          <g class="scene">
+            <ellipse class="ground" cx="200" cy="286" rx="104" ry="17"/>
 
-          <path class="shade" d="M200 172 L302 227 L200 282 L98 227 Z"/>
-          <path class="contact" d="M200 186 L280 227 L200 268 L120 227 Z"/>
-
-          <g class="node">
-            <path class="top" d="M78 61 L104 74 L78 87 L52 74 Z"/>
-            <path class="lft" d="M52 74 L78 87 L78 100 L52 87 Z"/>
-            <path class="rgt" d="M104 74 L78 87 L78 100 L104 87 Z"/>
-          </g>
-          <g class="node">
-            <path class="top" d="M200 45 L226 58 L200 71 L174 58 Z"/>
-            <path class="lft" d="M174 58 L200 71 L200 84 L174 71 Z"/>
-            <path class="rgt" d="M226 58 L200 71 L200 84 L226 71 Z"/>
-          </g>
-          <g class="node">
-            <path class="top" d="M322 61 L348 74 L322 87 L296 74 Z"/>
-            <path class="lft" d="M296 74 L322 87 L322 100 L296 87 Z"/>
-            <path class="rgt" d="M348 74 L322 87 L322 100 L348 87 Z"/>
-          </g>
-
-          <g class="rack">
-            <g>
-              <path class="top" d="M200 176 L272 212 L200 248 L128 212 Z"/>
-              <path class="lft" d="M128 212 L200 248 L200 263 L128 227 Z"/>
-              <path class="rgt" d="M272 212 L200 248 L200 263 L272 227 Z"/>
-              <circle class="led" cx="152" cy="232" r="3.2"/>
+            <g class="wires">
+              <path class="base" d="M78 100 C78 146 122 164 200 170"/>
+              <path class="base" d="M200 84 C200 124 200 146 200 170"/>
+              <path class="base" d="M322 100 C322 146 278 164 200 170"/>
+              <path class="flow f1" d="M78 100 C78 146 122 164 200 170"/>
+              <path class="flow f2" d="M200 84 C200 124 200 146 200 170"/>
+              <path class="flow f3" d="M322 100 C322 146 278 164 200 170"/>
             </g>
-            <g>
-              <path class="top" d="M200 154 L272 190 L200 226 L128 190 Z"/>
-              <path class="lft" d="M128 190 L200 226 L200 241 L128 205 Z"/>
-              <path class="rgt" d="M272 190 L200 226 L200 241 L272 205 Z"/>
-              <circle class="led" cx="152" cy="214" r="3.2"/>
-            </g>
-            <g>
-              <path class="top" d="M200 132 L272 168 L200 204 L128 168 Z"/>
-              <path class="lft" d="M128 168 L200 204 L200 219 L128 183 Z"/>
-              <path class="rgt" d="M272 168 L200 204 L200 219 L272 183 Z"/>
-              <circle class="led on" cx="152" cy="192" r="3.2"/>
-            </g>
-          </g>
 
-          <circle class="pkt p1" cx="0" cy="0" r="4.5"/>
-          <circle class="pkt p2" cx="0" cy="0" r="4.5"/>
-          <circle class="pkt p3" cx="0" cy="0" r="4.5"/>
+            <g class="node n1">
+              <path class="top" d="M78 61 L104 74 L78 87 L52 74 Z"/>
+              <path class="lft" d="M52 74 L78 87 L78 100 L52 87 Z"/>
+              <path class="rgt" d="M104 74 L78 87 L78 100 L104 87 Z"/>
+              <circle class="dot" cx="78" cy="74" r="2.6"/>
+            </g>
+            <g class="node n2">
+              <path class="top" d="M200 45 L226 58 L200 71 L174 58 Z"/>
+              <path class="lft" d="M174 58 L200 71 L200 84 L174 71 Z"/>
+              <path class="rgt" d="M226 58 L200 71 L200 84 L226 71 Z"/>
+              <circle class="dot" cx="200" cy="58" r="2.6"/>
+            </g>
+            <g class="node n3">
+              <path class="top" d="M322 61 L348 74 L322 87 L296 74 Z"/>
+              <path class="lft" d="M296 74 L322 87 L322 100 L296 87 Z"/>
+              <path class="rgt" d="M348 74 L322 87 L322 100 L348 87 Z"/>
+              <circle class="dot" cx="322" cy="74" r="2.6"/>
+            </g>
+
+            <g class="rack">
+              <g class="unit u3">
+                <path class="top" d="M200 178 L272 214 L200 250 L128 214 Z"/>
+                <path class="lft" d="M128 214 L200 250 L200 265 L128 229 Z"/>
+                <path class="rgt" d="M272 214 L200 250 L200 265 L272 229 Z"/>
+                <circle class="led" cx="152" cy="234" r="2.9"/>
+                <circle class="led b" cx="161" cy="239" r="2.9"/>
+              </g>
+              <g class="unit u2">
+                <path class="top" d="M200 156 L272 192 L200 228 L128 192 Z"/>
+                <path class="lft" d="M128 192 L200 228 L200 243 L128 207 Z"/>
+                <path class="rgt" d="M272 192 L200 228 L200 243 L272 207 Z"/>
+                <circle class="led" cx="152" cy="212" r="2.9"/>
+                <circle class="led b" cx="161" cy="217" r="2.9"/>
+              </g>
+              <g class="unit u1">
+                <path class="top" d="M200 134 L272 170 L200 206 L128 170 Z"/>
+                <path class="lft" d="M128 170 L200 206 L200 221 L128 185 Z"/>
+                <path class="rgt" d="M272 170 L200 206 L200 221 L272 185 Z"/>
+                <circle class="led" cx="152" cy="190" r="2.9"/>
+                <circle class="led b" cx="161" cy="195" r="2.9"/>
+              </g>
+            </g>
+
+            <circle class="pkt p1" r="3.6"/>
+            <circle class="pkt p2" r="3.6"/>
+            <circle class="pkt p3" r="3.6"/>
+            <circle class="pkt p4" r="3.6"/>
+          </g>
         </svg>
       </div>
     </section>
@@ -300,6 +302,6 @@
     </div>
   </footer>
 
-  <script src="assets/js/script.js?v=4" onerror="document.documentElement.classList.remove('js')"></script>
+  <script src="assets/js/script.js?v=5" onerror="document.documentElement.classList.remove('js')"></script>
 </body>
 </html>
