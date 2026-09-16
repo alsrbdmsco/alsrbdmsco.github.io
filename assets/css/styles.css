@@ -50,10 +50,9 @@ ul { list-style: none; }
 .nav {
   position: sticky; top: 0; z-index: 50;
   background: var(--surface);
-  border-bottom: 1px solid transparent;
-  transition: border-color .2s, background .2s;
+  transition: box-shadow .2s, background .2s;
 }
-.nav.stuck { background: var(--paper); border-bottom-color: var(--line); }
+.nav.stuck { background: var(--paper); box-shadow: 0 1px 0 var(--line); }
 .nav .wrap { display: flex; align-items: center; height: 62px; }
 .nav .brand { font-size: 21px; font-weight: 700; letter-spacing: -0.03em; }
 .nav .menu { margin-left: auto; margin-right: -7px; display: flex; gap: 8px; font-size: 15px; font-weight: 600; color: var(--mute); }
@@ -62,9 +61,13 @@ ul { list-style: none; }
 
 .js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
 .js .reveal.in { opacity: 1; transform: none; }
+/* script.js adds .io once reveal is wired; if it is late or throws, show the content anyway */
+.js:not(.io) .reveal { animation: shown 0s 3s forwards; }
+@keyframes shown { to { opacity: 1; transform: none; } }
 
 /* ── first screen ───────────────────────────────────────── */
 .hero {
+  min-height: calc(100vh - 62px);
   min-height: calc(100dvh - 62px);
   display: flex; flex-direction: column; justify-content: center;
   padding-block: 72px 64px;
@@ -124,16 +127,20 @@ ul { list-style: none; }
 .viz .rack .u3 .led.b { animation-duration: 2.7s; }
 @keyframes breathe { 0%, 100% { opacity: .2; } 50% { opacity: .95; } }
 
-.viz .pkt { fill: var(--signal); offset-rotate: 0deg; opacity: 0; }
-.viz .pkt.p1 { offset-path: path("M78 100 C78 146 122 164 200 170"); animation: run 4.6s linear infinite; }
-.viz .pkt.p2 { offset-path: path("M200 84 C200 124 200 146 200 170"); animation: run 6.1s linear infinite 1.1s; }
-.viz .pkt.p3 { offset-path: path("M322 100 C322 146 278 164 200 170"); animation: run 5.3s linear infinite .5s; }
-.viz .pkt.p4 { offset-path: path("M78 100 C78 146 122 164 200 170"); animation: run 7.7s linear infinite 2.8s; }
-@keyframes run {
-  0%   { offset-distance: 0%;   opacity: 0; }
-  10%  { opacity: 1; }
-  82%  { opacity: 1; }
-  100% { offset-distance: 100%; opacity: 0; }
+/* without offset-path the circles would blink at (0,0), so they stay hidden */
+.viz .pkt { fill: var(--signal); opacity: 0; }
+@supports (offset-path: path("M0 0")) {
+  .viz .pkt { offset-rotate: 0deg; }
+  .viz .pkt.p1 { offset-path: path("M78 100 C78 146 122 164 200 170"); animation: run 4.6s linear infinite; }
+  .viz .pkt.p2 { offset-path: path("M200 84 C200 124 200 146 200 170"); animation: run 6.1s linear infinite 1.1s; }
+  .viz .pkt.p3 { offset-path: path("M322 100 C322 146 278 164 200 170"); animation: run 5.3s linear infinite .5s; }
+  .viz .pkt.p4 { offset-path: path("M78 100 C78 146 122 164 200 170"); animation: run 7.7s linear infinite 2.8s; }
+  @keyframes run {
+    0%   { offset-distance: 0%;   opacity: 0; }
+    10%  { opacity: 1; }
+    82%  { opacity: 1; }
+    100% { offset-distance: 100%; opacity: 0; }
+  }
 }
 
 /* ── sections ───────────────────────────────────────────── */
@@ -154,7 +161,7 @@ ul { list-style: none; }
 
 .row { display: flex; align-items: baseline; gap: 16px; padding: 13px 0; border-top: 1px solid var(--line); }
 .row .v { flex: 1; min-width: 0; font-size: 16px; font-weight: 600; color: var(--ink); }
-.row .when { flex: none; min-width: 11ch; font-size: 13px; font-weight: 500; color: var(--mute); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row .when { flex: none; min-width: 11ch; text-align: right; font-size: 13px; font-weight: 500; color: var(--mute); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .row .dept { display: block; font-size: 13px; font-weight: 500; color: var(--mute); margin-top: 2px; }
 
 .did { margin-top: 2px; padding-bottom: 12px; }
@@ -188,6 +195,7 @@ ul { list-style: none; }
   .nav .brand { font-size: 22px; }
 
   .hero {
+    min-height: calc(100vh - 70px);
     min-height: calc(100dvh - 70px);
     padding-block: 96px;
     display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
@@ -227,7 +235,7 @@ ul { list-style: none; }
   .nav .menu a { padding-inline: 9px; }
 
   /* phone: no object — the copy stands centred on its own screen */
-  .hero { min-height: calc(100dvh - 54px); padding-block: 40px 48px; text-align: center; }
+  .hero { min-height: calc(100vh - 54px); min-height: calc(100dvh - 54px); padding-block: 40px 48px; text-align: center; }
   .viz { display: none; }
   .hero h1 { font-size: clamp(25px, 7.4vw, 31px); line-height: 1.3; }
   .hero h1 br { display: none; }
@@ -252,12 +260,12 @@ ul { list-style: none; }
   .row { flex-wrap: wrap; gap: 2px 12px; padding: 12px 0; }
   .row .v { flex: 1 1 100%; font-size: 15px; }
   .row .dept { display: inline; margin-left: 6px; }
-  .row .when { flex: 1 1 100%; min-width: 0; }
+  .row .when { flex: 1 1 100%; min-width: 0; text-align: left; }
   .did { margin-top: 6px; }
 
   .cert dt, .cert dd, .cert li { padding: 8px 0; }
   .cert dd, .cert li { font-size: 14px; }
-  .links .lk { width: 64px; font-size: 13px; }
+  .links .lk { font-size: 13px; }
   .foot .wrap { flex-direction: column; gap: 4px; padding-top: 24px; padding-bottom: 40px; font-size: 13px; }
 }
 
@@ -272,4 +280,8 @@ ul { list-style: none; }
   .viz .node .dot, .viz .rack .led { opacity: .65; }
   .viz .pkt { opacity: 0; }
   .viz .scene { transition: none; }
+}
+
+@media print {
+  .js .reveal { opacity: 1; transform: none; animation: none; }
 }

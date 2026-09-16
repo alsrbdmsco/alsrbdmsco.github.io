@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  var en = document.documentElement.lang === 'en';
+
   document.querySelectorAll('[data-since]').forEach(function (el) {
     var s = el.dataset.since.split('-').map(Number);
     var from = new Date(s[0], s[1] - 1, s[2]), now = new Date();
@@ -8,8 +10,11 @@
     if (now.getDate() < from.getDate()) months--;
     if (months < 0) return;
     var y = Math.floor(months / 12), m = months % 12;
-    var dur = (y ? y + '년' : '') + (y && m ? ' ' : '') + (m ? m + '개월' : '');
-    el.textContent = s[0] + '.' + String(s[1]).padStart(2, '0') + ' ~ 현재' + (dur ? ' · ' + dur : '');
+    var dur = (en
+      ? [y && y + (y > 1 ? ' yrs' : ' yr'), m && m + (m > 1 ? ' mos' : ' mo')]
+      : [y && y + '년', m && m + '개월']
+    ).filter(Boolean).join(' ');
+    el.textContent = s[0] + '.' + String(s[1]).padStart(2, '0') + (en ? ' – Present' : ' ~ 현재') + (dur ? ' · ' + dur : '');
   });
 
   var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -27,6 +32,7 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -8% 0px' });
     items.forEach(function (el) { io.observe(el); });
   }
+  document.documentElement.classList.add('io');
 
   var nav = document.querySelector('.nav');
   if (nav) {
@@ -35,12 +41,13 @@
     window.addEventListener('scroll', update, { passive: true });
   }
 
-  var scene = document.querySelector('.viz .scene');
+  var viz = document.querySelector('.viz');
+  var scene = viz && viz.querySelector('.scene');
   var hero = document.querySelector('.hero');
   if (scene && hero && !still) {
     var raf = 0;
     hero.addEventListener('pointermove', function (e) {
-      if (e.pointerType === 'touch') return;
+      if (e.pointerType === 'touch' || !viz.offsetWidth) return;
       var r = hero.getBoundingClientRect();
       var x = (e.clientX - r.left) / r.width - 0.5;
       var y = (e.clientY - r.top) / r.height - 0.5;
