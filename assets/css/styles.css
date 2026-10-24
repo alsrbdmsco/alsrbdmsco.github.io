@@ -52,17 +52,12 @@ ul { list-style: none; }
 .nav .menu .lang { gap: 5px; margin-left: 8px; }
 .nav .menu .lang svg { width: 15px; height: 15px; }
 
-.js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
-.js .reveal.in { opacity: 1; transform: none; }
-/* script.js adds .io once reveal is wired; if it is late or throws, show the content anyway */
-.js:not(.io) .reveal { animation: shown 0s 3s forwards; }
-@keyframes shown { to { opacity: 1; transform: none; } }
 
 /* ── first screen ───────────────────────────────────────── */
 .hero {
   position: relative;
   min-height: calc(100vh - 62px);
-  min-height: calc(100dvh - 62px);
+  min-height: calc(100svh - 62px);
   display: flex; flex-direction: column; justify-content: center;
   padding-block: 72px 64px;
   background: var(--surface); box-shadow: 0 0 0 100vmax var(--surface); clip-path: inset(0 -100vmax);
@@ -150,7 +145,7 @@ ul { list-style: none; }
 
   .hero {
     min-height: calc(100vh - 70px);
-    min-height: calc(100dvh - 70px);
+    min-height: calc(100svh - 70px);
     padding-block: 96px;
     display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
     gap: 72px; align-items: center;
@@ -194,7 +189,7 @@ ul { list-style: none; }
   .nav .menu .lang svg { width: 12px; height: 12px; }
 
   /* phone: no object — the copy stands centred on its own screen */
-  .hero { min-height: calc(100vh - 54px); min-height: calc(100dvh - 54px); padding-block: 40px 48px; text-align: center; }
+  .hero { min-height: calc(100vh - 54px); min-height: calc(100svh - 54px); padding-block: 40px 48px; text-align: center; }
   .viz { display: none; }
   .hero h1 { font-size: clamp(25px, 7.4vw, 31px); line-height: 1.3; }
   .hero h1 br { display: none; }
@@ -239,10 +234,6 @@ ul { list-style: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js .reveal { opacity: 1; transform: none; transition: none; }
   .viz canvas { transition: none; }
 }
 
-@media print {
-  .js .reveal { opacity: 1; transform: none; animation: none; }
-}
