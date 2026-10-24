@@ -66,13 +66,14 @@ const arcMat = new THREE.ShaderMaterial({
 [[35.68, 139.69], [1.35, 103.82], [22.32, 114.17], [34.05, -118.24], [19.08, 72.88], [50.11, 8.68], [-33.87, 151.21], [37.39, -122.08]].forEach(([la, lo], i) => {
   const a = ll(la, lo), q = new THREE.Quaternion().setFromUnitVectors(a, SEOUL), h = .02 + a.angleTo(SEOUL) * .12, pts = [];
   for (let k = 0; k <= 48; k++) pts.push(a.clone().applyQuaternion(new THREE.Quaternion().slerp(q, k / 48)).multiplyScalar(1 + h * Math.sin(Math.PI * k / 48)));
-  const g = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 96, .0022, 6);
+  const g = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 96, innerWidth > 1023 ? .0022 : .0034, 6);
   g.setAttribute('seed', new THREE.Float32BufferAttribute(new Float32Array(g.attributes.position.count).fill(i * .377 % 1), 1));
   scene.add(new THREE.Mesh(g, arcMat));
 });
 
 // camera: lat, lon, altitude (earth radii) from the top of the page to the hero leaving the screen; always looks at the centre.
-// It grows only so far, and drifts right as it grows, so it never sits under the copy.
+// Desktop: the canvas fills the hero band and the globe grows only so far, drifting right so it never sits under the copy.
+// Below 1024px the canvas is a square under the copy, so the globe only turns (growing would cut it at the box edge).
 const FROM = [22, 112, 4.2], TO = [33, 126, 2];
 const drag = { lat: 0, lon: 0, on: false, x: 0, y: 0, idle: 0 };
 let intro = still ? 0 : -75; // the globe turns into place on load
@@ -80,25 +81,39 @@ let W = 1, H = 1, wide = true;
 function place() {
   const s = smooth(clamp(scrollY / hero.offsetHeight));
   const lat = FROM[0] + (TO[0] - FROM[0]) * s + drag.lat, lon = FROM[1] + (TO[1] - FROM[1]) * s + drag.lon + intro;
-  camera.position.copy(ll(clamp(lat, -60, 70), lon, 1 + FROM[2] * Math.pow(TO[2] / FROM[2], s)));
+  camera.position.copy(ll(clamp(lat, -60, 70), lon, 1 + FROM[2] * Math.pow(TO[2] / FROM[2], wide ? s : 0)));
   camera.lookAt(0, 0, 0);
-  // desktop: right of the copy; phone: under it
-  if (wide) camera.setViewOffset(W, H, -W * (.23 + .07 * s), 0, W, H); else camera.setViewOffset(W, H, 0, -H * .3, W, H);
+  if (wide) camera.setViewOffset(W, H, -W * (.23 + .07 * s), 0, W, H); else camera.clearViewOffset();
 }
 
-canvas.addEventListener('pointerdown', e => { drag.on = true; drag.x = e.clientX; drag.y = e.clientY; canvas.setPointerCapture(e.pointerId); });
+const ray = new THREE.Raycaster(), ball = new THREE.Sphere(new THREE.Vector3(), 1), ndc = new THREE.Vector2();
+function onGlobe(e) {
+  const r = canvas.getBoundingClientRect();
+  ndc.set((e.clientX - r.left) / r.width * 2 - 1, 1 - (e.clientY - r.top) / r.height * 2);
+  ray.setFromCamera(ndc, camera);
+  return ray.ray.intersectsSphere(ball);
+}
+canvas.addEventListener('pointerdown', e => {
+  if (!onGlobe(e)) return;
+  drag.on = true; drag.x = e.clientX; drag.y = e.clientY; canvas.setPointerCapture(e.pointerId);
+  if (e.pointerType === 'mouse') canvas.style.cursor = 'grabbing';
+});
 canvas.addEventListener('pointermove', e => {
-  if (!drag.on) return;
+  if (!drag.on) { if (e.pointerType === 'mouse') canvas.style.cursor = onGlobe(e) ? 'grab' : ''; return; }
   const k = 60 / box.clientHeight;
-  drag.lon -= (e.clientX - drag.x) * k; drag.lat = clamp(drag.lat + (e.clientY - drag.y) * k, -40, 40);
+  drag.lon -= (e.clientX - drag.x) * k;
+  if (e.pointerType !== 'touch') drag.lat = clamp(drag.lat + (e.clientY - drag.y) * k, -40, 40);
   drag.x = e.clientX; drag.y = e.clientY; drag.idle = 0; dirty = true;
 });
-['pointerup', 'pointercancel'].forEach(t => canvas.addEventListener(t, () => { drag.on = false; }));
+['pointerup', 'pointercancel'].forEach(t => canvas.addEventListener(t, e => {
+  drag.on = false; if (e.pointerType === 'mouse') canvas.style.cursor = onGlobe(e) ? 'grab' : '';
+}));
 
 let visible = true, dirty = true;
 new ResizeObserver(() => {
-  W = box.clientWidth; H = box.clientHeight; wide = W > 1023;
-  renderer.setSize(W, H, false); camera.aspect = W / H; camera.fov = wide ? 30 : 40; dirty = true;
+  W = box.clientWidth; H = box.clientHeight; wide = innerWidth > 1023;
+  renderer.setSize(W, H, false); camera.aspect = W / H; camera.fov = wide ? 30 : 25;
+  place(); renderer.render(scene, camera);
 }).observe(box);
 new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(box);
 addEventListener('scroll', () => { dirty = true; }, { passive: true });

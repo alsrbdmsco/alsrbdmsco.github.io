@@ -91,8 +91,7 @@ ul { list-style: none; }
 /* ── the object: the Earth at dusk over Korea (assets/js/globe.js), a canvas under the whole hero band ── */
 .hero-copy { position: relative; z-index: 1; }
 .viz { position: absolute; z-index: 0; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); touch-action: pan-y; }
-.viz canvas { display: block; width: 100%; height: 100%; cursor: grab; opacity: 0; transition: opacity 1.2s ease; }
-.viz canvas:active { cursor: grabbing; }
+.viz canvas { display: block; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s ease; }
 .viz.ready canvas { opacity: 1; }
 
 /* ── sections ───────────────────────────────────────────── */
@@ -176,6 +175,10 @@ ul { list-style: none; }
   :root { --w: 1200px; }
 }
 
+@media (max-width: 1023px) {
+  .viz { position: relative; left: auto; transform: none; width: 100%; max-width: 440px; aspect-ratio: 1; margin: 28px auto 0; }
+}
+
 @media (max-width: 640px) {
   :root { --k: 76px; }
   .wrap { padding-inline: 22px; }
@@ -187,7 +190,7 @@ ul { list-style: none; }
   .nav .menu .lang svg { width: 12px; height: 12px; }
 
   /* phone: the copy at the top, the globe under it */
-  .hero { min-height: calc(100vh - 54px); min-height: calc(100dvh - 54px); padding-block: 48px; justify-content: flex-start; text-align: center; }
+  .hero { min-height: 0; padding-block: 48px 24px; text-align: center; }
   .hero h1 { font-size: clamp(25px, 7.4vw, 31px); line-height: 1.3; }
   .hero h1 br { display: none; }
   .hero .sub br { display: none; }
