@@ -175,6 +175,10 @@ ul { list-style: none; }
   :root { --w: 1200px; }
 }
 
+@media (max-width: 1023px) and (max-height: 499px) {
+  .viz { display: none; } /* phone turned sideways */
+}
+
 @media (max-width: 1023px) {
   .viz { position: relative; left: auto; transform: none; width: 100%; max-width: 440px; aspect-ratio: 1; margin: 28px auto 0; }
 }
@@ -189,8 +193,9 @@ ul { list-style: none; }
   .nav .menu .lang { gap: 4px; margin-left: 2px; }
   .nav .menu .lang svg { width: 12px; height: 12px; }
 
-  /* phone: the copy at the top, the globe under it */
-  .hero { min-height: 0; padding-block: 48px 24px; text-align: center; }
+  /* phone: no object — the copy stands centred on its own screen */
+  .hero { min-height: calc(100vh - 54px); min-height: calc(100dvh - 54px); padding-block: 40px 48px; text-align: center; }
+  .viz { display: none; }
   .hero h1 { font-size: clamp(25px, 7.4vw, 31px); line-height: 1.3; }
   .hero h1 br { display: none; }
   .hero .sub br { display: none; }
