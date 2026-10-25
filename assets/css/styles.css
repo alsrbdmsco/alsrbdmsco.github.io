@@ -110,6 +110,7 @@ ul { list-style: none; }
 .row .v { flex: 1; min-width: 0; font-size: 16px; font-weight: 600; color: var(--ink); }
 .row .when { flex: none; min-width: 12.5em; text-align: left; font-size: 13px; font-weight: 500; color: var(--mute); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .row .when.now { color: var(--accent); } /* still there: the current job and school */
+.row .when .dur { color: var(--mute); }
 .row .when:lang(en) { min-width: 15em; } /* one date column: as wide as the longest date, so every range starts at the same x */
 .row .dept { display: block; font-size: 13px; font-weight: 500; color: var(--mute); margin-top: 2px; }
 

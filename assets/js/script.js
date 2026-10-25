@@ -14,7 +14,8 @@
       ? [y && y + (y > 1 ? ' yrs' : ' yr'), m && m + (m > 1 ? ' mos' : ' mo')]
       : [y && y + '년', m && m + '개월']
     ).filter(Boolean).join(' ');
-    el.textContent = s[0] + '.' + String(s[1]).padStart(2, '0') + (en ? ' – Present' : ' ~ 현재') + (dur ? ' · ' + dur : '');
+    el.textContent = s[0] + '.' + String(s[1]).padStart(2, '0') + (en ? ' – Present' : ' ~ 현재');
+    if (dur) el.insertAdjacentHTML('beforeend', '<span class="dur"> · ' + dur + '</span>');
   });
 
   var nav = document.querySelector('.nav');
