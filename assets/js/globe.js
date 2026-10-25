@@ -96,7 +96,7 @@ const arcMat = new THREE.ShaderMaterial({
 // Desktop: the canvas is fixed to the window and the globe grows only so far, drifting right so it never sits under the copy,
 // and the sections below slide over it.
 // Below 1024px the canvas is a square under the copy, so the globe only turns (growing would cut it at the box edge).
-const FROM = [22, 112, 4.2], TO = [33, 126, 2];
+const FROM = [22, 112, 4.8], TO = [33, 126, 2]; // altitude 4.8 on desktop; the square box below 1024px keeps 4.2
 const drag = { lat: 0, lon: 0, vlat: 0, vlon: 0, plat: 0, plon: 0, on: false, x: 0, y: 0, idle: 0 };
 const target = () => smooth(clamp(scrollY / hero.offsetHeight));
 let scrolled = 0;
@@ -112,7 +112,7 @@ canvas.style.transformOrigin = '73% 50%'; // the globe's centre (view offset .23
 function place() {
   const s = cssZoom() ? 0 : view.s;
   const lat = FROM[0] + (TO[0] - FROM[0]) * s + view.lat, lon = FROM[1] + (TO[1] - FROM[1]) * s + view.lon + intro;
-  camera.position.copy(ll(clamp(lat, -60, 70), lon, 1 + FROM[2] * Math.pow(TO[2] / FROM[2], wide ? s : 0)));
+  camera.position.copy(ll(clamp(lat, -60, 70), lon, 1 + (wide ? FROM[2] * Math.pow(TO[2] / FROM[2], s) : 4.2)));
   camera.lookAt(0, 0, 0);
   if (wide) camera.setViewOffset(W, H, -W * (.23 + .07 * s), 0, W, H); else camera.clearViewOffset();
 }

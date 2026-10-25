@@ -108,30 +108,32 @@ ul { list-style: none; }
 
 .row { display: flex; align-items: baseline; gap: 16px; padding: 13px 0; border-top: 1px solid var(--line); }
 .row .v { flex: 1; min-width: 0; font-size: 16px; font-weight: 600; color: var(--ink); }
-.row .when { flex: none; min-width: 11ch; text-align: right; font-size: 13px; font-weight: 500; color: var(--mute); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row .when { flex: none; min-width: 12.5em; text-align: left; font-size: 13px; font-weight: 500; color: var(--mute); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row .when[data-since] { color: var(--accent); } /* the job that is still running */
+.row .when:lang(en) { min-width: 15em; } /* one date column: as wide as the longest date, so every range starts at the same x */
 .row .dept { display: block; font-size: 13px; font-weight: 500; color: var(--mute); margin-top: 2px; }
 
 .did { margin-top: 2px; padding-bottom: 12px; }
 .did li { position: relative; padding-left: 13px; font-size: 14px; color: var(--mute); line-height: 1.75; }
-.did li::before { content: ''; position: absolute; left: 0; top: .78em; width: 3px; height: 3px; border-radius: 50%; background: var(--line-2); }
+.did li::before { content: ''; position: absolute; left: 0; top: .78em; width: 3px; height: 3px; border-radius: 50%; background: var(--accent); }
 
 .cert dl { display: grid; grid-template-columns: var(--k) 1fr; }
 .cert dt, .cert dd, .cert li { padding: 9px 0; border-top: 1px solid var(--line); }
-.cert dt { font-size: 13px; line-height: 22px; font-weight: 500; color: var(--mute); letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
+.cert dt { font-size: 13px; line-height: 22px; font-weight: 500; color: var(--accent); letter-spacing: 0.02em; font-variant-numeric: tabular-nums; }
 .cert dd, .cert li { font-size: 15px; font-weight: 500; color: var(--ink); line-height: 1.5; }
 
 .links { border-top: 2px solid var(--ink); }
 .links a { display: flex; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--line); }
 .links .lk { flex: none; width: var(--k); font-size: 14px; font-weight: 500; color: var(--mute); }
-.links .val { font-size: 16px; font-weight: 600; color: var(--ink); transition: color .15s; }
-.links a:hover .val { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.links .val { font-size: 16px; font-weight: 600; color: var(--accent); transition: color .15s; }
+.links a:hover .val { color: var(--accent-dark); text-decoration: underline; text-underline-offset: 3px; }
 
 .foot { border-top: 1px solid var(--line); }
 .foot .wrap { display: flex; justify-content: space-between; gap: 16px; padding-top: 28px; padding-bottom: 48px; font-size: 14px; color: var(--mute); }
 .foot .en { color: var(--mute); }
 .foot .wrap { flex-wrap: wrap; }
-.foot .credit { flex-basis: 100%; font-size: 12.5px; }
-.foot .credit a { text-decoration: underline; text-underline-offset: 2px; }
+.foot .credit { flex-basis: 100%; font-size: 11px; color: #4a5266; } /* kept faint on purpose; the CC BY licence needs it to stay */
+.foot .credit a { text-decoration: none; }
 
 .error { min-height: 78vh; display: flex; flex-direction: column; justify-content: center; }
 .error .code { color: var(--mute); font-size: 15px; font-weight: 700; margin-bottom: 16px; }
