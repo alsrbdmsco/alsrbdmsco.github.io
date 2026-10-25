@@ -149,7 +149,7 @@ new ResizeObserver(() => {
 }).observe(box);
 new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(box);
 
-let last = performance.now();
+let last = performance.now(), arcAt = 0;
 renderer.setAnimationLoop(now => {
   const dt = Math.min(now - last, 50) / 1000; last = now;
   if (!visible || document.hidden) return;
@@ -171,8 +171,9 @@ renderer.setAnimationLoop(now => {
     view.lon += (drag.lon - view.lon) * e; view.lat += (drag.lat - view.lat) * e; view.s += (t - view.s) * e;
     zoom(); if (turn || !cssZoom()) dirty = true;
   }
-  const hold = touch && (now - scrolled < 1000 || scrollY > hero.offsetHeight); // touch: no redraws while scrolling (and a second after) or once covered
-  if (!still && !hold && (view.s < .99 || !wide)) { arcMat.uniforms.time.value = now / 1000; dirty = true; } // no redraws once the page covers it
+  // touch: while scrolling the arcs redraw about 20 times a second instead of every frame, and stop once the page covers the globe
+  const busy = touch && now - scrolled < 300, covered = touch && scrollY > hero.offsetHeight;
+  if (!still && !covered && (view.s < .99 || !wide) && (!busy || now - arcAt > 50)) { arcMat.uniforms.time.value = now / 1000; arcAt = now; dirty = true; }
   if (!dirty) return;
   place(); renderer.render(scene, camera); dirty = false;
 });
