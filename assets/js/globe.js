@@ -13,7 +13,7 @@ const V = (x, y, z) => new THREE.Vector3(x, y, z);
 // phones and tablets (iPads in landscape too): 2K textures, no Korea close-up patch, fewer pixels
 const touch = matchMedia('(pointer: coarse)').matches, small = innerWidth < 1024 || touch;
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 1024 ? 1.5 : 2)); // landscape tablets: 2, the picture gets scaled up
+renderer.setPixelRatio(Math.min(devicePixelRatio, touch ? 1 : 2)); // PCs: full pixels; touch screens: 1x, a quarter of the pixels keeps iPad scrolling light
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.setClearColor(0x05070d); // the canvas is the sky behind the page (--surface)
 const camera = new THREE.PerspectiveCamera(30, 1, .05, 20);
