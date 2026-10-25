@@ -1,6 +1,7 @@
 /* Hero globe: the Earth just past dusk over Korea, the night side in the site's navy, amber traffic running into Seoul.
    Scrolling the hero away turns it toward Korea and brings it a little closer; dragging (or a flick) turns it and it eases back.
-   On mouse desktops it stays behind the rest of the page, which slides over it. */
+   On desktops and landscape tablets it stays behind the rest of the page, which slides over it. iPads stutter when that
+   full-screen canvas redraws while the page scrolls, so on touch screens it does not zoom and holds still during a scroll. */
 import * as THREE from 'three';
 
 const box = document.querySelector('.viz'), canvas = box.querySelector('canvas'), hero = document.querySelector('.hero');
@@ -10,7 +11,7 @@ const smooth = t => t * t * (3 - 2 * t);
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
 
 // phones and tablets (iPads in landscape too): 2K textures, no Korea close-up patch, fewer pixels
-const small = innerWidth < 1024 || matchMedia('(pointer: coarse)').matches;
+const touch = matchMedia('(pointer: coarse)').matches, small = innerWidth < 1024 || touch;
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, small ? 1.5 : 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -84,7 +85,9 @@ const arcMat = new THREE.ShaderMaterial({
 // Below 1024px the canvas is a square under the copy, so the globe only turns (growing would cut it at the box edge).
 const FROM = [22, 112, 4.2], TO = [33, 126, 2];
 const drag = { lat: 0, lon: 0, vlat: 0, vlon: 0, plat: 0, plon: 0, on: false, x: 0, y: 0, idle: 0 };
-const target = () => smooth(clamp(scrollY / hero.offsetHeight));
+const target = () => touch && innerWidth > 1023 ? 0 : smooth(clamp(scrollY / hero.offsetHeight));
+let scrolled = 0;
+addEventListener('scroll', () => { scrolled = performance.now(); }, { passive: true });
 const view = { lat: 0, lon: 0, s: target() }; // drawn values, eased toward drag and scroll
 let intro = still ? 0 : -75; // the globe turns into place on load
 let W = 1, H = 1, wide = true;
@@ -147,7 +150,8 @@ renderer.setAnimationLoop(now => {
   if (Math.abs(drag.lon - view.lon) + Math.abs(drag.lat - view.lat) + Math.abs(t - view.s) > 1e-4) {
     view.lon += (drag.lon - view.lon) * e; view.lat += (drag.lat - view.lat) * e; view.s += (t - view.s) * e; dirty = true;
   }
-  if (!still && (view.s < .99 || !wide)) { arcMat.uniforms.time.value = now / 1000; dirty = true; } // no redraws once the page covers it
+  const hold = touch && (now - scrolled < 300 || scrollY > hero.offsetHeight); // touch: no redraws while scrolling or once covered
+  if (!still && !hold && (view.s < .99 || !wide)) { arcMat.uniforms.time.value = now / 1000; dirty = true; } // no redraws once the page covers it
   if (!dirty) return;
   place(); renderer.render(scene, camera); dirty = false;
 });
