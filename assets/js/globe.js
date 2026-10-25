@@ -1,6 +1,6 @@
 /* Hero globe: the Earth just past dusk over Korea, the night side in the site's navy, amber traffic running into Seoul.
    Scrolling the hero away turns it toward Korea and brings it a little closer; dragging (or a flick) turns it and it eases back.
-   On desktop it stays behind the rest of the page, faded. */
+   On desktop it stays behind the rest of the page, which slides over it. */
 import * as THREE from 'three';
 
 const box = document.querySelector('.viz'), canvas = box.querySelector('canvas'), hero = document.querySelector('.hero');
@@ -80,7 +80,7 @@ const arcMat = new THREE.ShaderMaterial({
 
 // camera: lat, lon, altitude (earth radii) from the top of the page to the hero leaving the screen; always looks at the centre.
 // Desktop: the canvas is fixed to the window and the globe grows only so far, drifting right so it never sits under the copy,
-// then fades so the sections below read over it.
+// and the sections below slide over it.
 // Below 1024px the canvas is a square under the copy, so the globe only turns (growing would cut it at the box edge).
 const FROM = [22, 112, 4.2], TO = [33, 126, 2];
 const drag = { lat: 0, lon: 0, vlat: 0, vlon: 0, plat: 0, plon: 0, on: false, x: 0, y: 0, idle: 0 };
@@ -94,7 +94,6 @@ function place() {
   camera.position.copy(ll(clamp(lat, -60, 70), lon, 1 + FROM[2] * Math.pow(TO[2] / FROM[2], wide ? s : 0)));
   camera.lookAt(0, 0, 0);
   if (wide) camera.setViewOffset(W, H, -W * (.23 + .07 * s), 0, W, H); else camera.clearViewOffset();
-  box.style.opacity = wide ? 1 - .9 * clamp(s / .35) : ''; // faint before the sections below slide under it
 }
 
 const ray = new THREE.Raycaster(), ball = new THREE.Sphere(new THREE.Vector3(), 1), ndc = new THREE.Vector2();
@@ -148,7 +147,7 @@ renderer.setAnimationLoop(now => {
   if (Math.abs(drag.lon - view.lon) + Math.abs(drag.lat - view.lat) + Math.abs(t - view.s) > 1e-4) {
     view.lon += (drag.lon - view.lon) * e; view.lat += (drag.lat - view.lat) * e; view.s += (t - view.s) * e; dirty = true;
   }
-  if (!still && (view.s < .35 || !wide)) { arcMat.uniforms.time.value = now / 1000; dirty = true; } // no redraws behind the page once faded
+  if (!still && (view.s < .99 || !wide)) { arcMat.uniforms.time.value = now / 1000; dirty = true; } // no redraws once the page covers it
   if (!dirty) return;
   place(); renderer.render(scene, camera); dirty = false;
 });
