@@ -1,4 +1,4 @@
-/* Hero globe: the Earth just past dusk over Korea, the night side in the site's navy, amber traffic running into Seoul.
+/* Hero globe: the Earth just past dusk over Korea in a field of stars, amber traffic running into Seoul.
    Scrolling the hero away turns it toward Korea and brings it a little closer; dragging (or a flick) turns it and it eases back.
    On desktops and landscape tablets it stays behind the rest of the page, which slides over it. iPads stutter when that
    full-screen canvas redraws on every scroll frame, so there the zoom scales the drawn picture with CSS instead. */
@@ -15,6 +15,7 @@ const touch = matchMedia('(pointer: coarse)').matches, small = innerWidth < 1024
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 1024 ? 1.5 : 2)); // landscape tablets: 2, the picture gets scaled up
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.setClearColor(0x05070d); // the canvas is the sky behind the page (--surface)
 const camera = new THREE.PerspectiveCamera(30, 1, .05, 20);
 const scene = new THREE.Scene();
 
@@ -54,22 +55,22 @@ scene.add(new THREE.Mesh(new THREE.SphereGeometry(1, small ? 96 : 160, small ? 4
     col += vec3(.3, .55, 1.) * pow(1. - max(dot(n, v), 0.), 3.) * smoothstep(-.3, .5, ndl) * .8;
     gl_FragColor = vec4(col, 1.);
   }`, { defines: small ? {} : { KOREA: '' } })));
-// atmosphere: a thin blue rim on the lit side (additive glow would vanish on cream)
-scene.add(new THREE.Mesh(new THREE.SphereGeometry(1.018, 96, 48), shader({ sun: { value: sun } }, `
+// atmosphere: a blue glow around the lit limb
+scene.add(new THREE.Mesh(new THREE.SphereGeometry(1.035, 96, 48), shader({ sun: { value: sun } }, `
   uniform vec3 sun;
   void main(){
     vec3 n = normalize(vN), v = normalize(cameraPosition - vP);
-    float a = pow(smoothstep(0., .18, -dot(n, v)), 1.5) * (.12 + smoothstep(-.35, .5, dot(n, sun)));
-    gl_FragColor = vec4(vec3(.32, .52, .9), a * .9);
-  }`, { side: THREE.BackSide, transparent: true, depthWrite: false })));
+    float a = pow(smoothstep(0., .26, -dot(n, v)), 2.) * (.05 + smoothstep(-.35, .5, dot(n, sun)));
+    gl_FragColor = vec4(vec3(.35, .6, 1.) * a * 1.4, 1.);
+  }`, { side: THREE.BackSide, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending })));
 
 // light running along great-circle arcs from other regions into Seoul
 const arcMat = new THREE.ShaderMaterial({
-  uniforms: { time: { value: 0 } }, transparent: true, depthWrite: false,
+  uniforms: { time: { value: 0 } }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
   vertexShader: 'attribute float seed; varying float vU, vS; void main(){ vU = uv.x; vS = seed; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }',
   fragmentShader: `uniform float time; varying float vU, vS;
     void main(){ float d = fract(time * .16 + vS) * 1.3 - vU; float g = d > 0. ? exp(-d * 9.) : exp(d * 150.);
-      gl_FragColor = vec4(mix(vec3(.72, .34, .04), vec3(1., .66, .2), clamp(g, 0., 1.)), clamp(.22 + g * 2.6, 0., 1.)); }`
+      gl_FragColor = vec4(vec3(1., .62, .16) * (.08 + g * 2.6), 1.); }`
 });
 [[35.68, 139.69], [1.35, 103.82], [22.32, 114.17], [34.05, -118.24], [19.08, 72.88], [50.11, 8.68], [-33.87, 151.21], [37.39, -122.08]].forEach(([la, lo], i) => {
   const a = ll(la, lo), q = new THREE.Quaternion().setFromUnitVectors(a, SEOUL), h = .02 + a.angleTo(SEOUL) * .12, pts = [];
@@ -78,6 +79,18 @@ const arcMat = new THREE.ShaderMaterial({
   g.setAttribute('seed', new THREE.Float32BufferAttribute(new Float32Array(g.attributes.position.count).fill(i * .377 % 1), 1));
   scene.add(new THREE.Mesh(g, arcMat));
 });
+
+// stars far behind the Earth (the globe hides the ones behind it)
+{
+  const pos = [], col = [];
+  for (let i = 0; i < 2600; i++) {
+    const v = new THREE.Vector3().randomDirection().multiplyScalar(15 + Math.random() * 3), k = .35 + Math.random() ** 3 * .65;
+    pos.push(v.x, v.y, v.z); col.push(k, k * .97, k * (.9 + Math.random() * .2));
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+  scene.add(new THREE.Points(g, new THREE.PointsMaterial({ size: 1.6, sizeAttenuation: false, vertexColors: true, toneMapped: false, depthWrite: false })));
+}
 
 // camera: lat, lon, altitude (earth radii) from the top of the page to the hero leaving the screen; always looks at the centre.
 // Desktop: the canvas is fixed to the window and the globe grows only so far, drifting right so it never sits under the copy,
