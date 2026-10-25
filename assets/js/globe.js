@@ -105,8 +105,9 @@ const view = { lat: 0, lon: 0, s: target() }; // drawn values, eased toward drag
 let intro = still ? 0 : -75; // the globe turns into place on load
 let W = 1, H = 1, wide = true;
 const cssZoom = () => touch && wide;
+const timeline = CSS.supports('animation-timeline: scroll()'); // Safari 26+: styles.css runs the zoom on the scroll itself
 function zoom() { // grows ~1.8x and drifts right like the camera move it stands in for
-  canvas.style.transform = cssZoom() ? `translateX(${.07 * W * view.s}px) scale(${1 + .8 * view.s})` : '';
+  canvas.style.transform = cssZoom() && !timeline ? `translateX(${.07 * W * view.s}px) scale(${1 + .8 * view.s})` : '';
 }
 canvas.style.transformOrigin = '73% 50%'; // the globe's centre (view offset .23)
 function place() {
@@ -170,7 +171,7 @@ renderer.setAnimationLoop(now => {
     view.lon += (drag.lon - view.lon) * e; view.lat += (drag.lat - view.lat) * e; view.s += (t - view.s) * e;
     zoom(); if (turn || !cssZoom()) dirty = true;
   }
-  const hold = touch && (now - scrolled < 300 || scrollY > hero.offsetHeight); // touch: no redraws while scrolling or once covered
+  const hold = touch && (now - scrolled < 1000 || scrollY > hero.offsetHeight); // touch: no redraws while scrolling (and a second after) or once covered
   if (!still && !hold && (view.s < .99 || !wide)) { arcMat.uniforms.time.value = now / 1000; dirty = true; } // no redraws once the page covers it
   if (!dirty) return;
   place(); renderer.render(scene, camera); dirty = false;

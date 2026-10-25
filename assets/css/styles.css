@@ -178,6 +178,18 @@ ul { list-style: none; }
   .foot { background: var(--sheet); }
 }
 
+/* touch screens in landscape (iPads): the scroll zoom scales the drawn globe on the browser's own scroll timeline,
+   so it keeps pace with the scroll with no script per frame. Older Safari falls back to globe.js setting the transform. */
+@keyframes globe-zoom { to { transform: translateX(7vw) scale(1.8); } }
+@supports (animation-timeline: scroll()) {
+  @media (min-width: 1024px) and (pointer: coarse) {
+    .viz canvas {
+      animation: globe-zoom both cubic-bezier(.45, 0, .55, 1); /* about the smoothstep globe.js uses on desktop */
+      animation-timeline: scroll(root); animation-range: 0 calc(100svh - 70px); /* the hero's height */
+    }
+  }
+}
+
 @media (min-width: 1440px) {
   :root { --w: 1200px; }
 }
