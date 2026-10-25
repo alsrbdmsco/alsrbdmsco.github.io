@@ -9,8 +9,8 @@ const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 const smooth = t => t * t * (3 - 2 * t);
 const V = (x, y, z) => new THREE.Vector3(x, y, z);
 
-// phones and tablets: 2K textures, no Korea close-up patch, fewer pixels; the globe is small there and never zooms in
-const small = innerWidth < 1024;
+// phones and tablets (iPads in landscape too): 2K textures, no Korea close-up patch, fewer pixels
+const small = innerWidth < 1024 || matchMedia('(pointer: coarse)').matches;
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(devicePixelRatio, small ? 1.5 : 2));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;

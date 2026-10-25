@@ -169,7 +169,7 @@ ul { list-style: none; }
   /* the globe stays put behind the page; the sections slide over it as a slightly see-through sheet */
   .viz { position: fixed; left: 0; width: 100%; transform: none; }
   .sec, .foot { position: relative; z-index: 1; }
-  .sec { border-image: linear-gradient(var(--sheet), var(--sheet)) fill 0 / 0 / 0 100vmax; }
+  .sec { max-width: none; padding-inline: max(32px, calc((100% - var(--w)) / 2 + 32px)); background: var(--sheet); } /* full width, no oversized paint layers */
   .foot { background: var(--sheet); }
 }
 
