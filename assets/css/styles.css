@@ -165,8 +165,11 @@ ul { list-style: none; }
 
   .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   #career .cols { grid-template-columns: 1fr; }
+}
 
-  /* the globe stays put behind the page; the sections slide over it as a slightly see-through sheet */
+/* mouse desktops only: the globe stays put behind the page and the sections slide over it as a slightly see-through sheet.
+   iPads in landscape stutter while scrolling with a fixed full-screen WebGL layer under the page, so they keep the globe in the hero. */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
   .viz { position: fixed; left: 0; width: 100%; transform: none; }
   .sec, .foot { position: relative; z-index: 1; }
   .sec { max-width: none; padding-inline: max(32px, calc((100% - var(--w)) / 2 + 32px)); background: var(--sheet); } /* full width, no oversized paint layers */

@@ -1,6 +1,6 @@
 /* Hero globe: the Earth just past dusk over Korea, the night side in the site's navy, amber traffic running into Seoul.
    Scrolling the hero away turns it toward Korea and brings it a little closer; dragging (or a flick) turns it and it eases back.
-   On desktop it stays behind the rest of the page, which slides over it. */
+   On mouse desktops it stays behind the rest of the page, which slides over it. */
 import * as THREE from 'three';
 
 const box = document.querySelector('.viz'), canvas = box.querySelector('canvas'), hero = document.querySelector('.hero');
